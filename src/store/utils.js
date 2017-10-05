@@ -67,6 +67,25 @@ const StoreUtils = {
           dismissible: true
         })
       })
+  },
+  setGeolocation (state) {
+    if ('geolocation' in navigator) {
+      state.properties.geolocation.exist = true
+      state.properties.geolocation.watcherId = navigator.geolocation.watchPosition(function (position) {
+        state.properties.geolocation.position.latitude = position.coords.latitude
+        state.properties.geolocation.position.longitude = position.coords.longitude
+      }, function (error) {
+        if (error.code === 1) {
+          state.properties.geolocation.denied = true
+        }
+        else {
+          state.properties.geolocation.error = true
+        }
+      })
+    }
+    else {
+      state.properties.geolocation.exist = false
+    }
   }
 }
 

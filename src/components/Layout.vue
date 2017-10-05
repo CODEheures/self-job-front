@@ -59,6 +59,9 @@ export default {
     // Set App Langage
     LangageSetter.setStrings(this)
 
+    // Set geolocation
+    this.$store.commit('setGeoLocation')
+
     // Get the Session If exist
     this.getExistSession()
 

@@ -21,31 +21,41 @@ const store = new Vuex.Store({
         check: false,
         isNew: false,
         user: {}
+      },
+      geolocation: {
+        exist: false,
+        denied: false,
+        error: false,
+        watcherId: undefined,
+        position: {
+          latitude: undefined,
+          longitude: undefined
+        }
       }
     }
   },
   mutations: {
     setLangage (state, payload) {
-      'use strict'
       state.properties.appLangage.choice = payload
       if (state.properties.auth.check) {
         StoreUtils.setUserProperty(state, 'pref_langage', payload)
       }
     },
     setAuth (state, payload) {
-      'use strict'
       localStorage.setItem('_at', payload.accessToken)
       localStorage.setItem('_rt', payload.refreshToken)
       localStorage.setItem('_ex', payload.expire)
       StoreUtils.getUser(state, payload)
     },
     unsetAuth (state, payload) {
-      'use strict'
       localStorage.removeItem('_at')
       localStorage.removeItem('_rt')
       localStorage.removeItem('_ex')
       state.properties.auth.user = {}
       state.properties.auth.check = false
+    },
+    setGeoLocation (state) {
+      StoreUtils.setGeolocation(state)
     }
   }
 })

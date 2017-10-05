@@ -13,7 +13,10 @@ const en = {
       logoutSuccess: 'You are logout'
     },
     home: {
-      checkYourMail: 'You will receive an email with a confirmation link valid for 3 days. Click this link to validate your account'
+      checkYourMail: 'You will receive an email with a confirmation link valid for 3 days. Click this link to validate your account',
+      geolocNotAvailable: 'Geoloc is not available on this device',
+      geolocDenied: 'You refused geolocation. Your search will not be geolocated',
+      geolocError: 'Geolocation has failed. Research will therefore not be geolocated'
     },
     settings: {
       saveSuccess: 'Your choice is saved',

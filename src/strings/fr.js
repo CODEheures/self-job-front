@@ -13,7 +13,10 @@ const fr = {
       logoutSuccess: 'Vous êtes maintenant déconnecté'
     },
     home: {
-      checkYourMail: 'Vous allez recevoir un email avec un lien de confirmation valable 3 jours. Cliquez ce lien afin de valider votre compte'
+      checkYourMail: 'Vous allez recevoir un email avec un lien de confirmation valable 3 jours. Cliquez ce lien afin de valider votre compte',
+      geolocNotAvailable: 'La géolocation n\'est pas disponible sur cet appareil',
+      geolocDenied: 'Vous avez refusé la géolocation. Vos recherches ne seront donc pas géolocalisées',
+      geolocError: 'La géolocation a échouée. Les recherches ne seront donc pas géolocalisées'
     },
     settings: {
       saveSuccess: 'Votre choix est enregistré',
