@@ -16,14 +16,21 @@ const fr = {
       checkYourMail: 'Vous allez recevoir un email avec un lien de confirmation valable 3 jours. Cliquez ce lien afin de valider votre compte',
       geolocNotAvailable: 'La géolocation n\'est pas disponible sur cet appareil',
       geolocDenied: 'Vous avez refusé la géolocation. Vos recherches ne seront donc pas géolocalisées',
-      geolocError: 'La géolocation a échouée. Les recherches ne seront donc pas géolocalisées'
+      geolocError: 'La géolocation a échouée. Les recherches ne seront donc pas géolocalisées',
+      pitch: 'Recrutement humain anonyme sans C.V. qui mise sur votre personnalité.',
+      subPitch: 'Cherchez, Trouvez, Répondez aux questions d\'affinité et soyez le mieux placé pour être invité à renconter l\'employeur',
+      searchFieldLabel: 'L\'annonce mentionne',
+      searchLabel: 'Ex: barman, débutant',
+      searchPlaceHolder: 'Touche entrée pour ajouter à la liste',
+      mileageLabel: 'Distance',
+      btnFindLabel: 'Trouver les offres'
     },
     settings: {
       saveSuccess: 'Votre choix est enregistré',
       saveError: 'Le serveur n\'arrive pas à sauver votre choix',
-      langage: {
+      language: {
         name: 'Français',
-        label: 'Language',
+        label: 'Langage',
         helper: 'Choisir la langue de l\'application'
       }
     },

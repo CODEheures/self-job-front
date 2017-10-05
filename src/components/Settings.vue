@@ -1,13 +1,13 @@
 <template>
   <div class="layout-padding">
-    <q-field icon="public" :label="strings.langage.label" :helper="strings.langage.helper">
-      <q-select v-model="appLangage" :options="langageOptions"/>
+    <q-field icon="language" :label="strings.language.label" :helper="strings.language.helper">
+      <q-select v-model="appLanguage" :options="languageOptions"/>
     </q-field>
   </div>
 </template>
 
 <script>
-import LangageSetter from '../strings/langageSetter'
+import LanguageSetter from '../strings/languageSetter'
 
 export default {
   props: {
@@ -16,22 +16,22 @@ export default {
   data () {
     return {
       strings: {
-        langage: {}
+        language: {}
       },
-      langageOptions: [],
-      appLangage: ''
+      languageOptions: [],
+      appLanguage: ''
     }
   },
   mounted () {
-    LangageSetter.setStrings(this)
+    LanguageSetter.setStrings(this)
 
-    this.appLangage = this.$store.state.properties.appLangage.choice
-    for (let lang of this.$store.state.properties.appLangage.list) {
-      this.langageOptions.push({'label': this.$store.state.strings[lang].page.settings.langage.name, 'value': lang})
+    this.appLanguage = this.$store.state.properties.appLanguage.choice
+    for (let lang of this.$store.state.properties.appLanguage.list) {
+      this.languageOptions.push({'label': this.$store.state.strings[lang].page.settings.language.name, 'value': lang})
     }
 
-    this.$watch('appLangage', function () {
-      this.$store.commit('setLangage', this.appLangage)
+    this.$watch('appLanguage', function () {
+      this.$store.commit('setLanguage', this.appLanguage)
     })
   }
 }

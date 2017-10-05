@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import LangageSetter from '../strings/langageSetter'
+  import LanguageSetter from '../strings/languageSetter'
   import ApiRequests from '../api/requests'
   import { Alert, date } from 'quasar'
 
@@ -31,13 +31,13 @@
       }
     },
     mounted () {
-      LangageSetter.setStrings(this)
+      LanguageSetter.setStrings(this)
     },
     methods: {
       login () {
         this.submit = true
         let that = this
-        ApiRequests.login(this.email, this.password, this.$store.state.properties.appLangage.choice)
+        ApiRequests.login(this.email, this.password, this.$store.state.properties.appLanguage.choice)
           .then(function (response) {
             that.setAuth(response.data.access_token, response.data.refresh_token, response.data.expires_in)
             that.submit = false

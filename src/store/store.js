@@ -13,7 +13,7 @@ const store = new Vuex.Store({
       en: en
     },
     properties: {
-      appLangage: {
+      appLanguage: {
         list: ['fr', 'en'],
         choice: 'fr'
       },
@@ -35,10 +35,10 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    setLangage (state, payload) {
-      state.properties.appLangage.choice = payload
+    setLanguage (state, payload) {
+      state.properties.appLanguage.choice = payload
       if (state.properties.auth.check) {
-        StoreUtils.setUserProperty(state, 'pref_langage', payload)
+        StoreUtils.setUserProperty(state, 'pref_language', payload)
       }
     },
     setAuth (state, payload) {

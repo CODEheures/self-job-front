@@ -12,4 +12,8 @@
 export default {}
 </script>
 
-<style></style>
+<style lang="scss">
+  .spaced-bottom-20 {
+    margin-bottom: 20px;
+  }
+</style>

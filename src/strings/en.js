@@ -16,15 +16,21 @@ const en = {
       checkYourMail: 'You will receive an email with a confirmation link valid for 3 days. Click this link to validate your account',
       geolocNotAvailable: 'Geoloc is not available on this device',
       geolocDenied: 'You refused geolocation. Your search will not be geolocated',
-      geolocError: 'Geolocation has failed. Research will therefore not be geolocated'
+      geolocError: 'Geolocation has failed. Research will therefore not be geolocated',
+      pitch: 'Anonymous human recruitment without C.V. that puts on your personality.',
+      subPitch: 'Look for, Find, Answer Affinity Questions and be the best person to be invited to meet the employer',
+      searchLabel: 'Ex: barman, beginner',
+      searchPlaceHolder: 'Enter key to add to the list',
+      mileageLabel: 'Mileage',
+      btnFindLabel: 'Find jobs'
     },
     settings: {
       saveSuccess: 'Your choice is saved',
       saveError: 'The server can not save your choice',
-      langage: {
+      language: {
         name: 'English',
-        label: 'Langage',
-        helper: 'Choose application langage'
+        label: 'Language',
+        helper: 'Choose application language'
       }
     },
     login: {

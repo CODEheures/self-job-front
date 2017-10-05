@@ -16,7 +16,7 @@ const StoreUtils = {
             leave: 'bounceOutDown',
             color: 'positive',
             icon: 'pan tool',
-            html: state.strings[state.properties.appLangage.choice].page.login.loginSuccess + state.properties.auth.user.name,
+            html: state.strings[state.properties.appLanguage.choice].page.login.loginSuccess + state.properties.auth.user.name,
             position: 'bottom-center',
             dismissible: true
           })
@@ -31,7 +31,7 @@ const StoreUtils = {
           leave: 'bounceOutDown',
           color: 'negative',
           icon: 'warning',
-          html: state.strings[state.properties.appLangage.choice].page.login.unknownError,
+          html: state.strings[state.properties.appLanguage.choice].page.login.unknownError,
           position: 'bottom-center',
           dismissible: true
         })
@@ -39,8 +39,8 @@ const StoreUtils = {
   },
   setPropertiesByUser (state) {
     let user = state.properties.auth.user
-    if (user.pref_langage !== null) {
-      state.properties.appLangage.choice = user.pref_langage
+    if (user.pref_language !== null) {
+      state.properties.appLanguage.choice = user.pref_language
     }
   },
   setUserProperty (state, property, value) {
@@ -51,7 +51,7 @@ const StoreUtils = {
           leave: 'bounceOutDown',
           color: 'positive',
           icon: 'pan tool',
-          html: state.strings[state.properties.appLangage.choice].page.settings.saveSuccess,
+          html: state.strings[state.properties.appLanguage.choice].page.settings.saveSuccess,
           position: 'bottom-center',
           dismissible: true
         })
@@ -62,7 +62,7 @@ const StoreUtils = {
           leave: 'bounceOutDown',
           color: 'negative',
           icon: 'warning',
-          html: state.strings[state.properties.appLangage.choice].page.settings.saveError,
+          html: state.strings[state.properties.appLanguage.choice].page.settings.saveError,
           position: 'bottom-center',
           dismissible: true
         })

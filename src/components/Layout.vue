@@ -2,9 +2,6 @@
   <q-layout ref="layout" view="lHr LpR lFr" :right-breakpoint="1100">
     <!-- Header -->
     <q-toolbar slot="header">
-      <q-btn flat @click="$refs.layout.toggleLeft()">
-        <q-icon name="menu" />
-      </q-btn>
       <q-toolbar-title>
         {{ strings.appTitle }}
         <span slot="subtitle">{{ strings.appSubTitle }}</span>
@@ -38,7 +35,7 @@
 </template>
 
 <script>
-import LangageSetter from '../strings/langageSetter'
+import LanguageSetter from '../strings/languageSetter'
 import ApiRequests from '../api/requests'
 import { Alert, date } from 'quasar'
 
@@ -56,8 +53,8 @@ export default {
     }
   },
   mounted () {
-    // Set App Langage
-    LangageSetter.setStrings(this)
+    // Set App Language
+    LanguageSetter.setStrings(this)
 
     // Set geolocation
     this.$store.commit('setGeoLocation')

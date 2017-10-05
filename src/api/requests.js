@@ -14,21 +14,21 @@ const routes = {
 axios.defaults.timeout = 3000
 
 const ApiRequests = {
-  register (name, email, password, passwordConfirmation, langage) {
+  register (name, email, password, passwordConfirmation, language) {
     return axios.request({
       method: 'post',
       url: routes.register,
-      data: {'name': name, 'email': email, 'password': password, 'password_confirmation': passwordConfirmation, 'langage': langage},
+      data: {'name': name, 'email': email, 'password': password, 'password_confirmation': passwordConfirmation, 'language': language},
       headers: {
         'Accept': 'application/json'
       }
     })
   },
-  login (email, password, langage) {
+  login (email, password, language) {
     return axios.request({
       method: 'post',
       url: routes.login,
-      data: {'email': email, 'password': password, 'langage': langage},
+      data: {'email': email, 'password': password, 'language': language},
       headers: {
         'Accept': 'application/json'
       }
