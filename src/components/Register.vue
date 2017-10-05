@@ -26,6 +26,7 @@
 
 <script>
   import LangageSetter from '../strings/langageSetter'
+  import ApiRequests from '../api/requests'
   import { Alert, date } from 'quasar'
 
   export default {
@@ -68,14 +69,7 @@
       },
       postRegister () {
         let that = this
-        this.$axios.request({
-          method: 'post',
-          url: that.$store.state.api.routes.register,
-          data: {'name': that.name, 'email': that.email, 'password': that.password, 'password_confirmation': that.password_confirmation, 'langage': that.$store.state.properties.appLangage.choice},
-          headers: {
-            'Accept': 'application/json'
-          }
-        })
+        ApiRequests.register(this.name, this.email, this.password, this.password_confirmation, this.$store.state.properties.appLangage.choice)
           .then(function (response) {
             that.setAuth(response.data.access_token, response.data.refresh_token, response.data.expires_in)
             that.submit = false
@@ -127,7 +121,7 @@
         setTimeout(function () {
           if (waitForEmail === that.email) {
             that.emailBeingVerified = true
-            that.$axios.get(that.$store.state.api.routes.existUser, { params: { email: that.email } })
+            ApiRequests.existUser(that.email)
               .then(function (response) {
                 that.emailLastCheckExist = that.email
                 that.emailExist = response.data

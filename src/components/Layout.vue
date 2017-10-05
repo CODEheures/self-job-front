@@ -21,7 +21,7 @@
     <!-- Navigation -->
     <q-tabs slot="navigation">
       <q-route-tab slot="title" icon="home" :to="{ name: 'home' }" replace :label="strings.menu.home" />
-      <q-route-tab slot="title" icon="settings" :to="'settings'" replace :label="strings.menu.settings" />
+      <q-route-tab slot="title" icon="settings" :to="{ name: 'settings' }" replace :label="strings.menu.settings" />
     </q-tabs>
 
     <!-- sub-routes get injected here: -->
@@ -39,6 +39,7 @@
 
 <script>
 import LangageSetter from '../strings/langageSetter'
+import ApiRequests from '../api/requests'
 import { Alert, date } from 'quasar'
 
 export default {
@@ -79,14 +80,7 @@ export default {
       // Unset Auth in always case
       // Return to home and Alert if withAlert
       let that = this
-      this.$axios.request({
-        method: 'post',
-        url: that.$store.state.api.routes.logout,
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('_at')
-        }
-      })
+      ApiRequests.logout()
         .then(function () {})
         .catch(function () {})
         .then(function () {

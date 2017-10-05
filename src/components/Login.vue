@@ -15,6 +15,7 @@
 
 <script>
   import LangageSetter from '../strings/langageSetter'
+  import ApiRequests from '../api/requests'
   import { Alert, date } from 'quasar'
 
   export default {
@@ -36,14 +37,7 @@
       login () {
         this.submit = true
         let that = this
-        this.$axios.request({
-          method: 'post',
-          url: that.$store.state.api.routes.login,
-          data: {'email': that.email, 'password': that.password, 'langage': that.$store.state.properties.appLangage.choice},
-          headers: {
-            'Accept': 'application/json'
-          }
-        })
+        ApiRequests.login(this.email, this.password, this.$store.state.properties.appLangage.choice)
           .then(function (response) {
             that.setAuth(response.data.access_token, response.data.refresh_token, response.data.expires_in)
             that.submit = false

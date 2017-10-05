@@ -1,14 +1,7 @@
 <template>
   <div class="layout-padding">
-    <q-field
-            icon="public"
-            :label="strings.langage.label"
-            :helper="strings.langage.helper"
-    >
-      <q-select
-        v-model="appLangage"
-        :options="langageOptions"
-      />
+    <q-field icon="public" :label="strings.langage.label" :helper="strings.langage.helper">
+      <q-select v-model="appLangage" :options="langageOptions"/>
     </q-field>
   </div>
 </template>

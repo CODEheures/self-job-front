@@ -19,8 +19,6 @@ import Quasar, {
 } from 'quasar'
 
 import router from './router'
-import axios from 'axios'
-Vue.prototype.$axios = axios
 
 // Vue.config.productionTip = false
 Vue.config.devtools = true
@@ -52,7 +50,7 @@ import 'quasar-extras/material-icons'
 // import 'quasar-extras/fontawesome'
 // import 'quasar-extras/animate'
 
-import store from './store'
+import store from './store/store'
 
 Quasar.start(() => {
   /* eslint-disable no-new */

@@ -16,6 +16,8 @@ const en = {
       checkYourMail: 'You will receive an email with a confirmation link valid for 3 days. Click this link to validate your account'
     },
     settings: {
+      saveSuccess: 'Your choice is saved',
+      saveError: 'The server can not save your choice',
       langage: {
         name: 'English',
         label: 'Langage',

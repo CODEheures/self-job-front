@@ -16,6 +16,8 @@ const fr = {
       checkYourMail: 'Vous allez recevoir un email avec un lien de confirmation valable 3 jours. Cliquez ce lien afin de valider votre compte'
     },
     settings: {
+      saveSuccess: 'Votre choix est enregistré',
+      saveError: 'Le serveur n\'arrive pas à sauver votre choix',
       langage: {
         name: 'Français',
         label: 'Language',
