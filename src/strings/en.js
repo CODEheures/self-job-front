@@ -1,4 +1,33 @@
 const en = {
+  units: {
+    time: {
+      second: {
+        single: 'second',
+        plural: 'seconds'
+      },
+      minute: {
+        single: 'minute',
+        plural: 'minutes'
+      },
+      hour: {
+        single: 'hour',
+        plural: 'hours'
+      },
+      day: {
+        single: 'day',
+        plural: 'days'
+      },
+      month: {
+        single: 'month',
+        plural: 'months'
+      },
+      year: {
+        single: 'year',
+        plural: 'years'
+      }
+    }
+  },
+  dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   page: {
     layout: {
       appTitle: 'self-job',
@@ -22,7 +51,8 @@ const en = {
       searchLabel: 'Ex: barman, beginner',
       searchPlaceHolder: 'Enter key to add to the list',
       mileageLabel: 'Mileage',
-      btnFindLabel: 'Find jobs'
+      btnFindLabel: 'Find jobs',
+      findListHeader: 'We found the following offers:'
     },
     settings: {
       saveSuccess: 'Your choice is saved',
@@ -56,7 +86,8 @@ const en = {
       invalidPassword: '6 characteres minimun',
       existEmail: 'This email is already register',
       alreadyConnected: 'You are connected'
-    }
+    },
+    advert: {}
   }
 }
 

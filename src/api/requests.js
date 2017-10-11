@@ -8,7 +8,8 @@ const routes = {
   register: apiDomain + '/register',
   existUser: apiDomain + '/existUser',
   user: apiDomain + '/user',
-  setUserProperty: apiDomain + '/user/set'
+  setUserProperty: apiDomain + '/user/set',
+  getAdverts: apiDomain + '/getAdverts'
 }
 
 axios.defaults.timeout = 3000
@@ -77,6 +78,24 @@ const ApiRequests = {
       data: {
         property: property,
         value: value
+      }
+    })
+  },
+  getAdverts (searchs, location, mileage, language) {
+    return axios.request({
+      method: 'post',
+      url: routes.getAdverts,
+      headers: {
+        'Accept': 'application/json'
+      },
+      data: {
+        searchs: searchs,
+        location: {
+          lat: location.latitude,
+          lon: location.longitude
+        },
+        mileage: mileage,
+        language: language
       }
     })
   }

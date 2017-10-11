@@ -16,7 +16,7 @@ import Vue from 'vue'
 import Quasar, {
   QLayout, QToolbar, QBtn, QIcon, QToolbarTitle, QTabs, QRouteTab, QPopover,
   QList, QItem, QField, QInput, QSelect, QSpinner, QSpinnerGears, QAlert, QCard,
-  QCardMedia, QChipsInput, QRange
+  QCardMedia, QChipsInput, QRange, QListHeader, QItemSide, QItemMain, QItemTile
 } from 'quasar'
 
 import router from './router'
@@ -44,7 +44,11 @@ Vue.use(Quasar, { components: {
   QCard,
   QCardMedia,
   QChipsInput,
-  QRange
+  QRange,
+  QListHeader,
+  QItemSide,
+  QItemMain,
+  QItemTile
 } }) // Install Quasar Framework
 
 if (__THEME === 'mat') {

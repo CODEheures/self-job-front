@@ -1,4 +1,33 @@
 const fr = {
+  units: {
+    time: {
+      second: {
+        single: 'seconde',
+        plural: 'secondes'
+      },
+      minute: {
+        single: 'minute',
+        plural: 'minutes'
+      },
+      hour: {
+        single: 'heure',
+        plural: 'heures'
+      },
+      day: {
+        single: 'jour',
+        plural: 'jours'
+      },
+      month: {
+        single: 'mois',
+        plural: 'mois'
+      },
+      year: {
+        single: 'année',
+        plural: 'années'
+      }
+    }
+  },
+  dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
   page: {
     layout: {
       appTitle: 'self-job',
@@ -23,7 +52,8 @@ const fr = {
       searchLabel: 'Ex: barman, débutant',
       searchPlaceHolder: 'Touche entrée pour ajouter à la liste',
       mileageLabel: 'Distance',
-      btnFindLabel: 'Trouver les offres'
+      btnFindLabel: 'Trouver les offres',
+      findListHeader: 'Nous avons trouvé les offres suivantes:'
     },
     settings: {
       saveSuccess: 'Votre choix est enregistré',
@@ -57,7 +87,8 @@ const fr = {
       invalidPassword: 'Minimun 6 caractères',
       existEmail: 'Cette addresse email est déjà enregistrée',
       alreadyConnected: 'Vous êtes déjà connecté'
-    }
+    },
+    advert: {}
   }
 }
 
