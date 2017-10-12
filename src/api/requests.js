@@ -81,7 +81,7 @@ const ApiRequests = {
       }
     })
   },
-  getAdverts (searchs, location, mileage, language) {
+  getAdverts (searchs, location, mileage, fromResult, language) {
     return axios.request({
       method: 'post',
       url: routes.getAdverts,
@@ -95,6 +95,7 @@ const ApiRequests = {
           lon: location.longitude
         },
         mileage: mileage,
+        from: fromResult,
         language: language
       }
     })

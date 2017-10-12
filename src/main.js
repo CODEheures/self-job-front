@@ -15,8 +15,9 @@ import 'quasar-extras/animate/bounceOutDown.css'
 import Vue from 'vue'
 import Quasar, {
   QLayout, QToolbar, QBtn, QIcon, QToolbarTitle, QTabs, QRouteTab, QPopover,
-  QList, QItem, QField, QInput, QSelect, QSpinner, QSpinnerGears, QAlert, QCard,
-  QCardMedia, QChipsInput, QRange, QListHeader, QItemSide, QItemMain, QItemTile
+  QList, QItem, QField, QInput, QSelect, QSpinner, QSpinnerGears, QAlert, QCard, QCardTitle, QCardActions,
+  QCardMedia, QCardSeparator, QCardMain, QChipsInput, QRange, QListHeader, QItemSide, QItemMain, QItemTile,
+  QInfiniteScroll
 } from 'quasar'
 
 import router from './router'
@@ -42,13 +43,18 @@ Vue.use(Quasar, { components: {
   QSpinnerGears,
   QAlert,
   QCard,
+  QCardTitle,
+  QCardActions,
   QCardMedia,
+  QCardSeparator,
+  QCardMain,
   QChipsInput,
   QRange,
   QListHeader,
   QItemSide,
   QItemMain,
-  QItemTile
+  QItemTile,
+  QInfiniteScroll
 } }) // Install Quasar Framework
 
 if (__THEME === 'mat') {

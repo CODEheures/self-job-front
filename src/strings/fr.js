@@ -53,7 +53,9 @@ const fr = {
       searchPlaceHolder: 'Touche entrée pour ajouter à la liste',
       mileageLabel: 'Distance',
       btnFindLabel: 'Trouver les offres',
-      findListHeader: 'Nous avons trouvé les offres suivantes:'
+      findListHeader: 'Nous avons trouvé les offres suivantes:',
+      findError: 'La demande a échoué',
+      seeMore: 'Voir l\'offre'
     },
     settings: {
       saveSuccess: 'Votre choix est enregistré',

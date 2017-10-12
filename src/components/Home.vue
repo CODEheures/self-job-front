@@ -28,20 +28,35 @@
         <q-spinner-gears color="primary" v-if="submit" :size="90" />
       </div>
       <div class="col-12" v-if="!submit && adverts.length > 0">
-        <q-list separator>
-          <q-list-header>{{ strings.findListHeader }}</q-list-header>
-          <q-item v-for="advert in adverts" :key="advert.id" multiline>
-            <q-item-main>
-              <q-item-tile label color="primary" label-line="2">{{ advert.title }}</q-item-tile>
-              <q-item-tile sublabel>{{ advert.description.slice(0,90) + '...' }}</q-item-tile>
-            </q-item-main>
-            <q-item-side right>
-              <q-item-tile label>{{ advert.user.company }}</q-item-tile>
-              <q-item-tile sublabel><q-icon name="hourglass empty"/>{{ formatMyDate(advert.created) }}</q-item-tile>
-              <q-item-tile><q-btn @click="$router.push({ name: 'advert', params: { id: advert.id } })" small round icon="zoom in" color="secondary"></q-btn></q-item-tile>
-            </q-item-side>
-          </q-item>
-        </q-list>
+        <q-infinite-scroll ref="infiniteScroll" :handler="loadMore" :offset="10">
+          <q-card inline style="width: 300px; max-width: 95%;" v-for="advert,index in adverts" :key="advert.id">
+            <q-item>
+              <q-item-side avatar="statics/quasar-logo.png" />
+              <q-item-main>
+                <q-item-tile label>{{ advert.title }}</q-item-tile>
+                <q-item-tile sublabel>{{ advert.user.company }}</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-card-media v-if="index==0"><img src="~assets/be.jpg"></q-card-media>
+            <q-card-title>
+              <div slot="right" class="row items-center">
+                <q-icon name="place" /> {{ advert.mileage }}Km
+                <q-icon name="hourglass empty"/>{{ formatMyDate(advert.created) }}
+              </div>
+            </q-card-title>
+            <q-card-main>
+              <p>{{ advert.description.slice(0,90) + '...' }}</p>
+            </q-card-main>
+            <q-card-separator />
+            <q-card-actions>
+              <q-btn color="primary" @click="$router.push({ name: 'advertShow', params: { 'id': advert.id }})">{{ strings.seeMore }}</q-btn>
+            </q-card-actions>
+          </q-card>
+          <div class="col-12 text-center" slot="message">
+            <q-spinner-gears color="primary" :size="90" />
+          </div>
+        </q-infinite-scroll>
+        <p v-if="adverts.length >= totalHits">Fin des résultats</p>
       </div>
     </div>
   </div>
@@ -50,7 +65,7 @@
 <script>
 import LanguageSetter from '../strings/languageSetter'
 import ApiRequests from '../api/requests'
-import { date } from 'quasar'
+import { Alert, date } from 'quasar'
 
 export default {
   props: {
@@ -67,7 +82,8 @@ export default {
         max: 30
       },
       submit: false,
-      adverts: []
+      adverts: [],
+      totalHits: 0
     }
   },
   mounted () {
@@ -82,47 +98,94 @@ export default {
         this.searchs,
         this.$store.state.properties.geolocation.position,
         this.mileage,
+        0,
         this.$store.state.properties.appLanguage.choice
       )
         .then(function (response) {
           that.submit = false
-          that.adverts = response.data
+          that.adverts = response.data.adverts
+          that.totalHits = response.data.totalHits
         })
         .catch(function () {
           that.submit = false
+          Alert.create({
+            enter: 'bounceInUp',
+            leave: 'bounceOutDown',
+            color: 'negative',
+            icon: 'warning',
+            html: that.strings.findError,
+            position: 'bottom-center',
+            dismissible: true
+          })
+        })
+    },
+    loadMore (index, done) {
+      let that = this
+      this.mileage.stop = this.maxiMileage
+      ApiRequests.getAdverts(
+        this.searchs,
+        this.$store.state.properties.geolocation.position,
+        this.mileage,
+        this.adverts.length,
+        this.$store.state.properties.appLanguage.choice
+      )
+        .then(function (response) {
+          that.submit = false
+          let adverts = response.data.adverts
+          adverts.forEach(function (advert) {
+            that.adverts.push(advert)
+          })
+          that.totalHits = response.data.totalHits
+          if (that.adverts.length === that.totalHits) {
+            that.$refs.infiniteScroll.stop()
+          }
+          done()
+        })
+        .catch(function (error) {
+          that.submit = false
+          console.log(error)
+          Alert.create({
+            enter: 'bounceInUp',
+            leave: 'bounceOutDown',
+            color: 'negative',
+            icon: 'warning',
+            html: that.strings.findError,
+            position: 'bottom-center',
+            dismissible: true
+          })
         })
     },
     formatMyDate (myDate) {
       let now = Date.now()
 
-      let diffInSeconds = date.getDateDiff(now, myDate, 'seconds')
-      console.log(diffInSeconds)
-      if (diffInSeconds < 60) {
-        return diffInSeconds > 1 ? diffInSeconds + ' ' + this.units.time.second.plural : diffInSeconds + ' ' + this.units.time.second.single
+      // If diff >= 1 month
+      let diffInMonths = date.getDateDiff(now, myDate, 'months')
+      if (diffInMonths >= 1) {
+        return diffInMonths > 1 ? diffInMonths + ' ' + this.units.time.month.plural : diffInMonths + ' ' + this.units.time.month.single
       }
 
-      let diffInMinutes = date.getDateDiff(now, myDate, 'minutes')
-      console.log(diffInMinutes)
-      if (diffInMinutes < 60) {
-        return diffInMinutes > 1 ? diffInMinutes + ' ' + this.units.time.minute.plural : diffInMinutes + ' ' + this.units.time.minute.single
-      }
-
-      let diffInHours = date.getDateDiff(now, myDate, 'hours')
-      console.log(diffInHours)
-      if (diffInHours < 24) {
-        return diffInHours > 1 ? diffInHours + ' ' + this.units.time.hour.plural : diffInHours + ' ' + this.units.time.hour.single
-      }
-
+      // If diff >= 1 day
       let diffInDays = date.getDateDiff(now, myDate, 'days')
-      console.log(diffInDays)
-      if (diffInDays < 31) {
+      if (diffInDays >= 1) {
         return diffInDays > 1 ? diffInDays + ' ' + this.units.time.day.plural : diffInDays + ' ' + this.units.time.day.single
       }
 
-      let diffInMonths = date.getDateDiff(now, myDate, 'months')
-      console.log(diffInMonths)
-      if (diffInMonths < 31) {
-        return diffInMonths > 1 ? diffInMonths + ' ' + this.units.time.month.plural : diffInMonths + ' ' + this.units.time.month.single
+      // If diff >= 1 hour
+      let diffInHours = date.getDateDiff(now, myDate, 'hours')
+      if (diffInHours >= 1) {
+        return diffInHours > 1 ? diffInHours + ' ' + this.units.time.hour.plural : diffInHours + ' ' + this.units.time.hour.single
+      }
+
+      // If diff >= 1 minute
+      let diffInMinutes = date.getDateDiff(now, myDate, 'minutes')
+      if (diffInMinutes >= 1) {
+        return diffInMinutes > 1 ? diffInMinutes + ' ' + this.units.time.minute.plural : diffInMinutes + ' ' + this.units.time.minute.single
+      }
+
+      // Else
+      let diffInSeconds = date.getDateDiff(now, myDate, 'seconds')
+      if (diffInSeconds < 60) {
+        return diffInSeconds > 1 ? diffInSeconds + ' ' + this.units.time.second.plural : diffInSeconds + ' ' + this.units.time.second.single
       }
     }
   }

@@ -52,7 +52,9 @@ const en = {
       searchPlaceHolder: 'Enter key to add to the list',
       mileageLabel: 'Mileage',
       btnFindLabel: 'Find jobs',
-      findListHeader: 'We found the following offers:'
+      findListHeader: 'We found the following offers:',
+      findError: 'The request failed',
+      seeMore: 'See offer'
     },
     settings: {
       saveSuccess: 'Your choice is saved',
