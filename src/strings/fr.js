@@ -3,27 +3,33 @@ const fr = {
     time: {
       second: {
         single: 'seconde',
-        plural: 'secondes'
+        plural: 'secondes',
+        abbrevation: 's'
       },
       minute: {
         single: 'minute',
-        plural: 'minutes'
+        plural: 'minutes',
+        abbrevation: 'mn'
       },
       hour: {
         single: 'heure',
-        plural: 'heures'
+        plural: 'heures',
+        abbrevation: 'h'
       },
       day: {
         single: 'jour',
-        plural: 'jours'
+        plural: 'jours',
+        abbrevation: 'j'
       },
       month: {
         single: 'mois',
-        plural: 'mois'
+        plural: 'mois',
+        abbrevation: 'mois'
       },
       year: {
         single: 'année',
-        plural: 'années'
+        plural: 'années',
+        abbrevation: 'an(s)'
       }
     }
   },
@@ -90,7 +96,12 @@ const fr = {
       existEmail: 'Cette addresse email est déjà enregistrée',
       alreadyConnected: 'Vous êtes déjà connecté'
     },
-    advert: {}
+    advertShow: {
+      findError: 'L\'annonce est introuvable',
+      requirements: 'Exigences',
+      checkAcceptLabel: 'Je possède les exigences requises pour continuer',
+      btnNextStep: 'Accéder au questionnaire'
+    }
   }
 }
 

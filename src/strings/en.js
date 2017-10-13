@@ -3,27 +3,33 @@ const en = {
     time: {
       second: {
         single: 'second',
-        plural: 'seconds'
+        plural: 'seconds',
+        abbrevation: 's'
       },
       minute: {
         single: 'minute',
-        plural: 'minutes'
+        plural: 'minutes',
+        abbrevation: 'min'
       },
       hour: {
         single: 'hour',
-        plural: 'hours'
+        plural: 'hours',
+        abbrevation: 'h'
       },
       day: {
         single: 'day',
-        plural: 'days'
+        plural: 'days',
+        abbrevation: 'd'
       },
       month: {
         single: 'month',
-        plural: 'months'
+        plural: 'months',
+        abbrevation: 'mon'
       },
       year: {
         single: 'year',
-        plural: 'years'
+        plural: 'years',
+        abbrevation: 'y'
       }
     }
   },
@@ -89,7 +95,12 @@ const en = {
       existEmail: 'This email is already register',
       alreadyConnected: 'You are connected'
     },
-    advert: {}
+    advertShow: {
+      findError: 'We can\'t find the offer',
+      requirements: 'Requirements',
+      checkAcceptLabel: 'I have the requirements to continue',
+      btnNextStep: 'Access the quiz'
+    }
   }
 }
 

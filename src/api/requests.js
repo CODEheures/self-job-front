@@ -9,7 +9,8 @@ const routes = {
   existUser: apiDomain + '/existUser',
   user: apiDomain + '/user',
   setUserProperty: apiDomain + '/user/set',
-  getAdverts: apiDomain + '/getAdverts'
+  getAdverts: apiDomain + '/getAdverts',
+  showAdvert: apiDomain + '/advert/'
 }
 
 axios.defaults.timeout = 3000
@@ -97,6 +98,15 @@ const ApiRequests = {
         mileage: mileage,
         from: fromResult,
         language: language
+      }
+    })
+  },
+  showAdvert (id) {
+    return axios.request({
+      method: 'get',
+      url: routes.showAdvert + id,
+      headers: {
+        'Accept': 'application/json'
       }
     })
   }

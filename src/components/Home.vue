@@ -65,7 +65,8 @@
 <script>
 import LanguageSetter from '../strings/languageSetter'
 import ApiRequests from '../api/requests'
-import { Alert, date } from 'quasar'
+import Utils from './utils'
+import { Alert } from 'quasar'
 
 export default {
   props: {
@@ -156,37 +157,7 @@ export default {
         })
     },
     formatMyDate (myDate) {
-      let now = Date.now()
-
-      // If diff >= 1 month
-      let diffInMonths = date.getDateDiff(now, myDate, 'months')
-      if (diffInMonths >= 1) {
-        return diffInMonths > 1 ? diffInMonths + ' ' + this.units.time.month.plural : diffInMonths + ' ' + this.units.time.month.single
-      }
-
-      // If diff >= 1 day
-      let diffInDays = date.getDateDiff(now, myDate, 'days')
-      if (diffInDays >= 1) {
-        return diffInDays > 1 ? diffInDays + ' ' + this.units.time.day.plural : diffInDays + ' ' + this.units.time.day.single
-      }
-
-      // If diff >= 1 hour
-      let diffInHours = date.getDateDiff(now, myDate, 'hours')
-      if (diffInHours >= 1) {
-        return diffInHours > 1 ? diffInHours + ' ' + this.units.time.hour.plural : diffInHours + ' ' + this.units.time.hour.single
-      }
-
-      // If diff >= 1 minute
-      let diffInMinutes = date.getDateDiff(now, myDate, 'minutes')
-      if (diffInMinutes >= 1) {
-        return diffInMinutes > 1 ? diffInMinutes + ' ' + this.units.time.minute.plural : diffInMinutes + ' ' + this.units.time.minute.single
-      }
-
-      // Else
-      let diffInSeconds = date.getDateDiff(now, myDate, 'seconds')
-      if (diffInSeconds < 60) {
-        return diffInSeconds > 1 ? diffInSeconds + ' ' + this.units.time.second.plural : diffInSeconds + ' ' + this.units.time.second.single
-      }
+      return Utils.dateToHumanDiff(this, myDate)
     }
   }
 }

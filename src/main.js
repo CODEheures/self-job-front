@@ -17,7 +17,7 @@ import Quasar, {
   QLayout, QToolbar, QBtn, QIcon, QToolbarTitle, QTabs, QRouteTab, QPopover,
   QList, QItem, QField, QInput, QSelect, QSpinner, QSpinnerGears, QAlert, QCard, QCardTitle, QCardActions,
   QCardMedia, QCardSeparator, QCardMain, QChipsInput, QRange, QListHeader, QItemSide, QItemMain, QItemTile,
-  QInfiniteScroll
+  QInfiniteScroll, QChip, QCheckbox
 } from 'quasar'
 
 import router from './router'
@@ -54,7 +54,9 @@ Vue.use(Quasar, { components: {
   QItemSide,
   QItemMain,
   QItemTile,
-  QInfiniteScroll
+  QInfiniteScroll,
+  QChip,
+  QCheckbox
 } }) // Install Quasar Framework
 
 if (__THEME === 'mat') {
