@@ -1,6 +1,7 @@
 <template>
   <div class="layout-padding">
     <h5 v-if="$store.state.properties.auth.check" round-borders><span class="token bg-info">{{ strings.alreadyConnected }}</span></h5>
+    <p v-if="!$store.state.properties.auth.check" class="thin-paragraph">{{ strings.title }}:</p>
     <q-input v-model="email" type="email" :float-label="strings.emailLabel" suffix="@gmail.com" clearable :disable="$store.state.properties.auth.check"/>
     <q-input v-model="password" type="password" :float-label="strings.passwordLabel" :disable="$store.state.properties.auth.check"/>
     <div class="row justify-between">
@@ -42,7 +43,6 @@
             that.setAuth(response.data.access_token, response.data.refresh_token, response.data.expires_in)
             that.submit = false
             that.$q.events.$emit('login')
-            that.$router.push({name: 'home'})
           })
           .catch(function (error) {
             that.submit = false

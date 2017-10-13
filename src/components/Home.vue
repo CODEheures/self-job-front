@@ -88,6 +88,9 @@ export default {
     }
   },
   mounted () {
+    if (this.$store.state.properties.auth.check) {
+      this.$route.push({name: 'myAdverts'})
+    }
     LanguageSetter.setStrings(this)
     LanguageSetter.setUnits(this)
   },

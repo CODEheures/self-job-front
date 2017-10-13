@@ -17,7 +17,8 @@
 
     <!-- Navigation -->
     <q-tabs slot="navigation">
-      <q-route-tab slot="title" icon="home" :to="{ name: 'home' }" replace :label="strings.menu.home" />
+      <q-route-tab v-if="!$store.state.properties.auth.check" slot="title" icon="home" :to="{ name: 'home' }" replace :label="strings.menu.home" />
+      <q-route-tab v-if="$store.state.properties.auth.check" slot="title" icon="list" :to="{ name: 'myAdverts' }" replace :label="strings.menu.myAdverts" />
       <q-route-tab slot="title" icon="settings" :to="{ name: 'settings' }" replace :label="strings.menu.settings" />
     </q-tabs>
 
@@ -63,7 +64,7 @@ export default {
     this.getExistSession()
 
     // If login launch the auto logout
-    this.$q.events.$on('login', () => this.launchAutoLogoutTimer())
+    this.$q.events.$on('login', () => this.actionsAfterLogin())
   },
   methods: {
     login () {
@@ -108,6 +109,7 @@ export default {
       // Call the setAuth store mutation if valid session exist
       if (this.testExistSession()) {
         this.$store.commit('setAuth', {accessToken: localStorage.getItem('_at'), refreshToken: localStorage.getItem('_rt'), expire: localStorage.getItem('_ex')})
+        this.actionsAfterLogin()
       }
     },
     testExistSession () {
@@ -122,8 +124,6 @@ export default {
           return false
         }
         else {
-          // launch auto logout if session is valid
-          this.launchAutoLogoutTimer()
           return true
         }
       }
@@ -136,6 +136,10 @@ export default {
       this.autoLogout = setTimeout(function () {
         that.logout()
       }, lifetime * 1000)
+    },
+    actionsAfterLogin () {
+      this.launchAutoLogoutTimer()
+      this.$router.push({name: 'myAdverts'})
     }
   }
 }

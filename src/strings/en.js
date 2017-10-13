@@ -72,6 +72,7 @@ const en = {
       }
     },
     login: {
+      title: 'Employers, log in here to publish your jobs',
       emailLabel: 'Email',
       passwordLabel: 'Password',
       btnValidationLabel: 'Log In',
@@ -79,7 +80,8 @@ const en = {
       invalids: 'Invalid Email or password',
       loginSuccess: 'Hello ',
       alreadyConnected: 'You are connected',
-      registerLink: 'Register here'
+      registerLink: 'Register here',
+      myAdverts: 'Mes Jobs'
     },
     register: {
       nameLabel: 'Username',
@@ -100,6 +102,9 @@ const en = {
       requirements: 'Requirements',
       checkAcceptLabel: 'I have the requirements to continue',
       btnNextStep: 'Access the quiz'
+    },
+    myAdverts: {
+      findError: 'Server problem, your ads can not be found'
     }
   }
 }

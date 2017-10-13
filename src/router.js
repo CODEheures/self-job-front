@@ -30,7 +30,8 @@ export default new VueRouter({
         { path: '/advert/show/:id', name: 'advertShow', component: load('AdvertShow'), props: { stringPageScopeName: 'advertShow' } },
         { path: '/settings', name: 'settings', component: load('Settings'), props: { stringPageScopeName: 'settings' } },
         { path: '/login', name: 'login', component: load('Login'), props: { stringPageScopeName: 'login' } },
-        { path: '/register', name: 'register', component: load('Register'), props: { stringPageScopeName: 'register' } }
+        { path: '/register', name: 'register', component: load('Register'), props: { stringPageScopeName: 'register' } },
+        { path: '/myAdverts', name: 'myAdverts', component: load('MyAdverts'), props: { stringPageScopeName: 'myAdverts' } }
       ]
     },
     // Always leave this last one

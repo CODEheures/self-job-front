@@ -43,7 +43,8 @@ const fr = {
         settings: 'Préférences',
         login: 'Se connecter',
         logout: 'Se déconnecter',
-        register: 'S\'enregistrer'
+        register: 'S\'enregistrer',
+        myAdverts: 'Mes offres'
       },
       logoutSuccess: 'Vous êtes maintenant déconnecté'
     },
@@ -73,6 +74,7 @@ const fr = {
       }
     },
     login: {
+      title: 'Employeurs, connectez-vous ici pour publier vos offres',
       emailLabel: 'Email',
       passwordLabel: 'Mot de passe',
       btnValidationLabel: 'Se connecter',
@@ -101,6 +103,9 @@ const fr = {
       requirements: 'Exigences',
       checkAcceptLabel: 'Je possède les exigences requises pour continuer',
       btnNextStep: 'Accéder au questionnaire'
+    },
+    myAdverts: {
+      findError: 'Problème serveur, vos annonces sont introuvables'
     }
   }
 }

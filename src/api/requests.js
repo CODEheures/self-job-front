@@ -10,7 +10,8 @@ const routes = {
   user: apiDomain + '/user',
   setUserProperty: apiDomain + '/user/set',
   getAdverts: apiDomain + '/getAdverts',
-  showAdvert: apiDomain + '/advert/'
+  showAdvert: apiDomain + '/advert/',
+  getMyAdverts: apiDomain + '/myAdverts'
 }
 
 axios.defaults.timeout = 3000
@@ -107,6 +108,16 @@ const ApiRequests = {
       url: routes.showAdvert + id,
       headers: {
         'Accept': 'application/json'
+      }
+    })
+  },
+  getMyAdverts () {
+    return axios.request({
+      method: 'get',
+      url: routes.getMyAdverts,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
       }
     })
   }
