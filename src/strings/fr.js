@@ -55,7 +55,6 @@ const fr = {
       geolocError: 'La géolocation a échouée. Les recherches ne seront donc pas géolocalisées',
       pitch: 'Recrutement humain anonyme sans C.V. qui mise sur votre personnalité.',
       subPitch: 'Cherchez, Trouvez, Répondez aux questions d\'affinité et soyez le mieux placé pour être invité à renconter l\'employeur',
-      searchFieldLabel: 'L\'annonce mentionne',
       searchLabel: 'Ex: barman, débutant',
       searchPlaceHolder: 'Touche entrée pour ajouter à la liste',
       mileageLabel: 'Distance',
@@ -105,7 +104,14 @@ const fr = {
       btnNextStep: 'Accéder au questionnaire'
     },
     myAdverts: {
-      findError: 'Problème serveur, vos annonces sont introuvables'
+      findError: 'Problème serveur, vos annonces sont introuvables',
+      tableTh1: 'Titre',
+      tableTh2: 'Réponses',
+      verticalMenu1: 'Voir',
+      verticalMenu2: 'Supprimer',
+      verticalMenu3: 'Modifier',
+      verticalHead1: 'Annonce',
+      verticalHead2: 'Réponses'
     }
   }
 }

@@ -24,6 +24,8 @@ const StoreUtils = {
         if ('isNew' in payload) {
           state.properties.auth.isNew = payload.isNew
         }
+        // Launching callBack after get User Infos
+        payload.callBack()
       })
       .catch(function () {
         Alert.create({

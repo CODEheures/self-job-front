@@ -71,10 +71,13 @@
         let that = this
         ApiRequests.register(this.name, this.email, this.password, this.password_confirmation, this.$store.state.properties.appLanguage.choice)
           .then(function (response) {
-            that.setAuth(response.data.access_token, response.data.refresh_token, response.data.expires_in)
-            that.submit = false
-            that.$q.events.$emit('login')
-            that.$router.push({name: 'home'})
+            that.$store.commit('setAuth', {
+              accessToken: response.data.access_token,
+              refreshToken: response.data.refresh_token,
+              expire: date.addToDate(new Date(), { seconds: response.data.expires_in }),
+              isNew: true,
+              callBack: that.actionsAfterRegister
+            })
           })
           .catch(function (error) {
             that.submit = false
@@ -151,8 +154,9 @@
       checkAll () {
         this.allError = this.nameError || this.passwordError || this.confirmationPasswordError || !this.emailIsValidAndFree || this.name === '' || this.email === '' || this.password === '' || this.password_confirmation === ''
       },
-      setAuth (accessToken, refreshToken, expire) {
-        this.$store.commit('setAuth', {accessToken: accessToken, refreshToken: refreshToken, expire: date.addToDate(new Date(), { seconds: expire }), isNew: true})
+      actionsAfterRegister () {
+        this.submit = false
+        this.$q.events.$emit('login')
       }
     }
   }

@@ -43,7 +43,8 @@ const en = {
         settings: 'Settings',
         login: 'Log in',
         logout: 'Log out',
-        register: 'Register'
+        register: 'Register',
+        myAdverts: 'My offers'
       },
       logoutSuccess: 'You are logout'
     },
@@ -80,8 +81,7 @@ const en = {
       invalids: 'Invalid Email or password',
       loginSuccess: 'Hello ',
       alreadyConnected: 'You are connected',
-      registerLink: 'Register here',
-      myAdverts: 'Mes Jobs'
+      registerLink: 'Register here'
     },
     register: {
       nameLabel: 'Username',
@@ -104,7 +104,14 @@ const en = {
       btnNextStep: 'Access the quiz'
     },
     myAdverts: {
-      findError: 'Server problem, your ads can not be found'
+      findError: 'Server problem, your ads can not be found',
+      tableTh1: 'Title',
+      tableTh2: 'Responses',
+      verticalMenu1: 'See',
+      verticalMenu2: 'Remove',
+      verticalMenu3: 'Edit',
+      verticalHead1: 'Offer',
+      verticalHead2: 'Responses'
     }
   }
 }

@@ -108,8 +108,12 @@ export default {
     getExistSession () {
       // Call the setAuth store mutation if valid session exist
       if (this.testExistSession()) {
-        this.$store.commit('setAuth', {accessToken: localStorage.getItem('_at'), refreshToken: localStorage.getItem('_rt'), expire: localStorage.getItem('_ex')})
-        this.actionsAfterLogin()
+        this.$store.commit('setAuth', {
+          accessToken: localStorage.getItem('_at'),
+          refreshToken: localStorage.getItem('_rt'),
+          expire: localStorage.getItem('_ex'),
+          callBack: this.actionsAfterLogin
+        })
       }
     },
     testExistSession () {

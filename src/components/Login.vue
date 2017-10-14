@@ -40,9 +40,12 @@
         let that = this
         ApiRequests.login(this.email, this.password, this.$store.state.properties.appLanguage.choice)
           .then(function (response) {
-            that.setAuth(response.data.access_token, response.data.refresh_token, response.data.expires_in)
-            that.submit = false
-            that.$q.events.$emit('login')
+            that.$store.commit('setAuth', {
+              accessToken: response.data.access_token,
+              refreshToken: response.data.refresh_token,
+              expire: date.addToDate(new Date(), { seconds: response.data.expires_in }),
+              callBack: that.actionsAfterLogin
+            })
           })
           .catch(function (error) {
             that.submit = false
@@ -87,8 +90,9 @@
         // Goto Login view
         this.$router.push({name: 'register'})
       },
-      setAuth (accessToken, refreshToken, expire) {
-        this.$store.commit('setAuth', {accessToken: accessToken, refreshToken: refreshToken, expire: date.addToDate(new Date(), { seconds: expire })})
+      actionsAfterLogin () {
+        this.submit = false
+        this.$q.events.$emit('login')
       }
     }
   }
