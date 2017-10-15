@@ -81,7 +81,9 @@ const fr = {
       invalids: 'Email ou mot de passe invalide',
       loginSuccess: 'Bonjour ',
       alreadyConnected: 'Vous êtes déjà connecté',
-      registerLink: 'S\'enregistrer ici'
+      registerLink: 'S\'enregistrer ici',
+      invalidEmail: 'Addresse email mal formée',
+      invalidPassword: 'Minimun 6 caractères'
     },
     register: {
       nameLabel: 'Nom d\'utilisateur',
@@ -112,6 +114,13 @@ const fr = {
       verticalMenu3: 'Modifier',
       verticalHead1: 'Annonce',
       verticalHead2: 'Réponses'
+    },
+    quizShow: {
+      emailLabel: 'Votre Email',
+      invalidEmail: 'Addresse email mal formée',
+      phoneLabel: 'Votre Téléphone',
+      invalidPhone: 'Téléphone invalide',
+      infoForAccess: 'Remplir Email et téléphone pour acceder au questions d\'affinité'
     }
   }
 }

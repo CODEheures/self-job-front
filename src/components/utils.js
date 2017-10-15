@@ -62,6 +62,38 @@ const Utils = {
     else {
       return diffInYears > 1 ? diffInYears + ' ' + component.units.time.year.plural : diffInYears + ' ' + component.units.time.year.single
     }
+  },
+  redirectIfLogin (component) {
+    component.$store.watch(function (state) { return state.properties.auth.check }, function () {
+      component.$router.push({name: 'myAdverts'})
+    })
+  },
+  checkCorrectEmail (email) {
+    // eslint-disable-next-line no-useless-escape
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return !re.test(email)
+  },
+  checkCorrectPhone (phone) {
+    // eslint-disable-next-line no-useless-escape
+    let re = /^(([0-9]{2}[.]){4}[0-9]{2})$/
+    return !re.test(phone)
+  },
+  formPhone (input) {
+    let extract = input.replace(/[^0-9]/g, '')
+    let parts = []
+    for (let i = 0; i < extract.length; i += 2) {
+      parts.push(extract.charAt(i).toString() + extract.charAt(i + 1).toString())
+    }
+    if (parts.length > 4) {
+      parts = parts.slice(0, 5)
+    }
+
+    let formPhone = '' + (parts.join('.')).toString()
+    if (parts.length > 0 && parts.length < 5 && extract.length % 2 === 0) {
+      formPhone += '.'
+    }
+
+    return formPhone
   }
 }
 

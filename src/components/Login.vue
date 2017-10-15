@@ -2,10 +2,16 @@
   <div class="layout-padding">
     <h5 v-if="$store.state.properties.auth.check" round-borders><span class="token bg-info">{{ strings.alreadyConnected }}</span></h5>
     <p v-if="!$store.state.properties.auth.check" class="thin-paragraph">{{ strings.title }}:</p>
-    <q-input v-model="email" type="email" :float-label="strings.emailLabel" suffix="@gmail.com" clearable :disable="$store.state.properties.auth.check"/>
-    <q-input v-model="password" type="password" :float-label="strings.passwordLabel" :disable="$store.state.properties.auth.check"/>
+    <q-field :error="emailError" :error-label="strings.invalidEmail">
+      <q-input v-model="email" type="text" :float-label="strings.emailLabel" clearable :disable="$store.state.properties.auth.check" @change="checkEmail()"
+             :after="[{icon: 'done', condition: !emailError && email.length > 1, handler () {}}]"/>
+    </q-field>
+    <q-field :error="passwordError" :error-label="strings.invalidPassword">
+      <q-input v-model="password" type="password" :float-label="strings.passwordLabel" :disable="$store.state.properties.auth.check" @keyup="checkPassword()"
+               :after="[{icon: 'done', condition: !passwordError && password.length > 1, handler () {}}]"/>
+    </q-field>
     <div class="row justify-between">
-      <q-btn v-model="submit" loader color="primary" icon-right="arrow forward" @click="login()" :disable="$store.state.properties.auth.check || submit">
+      <q-btn v-model="submit" loader color="primary" icon-right="arrow forward" @click="login()" :disable="$store.state.properties.auth.check || submit || emailError || passwordError || email.length == 0 || password.length == 0">
         {{ strings.btnValidationLabel }}
         <span slot="loading">{{ strings.btnValidationLabel }}...<q-spinner-gears size="20px" /></span>
       </q-btn>
@@ -17,6 +23,7 @@
 <script>
   import LanguageSetter from '../strings/languageSetter'
   import ApiRequests from '../api/requests'
+  import Utils from './utils'
   import { Alert, date } from 'quasar'
 
   export default {
@@ -28,10 +35,13 @@
         strings: {},
         email: 'test@mail.test',
         password: 'password',
-        submit: false
+        submit: false,
+        emailError: false,
+        passwordError: false
       }
     },
     mounted () {
+      Utils.redirectIfLogin(this)
       LanguageSetter.setStrings(this)
     },
     methods: {
@@ -93,6 +103,12 @@
       actionsAfterLogin () {
         this.submit = false
         this.$q.events.$emit('login')
+      },
+      checkEmail () {
+        this.emailError = Utils.checkCorrectEmail(this.email)
+      },
+      checkPassword () {
+        this.passwordError = (this.password.length < 6)
       }
     }
   }

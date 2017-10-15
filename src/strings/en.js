@@ -81,7 +81,9 @@ const en = {
       invalids: 'Invalid Email or password',
       loginSuccess: 'Hello ',
       alreadyConnected: 'You are connected',
-      registerLink: 'Register here'
+      registerLink: 'Register here',
+      invalidEmail: 'Invalid Email address',
+      invalidPassword: '6 characteres minimun'
     },
     register: {
       nameLabel: 'Username',
@@ -112,6 +114,13 @@ const en = {
       verticalMenu3: 'Edit',
       verticalHead1: 'Offer',
       verticalHead2: 'Responses'
+    },
+    quizShow: {
+      emailLabel: 'Youre Email',
+      invalidEmail: 'Invalid Email address',
+      phoneLabel: 'Your Phone number',
+      invalidPhone: 'Invalid Phone number',
+      infoForAccess: 'Fill in email and phone to access affinity questions'
     }
   }
 }

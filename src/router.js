@@ -28,6 +28,7 @@ export default new VueRouter({
       children: [
         { path: '', name: 'home', component: load('Home'), props: { stringPageScopeName: 'home' } },
         { path: '/advert/show/:id', name: 'advertShow', component: load('AdvertShow'), props: { stringPageScopeName: 'advertShow' } },
+        { path: '/quiz/show/:id', name: 'quizShow', component: load('QuizShow'), props: { stringPageScopeName: 'quizShow' } },
         { path: '/settings', name: 'settings', component: load('Settings'), props: { stringPageScopeName: 'settings' } },
         { path: '/login', name: 'login', component: load('Login'), props: { stringPageScopeName: 'login' } },
         { path: '/register', name: 'register', component: load('Register'), props: { stringPageScopeName: 'register' } },

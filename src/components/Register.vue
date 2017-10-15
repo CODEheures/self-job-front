@@ -2,18 +2,21 @@
   <div class="layout-padding">
     <h5 v-if="$store.state.properties.auth.check" round-borders><span class="token bg-info">{{ strings.alreadyConnected }}</span></h5>
     <q-field :error="nameError" :error-label="strings.invalidName">
-      <q-input v-model="name" type="text" :float-label="strings.nameLabel" clearable :disable="$store.state.properties.auth.check" @keyup="checkName()"/>
+      <q-input v-model="name" type="text" :float-label="strings.nameLabel" clearable :disable="$store.state.properties.auth.check" @keyup="checkName()" :after="[{icon: 'done', condition: !nameError && name.length > 1, handler () {}}]" />
     </q-field>
     <q-field :error="emailError" :error-label="invalidEmailMessage">
-      <q-input v-model="email" type="text" :float-label="strings.emailLabel" suffix="@" clearable :disable="$store.state.properties.auth.check || emailBeingVerified" :loading="emailBeingVerified" @change="checkEmail()">
+      <q-input v-model="email" type="text" :float-label="strings.emailLabel" clearable :disable="$store.state.properties.auth.check || emailBeingVerified" :loading="emailBeingVerified" @change="checkEmail()"
+               :after="[{icon: 'done', condition: !emailError && email.length > 1, handler () {}}]">
         <span slot="loading"><q-spinner-gears size="20px" /></span>
       </q-input>
     </q-field>
     <q-field :error="passwordError" :error-label="strings.invalidPassword">
-      <q-input v-model="password" type="password" :float-label="strings.passwordLabel" :disable="$store.state.properties.auth.check" @keyup="checkPassword()"/>
+      <q-input v-model="password" type="password" :float-label="strings.passwordLabel" :disable="$store.state.properties.auth.check" @keyup="checkPassword()"
+               :after="[{icon: 'done', condition: !passwordError && password.length > 1, handler () {}}]"/>
     </q-field>
     <q-field :error="confirmationPasswordError" :error-label="strings.invalidPasswordConfirmation">
-      <q-input v-model="password_confirmation" type="password" :float-label="strings.passwordConfirmationLabel" :disable="$store.state.properties.auth.check" @keyup="checkPassword()"/>
+      <q-input v-model="password_confirmation" type="password" :float-label="strings.passwordConfirmationLabel" :disable="$store.state.properties.auth.check" @keyup="checkPassword()"
+               :after="[{icon: 'done', condition: !confirmationPasswordError && password_confirmation.length > 1, handler () {}}]"/>
     </q-field>
     <div class="row justify-between">
       <q-btn v-model="submit" loader color="primary" icon-right="arrow forward" @click="register()" :disable="$store.state.properties.auth.check || submit || allError || !emailIsValidAndFree">
@@ -27,6 +30,7 @@
 <script>
   import LanguageSetter from '../strings/languageSetter'
   import ApiRequests from '../api/requests'
+  import Utils from './utils'
   import { Alert, date } from 'quasar'
 
   export default {
@@ -54,6 +58,7 @@
       }
     },
     mounted () {
+      Utils.redirectIfLogin(this)
       LanguageSetter.setStrings(this)
     },
     methods: {
@@ -110,9 +115,8 @@
       checkEmail () {
         this.emailIsValidAndFree = false
         // eslint-disable-next-line no-useless-escape
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         this.invalidEmailMessage = this.strings.invalidEmail
-        this.emailError = !re.test(this.email)
+        this.emailError = Utils.checkCorrectEmail(this.email)
         if (!this.emailError) {
           this.checkExistEmail()
         }

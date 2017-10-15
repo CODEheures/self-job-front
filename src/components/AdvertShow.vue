@@ -40,7 +40,7 @@
           </q-item>
           <q-card-separator />
           <q-card-actions>
-            <q-btn color="primary" :disabled="!accept" @click="$router.push({ name: 'advertQuiz', params: { 'id': advert.id }})">{{ strings.btnNextStep }}</q-btn>
+            <q-btn color="primary" :disabled="!accept" @click="$router.push({ name: 'quizShow', params: { 'id': advert.id }})">{{ strings.btnNextStep }}</q-btn>
           </q-card-actions>
         </q-card>
       </div>

@@ -64,7 +64,7 @@ export default {
     this.getExistSession()
 
     // If login launch the auto logout
-    this.$q.events.$on('login', () => this.actionsAfterLogin())
+    this.$q.events.$on('login', () => this.launchAutoLogoutTimer())
   },
   methods: {
     login () {
@@ -112,7 +112,7 @@ export default {
           accessToken: localStorage.getItem('_at'),
           refreshToken: localStorage.getItem('_rt'),
           expire: localStorage.getItem('_ex'),
-          callBack: this.actionsAfterLogin
+          callBack: this.launchAutoLogoutTimer
         })
       }
     },
@@ -140,10 +140,6 @@ export default {
       this.autoLogout = setTimeout(function () {
         that.logout()
       }, lifetime * 1000)
-    },
-    actionsAfterLogin () {
-      this.launchAutoLogoutTimer()
-      this.$router.push({name: 'myAdverts'})
     }
   }
 }

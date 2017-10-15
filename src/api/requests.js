@@ -11,6 +11,7 @@ const routes = {
   setUserProperty: apiDomain + '/user/set',
   getAdverts: apiDomain + '/getAdverts',
   showAdvert: apiDomain + '/advert/',
+  showQuiz: apiDomain + '/quiz/',
   getMyAdverts: apiDomain + '/myAdverts'
 }
 
@@ -106,6 +107,15 @@ const ApiRequests = {
     return axios.request({
       method: 'get',
       url: routes.showAdvert + id,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+  },
+  showQuiz (id) {
+    return axios.request({
+      method: 'get',
+      url: routes.showQuiz + id,
       headers: {
         'Accept': 'application/json'
       }
