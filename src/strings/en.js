@@ -37,31 +37,44 @@ const en = {
   page: {
     layout: {
       appTitle: 'self-job',
-      appSubTitle: '== Human ressource ==',
+      appSubTitle: 'Human ressource',
       menu: {
-        home: 'home',
+        home: 'Search',
+        home_sub: 'Search job offers',
         settings: 'Settings',
+        settings_sub: 'Choose language, set account...',
         login: 'Log in',
         logout: 'Log out',
         register: 'Register',
-        myAdverts: 'My offers'
+        myAdverts: 'My offers',
+        myAdverts_sub: 'List of my publish offers'
       },
-      logoutSuccess: 'You are logout'
+      logoutSuccess: 'You are logout',
+      isLogout: 'log out',
+      isLogin: 'log in as '
     },
     home: {
       checkYourMail: 'You will receive an email with a confirmation link valid for 3 days. Click this link to validate your account',
       geolocNotAvailable: 'Geoloc is not available on this device',
       geolocDenied: 'You refused geolocation. Your search will not be geolocated',
       geolocError: 'Geolocation has failed. Research will therefore not be geolocated',
-      pitch: 'Anonymous human recruitment without C.V. that puts on your personality.',
-      subPitch: 'Look for, Find, Answer Affinity Questions and be the best person to be invited to meet the employer',
+      fakeh1: 'Humans resources',
+      realh1: 'Human recruitment',
+      pitch: 'Recruitment without C.V.',
+      hashtag1: '#expertise',
+      hashtag2: '#knowHow',
+      step1: 'Select Offers',
+      step2: 'Validate the requirements',
+      step3: 'Answer questions',
+      step4: 'Be 1st to the interview',
       searchLabel: 'Ex: barman, beginner',
       searchPlaceHolder: 'Enter key to add to the list',
       mileageLabel: 'Mileage',
       btnFindLabel: 'Find jobs',
       findListHeader: 'We found the following offers:',
       findError: 'The request failed',
-      seeMore: 'See offer'
+      seeMore: 'See offer',
+      endResults: 'End of results'
     },
     settings: {
       saveSuccess: 'Your choice is saved',

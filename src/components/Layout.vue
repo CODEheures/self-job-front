@@ -1,26 +1,42 @@
 <template>
-  <q-layout ref="layout" view="lHr LpR lFr" :right-breakpoint="1100">
+  <q-layout ref="layout" view="lHr LpR lFr" :left-breakpoint="999999" :right-breakpoint="1100">
     <!-- Header -->
     <q-toolbar slot="header">
+      <q-btn flat @click="$refs.layout.toggleLeft()">
+        <q-icon name="menu" />
+      </q-btn>
       <q-toolbar-title>
         {{ strings.appTitle }}
         <span slot="subtitle">{{ strings.appSubTitle }}</span>
       </q-toolbar-title>
-      <q-btn v-if="!$store.state.properties.auth.check" flat @click="login()">
-        {{ strings.menu.login }}
-      </q-btn>
-      <q-btn v-if="$store.state.properties.auth.check" v-model="submit" loader flat @click="logout()">
-        {{ strings.menu.logout }}
-        <span slot="loading">{{ strings.menu.logout }}...<q-spinner-gears size="20px" /></span>
-      </q-btn>
     </q-toolbar>
 
-    <!-- Navigation -->
-    <q-tabs slot="navigation">
-      <q-route-tab v-if="!$store.state.properties.auth.check" slot="title" icon="home" :to="{ name: 'home' }" replace :label="strings.menu.home" />
-      <q-route-tab v-if="$store.state.properties.auth.check" slot="title" icon="list" :to="{ name: 'myAdverts' }" replace :label="strings.menu.myAdverts" />
-      <q-route-tab slot="title" icon="settings" :to="{ name: 'settings' }" replace :label="strings.menu.settings" />
-    </q-tabs>
+    <!-- Left Side Panel -->
+    <div slot="left">
+      <q-list no-border link inset-separator>
+        <q-list-header>{{ strings.appTitle }}</q-list-header>
+        <q-side-link item :to="{ name: 'home' }" v-if="!$store.state.properties.auth.check">
+          <q-item-side icon="search" />
+          <q-item-main :label="strings.menu.home" :sublabel="strings.menu.home_sub" />
+        </q-side-link>
+        <q-side-link item :to="{ name: 'myAdverts' }" v-if="$store.state.properties.auth.check">
+          <q-item-side icon="view list" />
+          <q-item-main :label="strings.menu.myAdverts" :sublabel="strings.menu.home_sub" />
+        </q-side-link>
+        <q-side-link item :to="{ name: 'settings' }">
+          <q-item-side icon="settings" />
+          <q-item-main :label="strings.menu.settings" :sublabel="strings.menu.settings_sub" />
+        </q-side-link>
+        <q-side-link item :to="{ name: 'login' }" v-if="!$store.state.properties.auth.check">
+          <q-item-side icon="person" />
+          <q-item-main :label="strings.menu.login" />
+        </q-side-link>
+        <q-item item @click="logout()" v-if="$store.state.properties.auth.check">
+          <q-item-side icon="exit to app" />
+          <q-item-main :label="strings.menu.logout" :sublabel="strings.isLogin + $store.state.properties.auth.user.name" />
+        </q-item>
+      </q-list>
+    </div>
 
     <!-- sub-routes get injected here: -->
     <router-view />
@@ -38,6 +54,7 @@
 <script>
 import LanguageSetter from '../strings/languageSetter'
 import ApiRequests from '../api/requests'
+import Utils from './utils'
 import { Alert, date } from 'quasar'
 
 export default {
@@ -65,6 +82,9 @@ export default {
 
     // If login launch the auto logout
     this.$q.events.$on('login', () => this.launchAutoLogoutTimer())
+
+    // watcher auth check for redirect
+    Utils.redirectByCheck(this)
   },
   methods: {
     login () {
@@ -81,12 +101,12 @@ export default {
       // Unset Auth in always case
       // Return to home and Alert if withAlert
       let that = this
+      that.$refs.layout.hideCurrentSide()
       ApiRequests.logout()
         .then(function () {})
         .catch(function () {})
         .then(function () {
           that.unsetAuth()
-          that.$router.push({name: 'home'})
           that.submit = false
           if (withAlert) {
             Alert.create({

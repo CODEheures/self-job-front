@@ -37,31 +37,44 @@ const fr = {
   page: {
     layout: {
       appTitle: 'self-job',
-      appSubTitle: '== Recrutement Humain ==',
+      appSubTitle: 'Recrutement Humain',
       menu: {
-        home: 'Accueil',
+        home: 'Recherche',
+        home_sub: 'cherchez les annonces d\'emploi',
         settings: 'Préférences',
+        settings_sub: 'Choix de la langue, paramètres personnels...',
         login: 'Se connecter',
         logout: 'Se déconnecter',
         register: 'S\'enregistrer',
-        myAdverts: 'Mes offres'
+        myAdverts: 'Mes offres',
+        myAdverts_sub: 'Liste de mes offres publiées'
       },
-      logoutSuccess: 'Vous êtes maintenant déconnecté'
+      logoutSuccess: 'Vous êtes maintenant déconnecté',
+      isLogout: 'non connecté',
+      isLogin: 'connecté en tant que '
     },
     home: {
       checkYourMail: 'Vous allez recevoir un email avec un lien de confirmation valable 3 jours. Cliquez ce lien afin de valider votre compte',
       geolocNotAvailable: 'La géolocation n\'est pas disponible sur cet appareil',
       geolocDenied: 'Vous avez refusé la géolocation. Vos recherches ne seront donc pas géolocalisées',
       geolocError: 'La géolocation a échouée. Les recherches ne seront donc pas géolocalisées',
-      pitch: 'Recrutement humain anonyme sans C.V. qui mise sur votre personnalité.',
-      subPitch: 'Cherchez, Trouvez, Répondez aux questions d\'affinité et soyez le mieux placé pour être invité à renconter l\'employeur',
+      fakeh1: 'Ressources humaines',
+      realh1: 'Recrutement humain',
+      pitch: 'Le recrutement sans C.V.',
+      hashtag1: '#savoirFaire',
+      hashtag2: '#savoirEtre',
+      step1: 'Selectionnez les annonces',
+      step2: 'Validez les exigences',
+      step3: 'Répondez au questions',
+      step4: 'Soyez 1er à l\'entretien',
       searchLabel: 'Ex: barman, débutant',
       searchPlaceHolder: 'Touche entrée pour ajouter à la liste',
       mileageLabel: 'Distance',
       btnFindLabel: 'Trouver les offres',
       findListHeader: 'Nous avons trouvé les offres suivantes:',
       findError: 'La demande a échoué',
-      seeMore: 'Voir l\'offre'
+      seeMore: 'Voir l\'offre',
+      endResults: 'Fin des résultats'
     },
     settings: {
       saveSuccess: 'Votre choix est enregistré',

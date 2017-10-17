@@ -63,9 +63,14 @@ const Utils = {
       return diffInYears > 1 ? diffInYears + ' ' + component.units.time.year.plural : diffInYears + ' ' + component.units.time.year.single
     }
   },
-  redirectIfLogin (component) {
-    component.$store.watch(function (state) { return state.properties.auth.check }, function () {
-      component.$router.push({name: 'myAdverts'})
+  redirectByCheck (component) {
+    component.$store.watch(function (state) { return state.properties.auth.check }, function (isCheck) {
+      if (isCheck) {
+        component.$router.push({name: 'myAdverts'})
+      }
+      else {
+        component.$router.push({name: 'home'})
+      }
     })
   },
   checkCorrectEmail (email) {

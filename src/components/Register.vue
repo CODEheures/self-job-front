@@ -58,7 +58,6 @@
       }
     },
     mounted () {
-      Utils.redirectIfLogin(this)
       LanguageSetter.setStrings(this)
     },
     methods: {

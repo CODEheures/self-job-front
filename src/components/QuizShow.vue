@@ -30,6 +30,9 @@
             </template>
           </template>
         </div>
+        <div class="col-12">
+
+        </div>
       </template>
     </div>
   </div>
@@ -50,8 +53,8 @@ export default {
       strings: {},
       questions: [],
       answer: [],
-      email: '',
-      phone: '',
+      email: 'test@mail.test',
+      phone: '123456',
       emailError: false,
       phoneError: false
     }
