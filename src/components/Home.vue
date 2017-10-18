@@ -56,37 +56,45 @@
       <div class="col-12 text-center" v-if="submit">
         <q-spinner-gears color="primary" v-if="submit" :size="90" />
       </div>
-      <div class="col-12" v-if="!submit && adverts.length > 0">
-        <q-infinite-scroll ref="infiniteScroll" :handler="loadMore" :offset="10">
-          <q-card inline style="width: 300px; max-width: 95%;" v-for="advert,index in adverts" :key="advert.id">
-            <q-item>
-              <q-item-side avatar="statics/quasar-logo.png" />
-              <q-item-main>
-                <q-item-tile label>{{ advert.title }}</q-item-tile>
-                <q-item-tile sublabel>{{ advert.user.company }}</q-item-tile>
-              </q-item-main>
-            </q-item>
-            <q-card-media v-if="index==0"><img src="~assets/be.jpg"></q-card-media>
-            <q-card-title>
-              <div slot="right" class="row items-center">
-                <q-icon name="place" /> {{ advert.mileage }}Km
-                <q-icon name="hourglass empty"/>{{ formatMyDate(advert.created) }}
+      <div class="row" v-if="!submit && adverts.length > 0">
+          <q-infinite-scroll ref="infiniteScroll" :handler="loadMore" :offset="10">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4" v-for="advert,index in adverts" :key="advert.id">
+                <q-card>
+                  <q-item multiline>
+                    <q-item-side avatar="statics/quasar-logo.png" />
+                    <q-item-main>
+                      <q-item-tile label>{{ advert.title }}</q-item-tile>
+                      <q-item-tile sublabel>{{ advert.user.company }}</q-item-tile>
+                    </q-item-main>
+                    <q-item-side right>
+                      <q-item-tile stamp><q-icon name="place" />{{ advert.mileage }}Km</q-item-tile>
+                      <q-item-tile stamp><q-icon name="hourglass empty"/>{{ formatMyDate(advert.created) }}</q-item-tile>
+                    </q-item-side>
+                  </q-item>
+                  <template v-if="advert.img">
+                    <q-card-media><img :src="advert.img"></q-card-media>
+                  </template>
+                  <template v-else>
+                    <q-card-separator />
+                  </template>
+                  <q-card-main>
+                    <p>{{ advert.description.slice(0,90) + '...' }}</p>
+                  </q-card-main>
+                  <q-card-separator />
+                  <q-card-actions>
+                    <q-btn color="primary" @click="$router.push({ name: 'advertShow', params: { 'id': advert.id }})">{{ strings.seeMore }}</q-btn>
+                  </q-card-actions>
+                </q-card>
               </div>
-            </q-card-title>
-            <q-card-main>
-              <p>{{ advert.description.slice(0,90) + '...' }}</p>
-            </q-card-main>
-            <q-card-separator />
-            <q-card-actions>
-              <q-btn color="primary" @click="$router.push({ name: 'advertShow', params: { 'id': advert.id }})">{{ strings.seeMore }}</q-btn>
-            </q-card-actions>
-          </q-card>
-          <div class="col-12 text-center" slot="message">
-            <q-spinner-gears color="primary" :size="90" />
-          </div>
-        </q-infinite-scroll>
+            </div>
+            <div class="col-12 text-center" slot="message">
+              <q-spinner-gears color="primary" :size="90" />
+            </div>
+          </q-infinite-scroll>
         <p v-if="adverts.length >= totalHits">{{ strings.endResults }}</p>
       </div>
+
     </div>
     <q-btn
       big
