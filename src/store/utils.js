@@ -28,6 +28,7 @@ const StoreUtils = {
         payload.callBack()
       })
       .catch(function () {
+        state.properties.auth.check = false
         Alert.create({
           enter: 'bounceInUp',
           leave: 'bounceOutDown',

@@ -126,7 +126,8 @@ const fr = {
       verticalMenu2: 'Supprimer',
       verticalMenu3: 'Modifier',
       verticalHead1: 'Annonce',
-      verticalHead2: 'Réponses'
+      verticalHead2: 'Réponses',
+      title: 'Mes annonces'
     },
     quizShow: {
       emailLabel: 'Votre Email',
@@ -134,6 +135,9 @@ const fr = {
       phoneLabel: 'Votre Téléphone',
       invalidPhone: 'Téléphone invalide',
       infoForAccess: 'Remplir Email et téléphone pour acceder au questions d\'affinité'
+    },
+    createAdvert: {
+      advertTitleLabel: 'Titre de l\'annonce'
     }
   }
 }

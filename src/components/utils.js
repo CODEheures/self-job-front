@@ -63,12 +63,12 @@ const Utils = {
       return diffInYears > 1 ? diffInYears + ' ' + component.units.time.year.plural : diffInYears + ' ' + component.units.time.year.single
     }
   },
-  redirectByCheck (component) {
+  redirectIfAuthCheckChange (component) {
     component.$store.watch(function (state) { return state.properties.auth.check }, function (isCheck) {
-      if (isCheck) {
+      if (isCheck && component.$router.currentRoute.meta.requireAuthUncheck === true) {
         component.$router.push({name: 'myAdverts'})
       }
-      else {
+      if (!isCheck && component.$router.currentRoute.meta.requireAuthCheck === true) {
         component.$router.push({name: 'home'})
       }
     })

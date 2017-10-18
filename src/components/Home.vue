@@ -207,7 +207,7 @@ export default {
         })
     },
     formatMyDate (myDate) {
-      return Utils.dateToHumanDiff(this, myDate)
+      return Utils.dateToHumanDiff(this, myDate, true)
     }
   }
 }

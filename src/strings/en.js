@@ -126,7 +126,8 @@ const en = {
       verticalMenu2: 'Remove',
       verticalMenu3: 'Edit',
       verticalHead1: 'Offer',
-      verticalHead2: 'Responses'
+      verticalHead2: 'Responses',
+      title: 'My offers'
     },
     quizShow: {
       emailLabel: 'Youre Email',
@@ -134,6 +135,9 @@ const en = {
       phoneLabel: 'Your Phone number',
       invalidPhone: 'Invalid Phone number',
       infoForAccess: 'Fill in email and phone to access affinity questions'
+    },
+    createAdvert: {
+      advertTitleLabel: 'Offer title'
     }
   }
 }

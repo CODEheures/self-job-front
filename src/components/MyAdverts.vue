@@ -2,6 +2,7 @@
   <div class="layout-padding">
     <div class="row sm-gutter">
       <div class="col-12">
+        <p class="text-center">{{ strings.title }}</p>
         <q-list highlight separator no-border v-if="adverts.length > 0">
           <q-list-header>
             <q-item>
@@ -41,6 +42,9 @@
         </div>
       </div>
     </div>
+    <q-fixed-position corner="top-right" :offset="[18, 18]">
+      <q-btn round color="secondary" @click="$router.push({name: 'createAdvert'})" icon="add" />
+    </q-fixed-position>
   </div>
 </template>
 

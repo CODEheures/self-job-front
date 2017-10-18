@@ -18,7 +18,7 @@ const store = new Vuex.Store({
         choice: 'fr'
       },
       auth: {
-        check: false,
+        check: null,
         isNew: false,
         user: {}
       },

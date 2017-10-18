@@ -71,6 +71,9 @@ export default {
     }
   },
   mounted () {
+    // watcher auth check for redirect
+    Utils.redirectIfAuthCheckChange(this)
+
     // Set App Language
     LanguageSetter.setStrings(this)
 
@@ -82,9 +85,6 @@ export default {
 
     // If login launch the auto logout
     this.$q.events.$on('login', () => this.launchAutoLogoutTimer())
-
-    // watcher auth check for redirect
-    Utils.redirectByCheck(this)
   },
   methods: {
     login () {
@@ -134,6 +134,9 @@ export default {
           expire: localStorage.getItem('_ex'),
           callBack: this.launchAutoLogoutTimer
         })
+      }
+      else {
+        this.$store.commit('unsetAuth')
       }
     },
     testExistSession () {
