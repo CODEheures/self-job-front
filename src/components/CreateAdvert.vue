@@ -34,6 +34,9 @@
                         @add="uploadFile()"
                         @finish="loadImg()"
                         ref="uploader"
+                        :after="[
+                                 {icon: 'remove circle', error: false, handler () { delTempoImg() } }
+                               ]"
             />
           </q-card-media>
           <q-card-title>
@@ -97,7 +100,7 @@
   import LanguageSetter from '../strings/languageSetter'
   import Utils from './utils'
   import ApiRequests from '../api/requests'
-  import { date } from 'quasar'
+  import { Alert, date } from 'quasar'
 
   export default {
     props: {
@@ -134,10 +137,10 @@
       let advertParams = Object.keys(this.advert)
       advertParams.forEach((key) => {
         if (localStorage.getItem('createAdvert_' + key)) {
-          console.log(localStorage.getItem('createAdvert_' + key))
           this.advert[key] = JSON.parse(localStorage.getItem('createAdvert_' + key))
         }
       })
+      this.loadImg(true)
     },
     methods: {
       store (key, value) {
@@ -168,20 +171,51 @@
         this.advert.requirements = requirements
         this.store('requirements', this.advert.requirements)
       },
-      uploadFile (files) {
+      uploadFile () {
         setTimeout(() => {
           this.$refs.uploader.upload()
         }, 200)
       },
-      loadImg () {
+      loadImg (onMounted = false) {
         let that = this
         ApiRequests.getTempoImg()
           .then(function (response) {
-            console.log(response.data)
-            that.imgSrc = response.data
+            that.imgSrc = URL.createObjectURL(response.data)
+            that.$refs.uploader.reset()
           })
           .catch(function (error) {
-            console.log(error)
+            if (error.response.status === 404 && onMounted === true) {
+              // nothing
+            }
+            else {
+              Alert.create({
+                enter: 'bounceInUp',
+                leave: 'bounceOutDown',
+                color: 'negative',
+                icon: 'warning',
+                html: that.strings.errorLoadImage,
+                position: 'bottom-center',
+                dismissible: true
+              })
+            }
+          })
+      },
+      delTempoImg () {
+        let that = this
+        ApiRequests.delTempoImg()
+          .then(function () {
+            that.imgSrc = null
+          })
+          .catch(function () {
+            Alert.create({
+              enter: 'bounceInUp',
+              leave: 'bounceOutDown',
+              color: 'negative',
+              icon: 'warning',
+              html: that.strings.findError,
+              position: 'bottom-center',
+              dismissible: true
+            })
           })
       }
     }

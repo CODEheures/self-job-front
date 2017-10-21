@@ -146,7 +146,9 @@ const en = {
       tagsLabel: 'Keywords',
       requirementLabel: 'Ex: driver\'s license,... ',
       addImgLabel: 'Upload a picture to personalize your offer',
-      instructions: 'Complete the card below to make your offer'
+      instructions: 'Complete the card below to make your offer',
+      errorLoadImage: 'Oops! Image download failure',
+      errorDeleteImage: 'There seems to be a problem with the removal of this image'
     }
   }
 }

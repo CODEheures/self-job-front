@@ -141,7 +141,16 @@ const ApiRequests = {
       method: 'get',
       url: routes.getTempoImg,
       headers: {
-        'Accept': 'image/jpeg',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      },
+      responseType: 'blob'
+    })
+  },
+  delTempoImg () {
+    return axios.request({
+      method: 'delete',
+      url: routes.getTempoImg,
+      headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('_at')
       }
     })

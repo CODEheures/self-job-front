@@ -146,7 +146,9 @@ const fr = {
       tagsLabel: 'Mots clés de recherche',
       requirementLabel: 'Ex: Bac+2, Permis B...',
       addImgLabel: 'Télécharger une image pour personnaliser votre annonce',
-      instructions: 'Remplissez la carte ci-dessous pour constituer votre annonce'
+      instructions: 'Remplissez la carte ci-dessous pour constituer votre annonce',
+      errorLoadImage: 'Aie! L\'image n\'a pas réussie a être téléchargée!',
+      errorDeleteImage: 'Il semble y avoir un problême avec la suppression de cette image'
     }
   }
 }
