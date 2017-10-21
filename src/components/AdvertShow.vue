@@ -2,7 +2,7 @@
   <div class="layout-padding">
     <div class="row sm-gutter">
       <div class="col-12" v-if="advert">
-        <q-card>
+        <q-card style="max-width: 700px; margin: auto;">
           <q-item multiline>
             <q-item-side avatar="/statics/quasar-logo.png" />
             <q-item-main>

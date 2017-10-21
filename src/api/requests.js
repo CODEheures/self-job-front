@@ -12,12 +12,17 @@ const routes = {
   getAdverts: apiDomain + '/getAdverts',
   showAdvert: apiDomain + '/advert/',
   showQuiz: apiDomain + '/quiz/',
-  getMyAdverts: apiDomain + '/myAdverts'
+  getMyAdverts: apiDomain + '/myAdverts',
+  postAdvertImg: apiDomain + '/advert/img',
+  getTempoImg: apiDomain + '/advert/img/tempo'
 }
 
 axios.defaults.timeout = 3000
 
 const ApiRequests = {
+  listRoutes () {
+    return routes
+  },
   register (name, email, password, passwordConfirmation, language) {
     return axios.request({
       method: 'post',
@@ -127,6 +132,16 @@ const ApiRequests = {
       url: routes.getMyAdverts,
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      }
+    })
+  },
+  getTempoImg () {
+    return axios.request({
+      method: 'get',
+      url: routes.getTempoImg,
+      headers: {
+        'Accept': 'image/jpeg',
         'Authorization': 'Bearer ' + localStorage.getItem('_at')
       }
     })

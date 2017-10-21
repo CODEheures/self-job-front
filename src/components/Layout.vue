@@ -40,7 +40,15 @@
 
     <!-- sub-routes get injected here: -->
     <router-view />
-
+    <q-btn
+      big
+      v-back-to-top.animate="{offset: 500, duration: 200}"
+      color="secondary"
+      class="fixed-top-right animate-pop"
+      style="margin: 55px 12px 0 0"
+    >
+      <q-icon name="keyboard_arrow_up" />
+    </q-btn>
     <!-- Footer -->
     <q-toolbar slot="footer" >
       <q-toolbar-title>
@@ -55,9 +63,12 @@
 import LanguageSetter from '../strings/languageSetter'
 import ApiRequests from '../api/requests'
 import Utils from './utils'
-import { Alert, date } from 'quasar'
+import { Alert, BackToTop, date } from 'quasar'
 
 export default {
+  directives: {
+    BackToTop
+  },
   props: {
     stringPageScopeName: String
   },
@@ -169,4 +180,7 @@ export default {
 </script>
 
 <style>
+  .layout-padding {
+    padding-right: 15px;
+  }
 </style>

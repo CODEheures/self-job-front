@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-padding" style="padding-right: 15px;">
+  <div class="layout-padding">
     <div class="row sm-gutter">
       <div class="col-12" v-if="$store.state.properties.auth.isNew || !$store.state.properties.geolocation.exist || $store.state.properties.geolocation.denied || $store.state.properties.geolocation.error">
         <q-alert v-if="$store.state.properties.auth.isNew" color="green" icon="info outline" appear dismissible>{{ strings.checkYourMail }}</q-alert>
@@ -96,15 +96,6 @@
       </div>
 
     </div>
-    <q-btn
-      big
-      v-back-to-top.animate="{offset: 500, duration: 200}"
-      color="secondary"
-      class="fixed-top-right animate-pop"
-      style="margin: 55px 12px 0 0"
-    >
-      <q-icon name="keyboard_arrow_up" />
-    </q-btn>
   </div>
 </template>
 
@@ -112,12 +103,9 @@
 import LanguageSetter from '../strings/languageSetter'
 import ApiRequests from '../api/requests'
 import Utils from './utils'
-import { Alert, BackToTop } from 'quasar'
+import { Alert } from 'quasar'
 
 export default {
-  directives: {
-    BackToTop
-  },
   props: {
     stringPageScopeName: String
   },

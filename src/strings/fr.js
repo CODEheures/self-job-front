@@ -137,7 +137,16 @@ const fr = {
       infoForAccess: 'Remplir Email et téléphone pour acceder au questions d\'affinité'
     },
     createAdvert: {
-      advertTitleLabel: 'Titre de l\'annonce'
+      requirements: 'Exigences',
+      checkAcceptLabel: 'Je possède les exigences requises pour continuer',
+      btnNextStep: 'Accéder au questionnaire',
+      titleLabel: 'Titre de l\'annonce',
+      descriptionLabel: 'Texte de l\'annonce',
+      contractLabel: 'Type de contrat',
+      tagsLabel: 'Mots clés de recherche',
+      requirementLabel: 'Ex: Bac+2, Permis B...',
+      addImgLabel: 'Télécharger une image pour personnaliser votre annonce',
+      instructions: 'Remplissez la carte ci-dessous pour constituer votre annonce'
     }
   }
 }

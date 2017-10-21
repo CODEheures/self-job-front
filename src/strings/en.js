@@ -137,7 +137,16 @@ const en = {
       infoForAccess: 'Fill in email and phone to access affinity questions'
     },
     createAdvert: {
-      advertTitleLabel: 'Offer title'
+      requirements: 'Requirements',
+      checkAcceptLabel: 'I have the requirements to continue',
+      btnNextStep: 'Access the quiz',
+      titleLabel: 'Offer title',
+      descriptionLabel: 'Offer description',
+      contractLabel: 'Contract type',
+      tagsLabel: 'Keywords',
+      requirementLabel: 'Ex: driver\'s license,... ',
+      addImgLabel: 'Upload a picture to personalize your offer',
+      instructions: 'Complete the card below to make your offer'
     }
   }
 }
