@@ -139,7 +139,8 @@ const en = {
     createAdvert: {
       requirements: 'Requirements',
       checkAcceptLabel: 'I have the requirements to continue',
-      btnNextStep: 'Access the quiz',
+      btnNextStep: 'Next step',
+      btnPreviousStep: 'Previous step',
       titleLabel: 'Offer title',
       descriptionLabel: 'Offer description',
       contractLabel: 'Contract type',
@@ -148,7 +149,11 @@ const en = {
       addImgLabel: 'Upload a picture to personalize your offer',
       instructions: 'Complete the card below to make your offer',
       errorLoadImage: 'Oops! Image download failure',
-      errorDeleteImage: 'There seems to be a problem with the removal of this image'
+      errorDeleteImage: 'There seems to be a problem with the removal of this image',
+      stepOneTitle: 'Create Offer',
+      stepOneSubTitle: '1/3',
+      stepTwoTitle: 'Create Quiz #knowHow',
+      stepTwoSubTitle: '2/3'
     }
   }
 }

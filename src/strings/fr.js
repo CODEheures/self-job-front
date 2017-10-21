@@ -139,7 +139,8 @@ const fr = {
     createAdvert: {
       requirements: 'Exigences',
       checkAcceptLabel: 'Je possède les exigences requises pour continuer',
-      btnNextStep: 'Accéder au questionnaire',
+      btnNextStep: 'Etape suivante',
+      btnPreviousStep: 'Etape précédente',
       titleLabel: 'Titre de l\'annonce',
       descriptionLabel: 'Texte de l\'annonce',
       contractLabel: 'Type de contrat',
@@ -148,7 +149,11 @@ const fr = {
       addImgLabel: 'Télécharger une image pour personnaliser votre annonce',
       instructions: 'Remplissez la carte ci-dessous pour constituer votre annonce',
       errorLoadImage: 'Aie! L\'image n\'a pas réussie a être téléchargée!',
-      errorDeleteImage: 'Il semble y avoir un problême avec la suppression de cette image'
+      errorDeleteImage: 'Il semble y avoir un problême avec la suppression de cette image',
+      stepOneTitle: 'Création de l\'annonce',
+      stepOneSubTitle: '1/3',
+      stepTwoTitle: 'Création du questionnaire #savoirFaire',
+      stepTwoSubTitle: '2/3'
     }
   }
 }
