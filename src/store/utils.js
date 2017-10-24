@@ -29,6 +29,8 @@ const StoreUtils = {
       })
       .catch(function () {
         state.properties.auth.check = false
+        // Launching callBack after get User Infos
+        payload.callBack()
         Alert.create({
           enter: 'bounceInUp',
           leave: 'bounceOutDown',

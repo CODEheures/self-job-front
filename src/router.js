@@ -20,7 +20,10 @@ export default new VueRouter({
    * If switching back to default "hash" mode, don't forget to set the
    * build publicPath back to '' so Cordova builds work again.
    */
+
   mode: 'history',
+  scrollBehavior: () => ({ y: 0 }),
+
   routes: [
     { path: '/',
       component: load('Layout'),
@@ -73,9 +76,11 @@ export default new VueRouter({
           component: load('CreateAdvert'),
           props: {stringPageScopeName: 'createAdvert'},
           meta: {requireAuthCheck: true, requireAuthUncheck: false}
-        }
+        },
+        { path: '/test', component: load('Test') }
       ]
     },
+    { path: '/testLangs', component: load('TestLangs') },
     // Always leave this last one
     { path: '*', component: load('Error404') } // Not found
   ]

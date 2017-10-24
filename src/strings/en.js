@@ -147,13 +147,53 @@ const en = {
       tagsLabel: 'Keywords',
       requirementLabel: 'Ex: driver\'s license,... ',
       addImgLabel: 'Upload a picture to personalize your offer',
-      instructions: 'Complete the card below to make your offer',
       errorLoadImage: 'Oops! Image download failure',
       errorDeleteImage: 'There seems to be a problem with the removal of this image',
       stepOneTitle: 'Create Offer',
       stepOneSubTitle: '1/3',
+      stepOneInstructions: 'Complete the card below to make your offer',
       stepTwoTitle: 'Create Quiz #knowHow',
-      stepTwoSubTitle: '2/3'
+      stepTwoSubTitle: '2/3',
+      stepTwoInstructions: 'Add #knowHow questions to your Quiz'
+    }
+  },
+  questions: {
+    strings: {
+      common: {
+        example: 'Example:',
+        add: 'add',
+        remove: 'remove',
+        questionCardTitle: 'Question',
+        questionCardtype: {constructor: 'constructor', preview: 'preview'}
+      },
+      example: {
+        0: {
+          title: 'Question with one choice',
+          field_helper: 'Choose your option',
+          field_label: 'You prefer to work',
+          choices_label1: 'alone',
+          choices_label2: 'duet',
+          choices_label3: 'in a group'
+        }
+      },
+      constructor: {
+        0: {
+          label_helper: 'Your Question:'
+        }
+      },
+      preview: {
+        0: {
+          field_helper: 'Choose your option'
+        }
+      }
+    },
+    model: {
+      0: {
+        label: 'Your Question...',
+        option1: 'option 1',
+        option2: 'option 2',
+        option3: 'option 3'
+      }
     }
   }
 }

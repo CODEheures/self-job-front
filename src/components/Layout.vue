@@ -39,7 +39,10 @@
     </div>
 
     <!-- sub-routes get injected here: -->
-    <router-view />
+    <router-view v-show="!submit" />
+    <div class="col-12 text-center" v-if="submit">
+      <q-spinner-gears color="primary" :size="90" />
+    </div>
     <q-btn
       big
       v-back-to-top.animate="{offset: 500, duration: 200}"
@@ -137,6 +140,7 @@ export default {
       this.$store.commit('unsetAuth')
     },
     getExistSession () {
+      this.submit = true
       // Call the setAuth store mutation if valid session exist
       if (this.testExistSession()) {
         this.$store.commit('setAuth', {
@@ -148,6 +152,7 @@ export default {
       }
       else {
         this.$store.commit('unsetAuth')
+        this.submit = false
       }
     },
     testExistSession () {
@@ -167,13 +172,16 @@ export default {
       }
     },
     launchAutoLogoutTimer () {
-      let that = this
-      let tokenEnd = localStorage.getItem('_ex')
-      let now = new Date()
-      let lifetime = date.getDateDiff(tokenEnd, now, 'seconds')
-      this.autoLogout = setTimeout(function () {
-        that.logout()
-      }, lifetime * 1000)
+      this.submit = false
+      if (this.$store.state.properties.auth.check) {
+        let that = this
+        let tokenEnd = localStorage.getItem('_ex')
+        let now = new Date()
+        let lifetime = date.getDateDiff(tokenEnd, now, 'seconds')
+        this.autoLogout = setTimeout(function () {
+          that.logout()
+        }, lifetime * 1000)
+      }
     }
   }
 }

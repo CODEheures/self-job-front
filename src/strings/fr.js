@@ -62,7 +62,7 @@ const fr = {
       realh1: 'Recrutement humain',
       pitch: 'Le recrutement sans C.V.',
       hashtag1: '#savoirFaire',
-      hashtag2: '#savoirEtre',
+      hashtag2: '#savoirÊtre',
       step1: 'Selectionnez les annonces',
       step2: 'Validez les exigences',
       step3: 'Répondez au questions',
@@ -147,13 +147,53 @@ const fr = {
       tagsLabel: 'Mots clés de recherche',
       requirementLabel: 'Ex: Bac+2, Permis B...',
       addImgLabel: 'Télécharger une image pour personnaliser votre annonce',
-      instructions: 'Remplissez la carte ci-dessous pour constituer votre annonce',
       errorLoadImage: 'Aie! L\'image n\'a pas réussie a être téléchargée!',
       errorDeleteImage: 'Il semble y avoir un problême avec la suppression de cette image',
       stepOneTitle: 'Création de l\'annonce',
       stepOneSubTitle: '1/3',
-      stepTwoTitle: 'Création du questionnaire #savoirFaire',
-      stepTwoSubTitle: '2/3'
+      stepOneInstructions: 'Remplissez la carte ci-dessous pour constituer votre annonce',
+      stepTwoTitle: 'Création du questionnaire #savoirÊtre',
+      stepTwoSubTitle: '2/3',
+      stepTwoInstructions: 'Ajouter des questions #savoirÊtre à votre questionnaire'
+    }
+  },
+  questions: {
+    strings: {
+      common: {
+        example: 'Exemple:',
+        add: 'ajouter',
+        remove: 'supprimer',
+        questionCardTitle: 'Question',
+        questionCardtype: {constructor: 'constructeur', preview: 'apperçu'}
+      },
+      example: {
+        0: {
+          title: 'Question à choix unique',
+          field_helper: 'Choisir une réponse',
+          field_label: 'Préférez-vous travailler',
+          choices_label1: 'seul',
+          choices_label2: 'en duo',
+          choices_label3: 'en groupe'
+        }
+      },
+      constructor: {
+        0: {
+          label_helper: 'Votre Question:'
+        }
+      },
+      preview: {
+        0: {
+          field_helper: 'Choisir une réponse'
+        }
+      }
+    },
+    model: {
+      0: {
+        label: 'Votre Question...',
+        option1: 'option 1',
+        option2: 'option 2',
+        option3: 'option 3'
+      }
     }
   }
 }

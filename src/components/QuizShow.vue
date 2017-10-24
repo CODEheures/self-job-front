@@ -96,7 +96,6 @@ export default {
       question.datas.choices.forEach(function (choice, index) {
         options.push({label: choice.item, value: index})
       })
-      console.log(options)
       return options
     }
   }
