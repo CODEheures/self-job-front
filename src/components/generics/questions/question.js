@@ -15,30 +15,21 @@ const Question = {
   },
   getExampleStrings (component, type) {
     let language = component.$store.state.properties.appLanguage.choice
-    switch (type) {
-      case 0:
-        return Object.assign({},
-          component.$store.state.strings[language].questions.strings.common,
-          component.$store.state.strings[language].questions.strings.example[type])
-    }
+    return Object.assign({},
+      component.$store.state.strings[language].questions.strings.common,
+      component.$store.state.strings[language].questions.strings.example[type])
   },
   getConstructorStrings (component, type) {
     let language = component.$store.state.properties.appLanguage.choice
-    switch (type) {
-      case 0:
-        return Object.assign({},
-          component.$store.state.strings[language].questions.strings.common,
-          component.$store.state.strings[language].questions.strings.constructor[type])
-    }
+    return Object.assign({},
+      component.$store.state.strings[language].questions.strings.common,
+      component.$store.state.strings[language].questions.strings.constructor[type])
   },
   getPreviewStrings (component, type) {
     let language = component.$store.state.properties.appLanguage.choice
-    switch (type) {
-      case 0:
-        return Object.assign({},
-          component.$store.state.strings[language].questions.strings.common,
-          component.$store.state.strings[language].questions.strings.preview[type])
-    }
+    return Object.assign({},
+      component.$store.state.strings[language].questions.strings.common,
+      component.$store.state.strings[language].questions.strings.preview[type])
   }
 }
 
