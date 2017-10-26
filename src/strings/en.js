@@ -178,7 +178,8 @@ const en = {
       },
       constructor: {
         0: {
-          label_helper: 'Your Question:'
+          label_helper: 'Your Question:',
+          label_rank_chips: 'pts'
         }
       },
       preview: {

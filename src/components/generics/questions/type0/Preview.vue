@@ -19,11 +19,8 @@
 </template>
 
 <script>
-  import DynamicList from '../../../generics/DynamicList.vue'
-
   export default {
     components: {
-      DynamicList
     },
     props: {
       strings: Object,
@@ -48,7 +45,7 @@
         let that = this
         this.options = []
         options.forEach(function (elem, index) {
-          that.options.push({label: elem, value: index})
+          that.options.push({label: elem.name, value: index})
         })
       }
     }

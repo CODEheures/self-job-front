@@ -6,9 +6,9 @@ const Question = {
         return {
           label: component.$store.state.strings[language].questions.model[type].label,
           options: [
-            component.$store.state.strings[language].questions.model[type].option1,
-            component.$store.state.strings[language].questions.model[type].option2,
-            component.$store.state.strings[language].questions.model[type].option3
+            {name: component.$store.state.strings[language].questions.model[type].option1, rank: []},
+            {name: component.$store.state.strings[language].questions.model[type].option2, rank: []},
+            {name: component.$store.state.strings[language].questions.model[type].option3, rank: []}
           ]
         }
     }

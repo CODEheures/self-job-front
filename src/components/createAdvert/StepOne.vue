@@ -64,11 +64,11 @@
         <q-item-main>
           <q-item-tile color="brown-5">{{ strings.requirements }}</q-item-tile>
           <q-item-tile color="brown-5">
-            <dynamic-list
+            <draggable-list
               @update="updateRequirements"
               :label="strings.requirementLabel"
               :list="advert.requirements"
-            ></dynamic-list>
+            ></draggable-list>
           </q-item-tile>
         </q-item-main>
       </q-item>
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-  import DynamicList from '../generics/DynamicList.vue'
+  import DraggableList from '../generics/DraggableList.vue'
   import LanguageSetter from '../../strings/languageSetter'
   import Utils from '../utils'
   import ApiRequests from '../../api/requests'
@@ -85,7 +85,7 @@
 
   export default {
     components: {
-      DynamicList
+      DraggableList
     },
     props: {
       stringPageScopeName: String

@@ -8,11 +8,22 @@
       <q-field>
         <q-input v-model="label" type="text" :float-label="strings.label_helper" clearable @change="updateLabel" />
       </q-field>
-      <dynamic-list
-        @update="updateOptions"
+      <draggable-list-and-chips
+        @updateList="updateOptions"
+        @updateRank="ranksUpdate"
         :label="''"
         :list="options"
-      ></dynamic-list>
+        groupChipsName="rankingChips"
+        iconChips="stars"
+        :postLabelChips="strings.label_rank_chips"
+      ></draggable-list-and-chips>
+      <p>Attribution des points</p>
+      <draggable-chips
+        groupChipsName="rankingChips"
+        iconChips="stars"
+        :postLabel="strings.label_rank_chips"
+        :list="ranks"
+      ></draggable-chips>
     </q-card-main>
     <q-card-actions>
       <q-btn flat @click="removeQuestion">{{ strings.remove }}</q-btn>
@@ -21,11 +32,13 @@
 </template>
 
 <script>
-  import DynamicList from '../../../generics/DynamicList.vue'
+  import DraggableChips from '../../../generics/DraggableChips.vue'
+  import DraggableListAndChips from '../../../generics/DraggableListAndChips.vue'
 
   export default {
     components: {
-      DynamicList
+      DraggableChips,
+      DraggableListAndChips
     },
     props: {
       strings: Object,
@@ -35,18 +48,21 @@
     data () {
       return {
         label: '',
-        options: []
+        options: [],
+        ranks: []
       }
     },
     mounted () {
       let that = this
       this.label = this.question.label
       this.options = this.question.options
+      this.ranksUpdate()
       this.$watch('question.label', function () {
         that.label = that.question.label
       })
       this.$watch('question.options', function () {
         that.options = that.question.options
+        that.ranksUpdate()
       })
     },
     methods: {
@@ -58,6 +74,20 @@
       },
       removeQuestion () {
         this.$emit('removeQuestion')
+      },
+      ranksUpdate () {
+        let completeList = [...this.options.keys()]
+        this.options.forEach((item) => {
+          if (item.rank.length > 0) {
+            if (item.rank[0] >= this.options.length) {
+              item.rank = []
+            }
+            else {
+              completeList.splice(completeList.indexOf(item.rank[0]), 1)
+            }
+          }
+        })
+        this.ranks = completeList
       }
     }
   }
