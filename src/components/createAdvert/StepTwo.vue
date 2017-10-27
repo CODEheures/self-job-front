@@ -29,6 +29,7 @@
             :strings="getPreviewStrings(0)"
             :index="index"
             :question="question"
+            :flagUpdate="flagUpdatePreview"
             :underConstruction="true"
           ></question-type0-preview>
         </template>
@@ -59,7 +60,8 @@
         strings: {},
         units: [],
         submit: false,
-        questions: []
+        questions: [],
+        flagUpdatePreview: false
       }
     },
     mounted () {
@@ -84,6 +86,7 @@
       },
       updateOptions (options, index) {
         this.questions[index].options = options
+        this.flagUpdatePreview = !this.flagUpdatePreview
       },
       removeQuestion (index) {
         this.questions.splice(index, 1)

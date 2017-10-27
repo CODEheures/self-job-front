@@ -3,7 +3,7 @@
     <draggable v-model="dataList" :options="{draggable:'li.draggable', handle: '.q-icon.reorder'}">
       <li class="draggable" v-for="item,index in dataList" :key="'item_' + index + '_' + _uid">
         <q-field style="margin-top: 0; margin-bottom: 0; display: inline-block">
-          <q-input v-model="dataList[index].name" type="text"
+          <q-input v-model="dataList[index].name" type="text" @keyup="emitUpdateList"
                    :after="[
                {icon: 'delete forever', error: false, handler () { removeOfList(index) } },
                {icon: 'reorder', error: false }
@@ -62,7 +62,7 @@
         document.querySelectorAll('li.draggable .q-icon:last-of-type').forEach(function (elem) {
           elem.classList.add('reorder')
         })
-        this.$emit('updateList', this.dataList)
+        this.emitUpdateList()
       })
       this.$watch('list', function () {
         this.dataList = this.list
@@ -90,6 +90,9 @@
       },
       removeOfList (index) {
         this.dataList.splice(index, 1)
+      },
+      emitUpdateList () {
+        this.$emit('updateList', this.dataList)
       }
     }
   }

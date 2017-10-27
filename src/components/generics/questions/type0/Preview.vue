@@ -25,6 +25,11 @@
     props: {
       strings: Object,
       question: Object,
+      flagUpdate: {
+        type: Boolean,
+        required: false,
+        default: false
+      },
       index: Number,
       underConstruction: {
         type: Boolean,
@@ -40,16 +45,16 @@
     },
     mounted () {
       let that = this
-      this.$watch('question.options', function (options) {
-        that.makeOptions(options)
+      this.$watch('flagUpdate', function () {
+        that.makeOptions()
       })
-      that.makeOptions(this.question.options)
+      that.makeOptions()
     },
     methods: {
       makeOptions (options) {
         let that = this
         this.options = []
-        options.forEach(function (elem, index) {
+        this.question.options.forEach(function (elem, index) {
           that.options.push({label: elem.name, value: index})
         })
       }
