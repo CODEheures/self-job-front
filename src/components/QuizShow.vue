@@ -18,15 +18,14 @@
       </template>
       <template v-else="">
         <div class="col-12">
-          <template v-for="question in questions">
+          <h5 class="text-italic thin-paragraph text-brown-5">{{ strings.quizTitle }}</h5>
+          <template v-for="question, index in questions">
             <template v-if="question.type == 0">
-              <q-field :label="question.datas.title" :helper="'Question ' + (question.order+1) + '/' + questions.length">
-                <q-option-group
-                  type="radio"
-                  v-model="answer[question.order]"
-                  :options="getOptions(question)"
-                ></q-option-group>
-              </q-field>
+              <question-type0-preview
+                :strings="getPreviewStrings(0)"
+                :index="index"
+                :question="question.datas"
+              ></question-type0-preview>
             </template>
           </template>
         </div>
@@ -39,67 +38,68 @@
 </template>
 
 <script>
-import LanguageSetter from '../strings/languageSetter'
-import ApiRequests from '../api/requests'
-import Utils from './utils'
-import { Alert } from 'quasar'
+  import Question from './generics/questions/question'
+  import QuestionType0Preview from './generics/questions/type0/Preview.vue'
+  import LanguageSetter from '../strings/languageSetter'
+  import ApiRequests from '../api/requests'
+  import Utils from './utils'
+  import { Alert } from 'quasar'
 
-export default {
-  props: {
-    stringPageScopeName: String
-  },
-  data () {
-    return {
-      strings: {},
-      questions: [],
-      answer: [],
-      email: 'test@mail.test',
-      phone: '123456',
-      emailError: false,
-      phoneError: false
-    }
-  },
-  mounted () {
-    LanguageSetter.setStrings(this)
-    this.showQuiz()
-  },
-  methods: {
-    showQuiz () {
-      let that = this
-      ApiRequests.showQuiz(this.$route.params.id)
-        .then(function (response) {
-          that.submit = false
-          that.questions = response.data
-        })
-        .catch(function () {
-          that.submit = false
-          Alert.create({
-            enter: 'bounceInUp',
-            leave: 'bounceOutDown',
-            color: 'negative',
-            icon: 'warning',
-            html: that.strings.findError,
-            position: 'bottom-center',
-            dismissible: true
+  export default {
+    components: {
+      QuestionType0Preview
+    },
+    props: {
+      stringPageScopeName: String
+    },
+    data () {
+      return {
+        strings: {},
+        questions: [],
+        answer: [],
+        email: '',
+        phone: '',
+        emailError: false,
+        phoneError: false
+      }
+    },
+    mounted () {
+      LanguageSetter.setStrings(this)
+      this.showQuiz()
+    },
+    methods: {
+      showQuiz () {
+        let that = this
+        ApiRequests.showQuiz(this.$route.params.id)
+          .then(function (response) {
+            that.submit = false
+            that.questions = response.data
           })
-        })
-    },
-    checkEmail () {
-      this.emailError = Utils.checkCorrectEmail(this.email)
-    },
-    checkAndFormPhone () {
-      this.phone = Utils.formPhone(this.phone)
-      this.phoneError = Utils.checkCorrectPhone(this.phone)
-    },
-    getOptions (question) {
-      let options = []
-      question.datas.choices.forEach(function (choice, index) {
-        options.push({label: choice.item, value: index})
-      })
-      return options
+          .catch(function () {
+            that.submit = false
+            Alert.create({
+              enter: 'bounceInUp',
+              leave: 'bounceOutDown',
+              color: 'negative',
+              icon: 'warning',
+              html: that.strings.findError,
+              position: 'bottom-center',
+              dismissible: true
+            })
+          })
+      },
+      checkEmail () {
+        this.emailError = Utils.checkCorrectEmail(this.email)
+      },
+      checkAndFormPhone () {
+        this.phone = Utils.formPhone(this.phone)
+        this.phoneError = Utils.checkCorrectPhone(this.phone)
+      },
+      getPreviewStrings (type) {
+        return Question.getPreviewStrings(this, type)
+      }
     }
   }
-}
 </script>
 
 <style lang="scss">

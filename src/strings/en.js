@@ -134,7 +134,8 @@ const en = {
       invalidEmail: 'Invalid Email address',
       phoneLabel: 'Your Phone number',
       invalidPhone: 'Invalid Phone number',
-      infoForAccess: 'Fill in email and phone to access affinity questions'
+      infoForAccess: 'Fill in email and phone to access employer quiz of #knowHow',
+      quizTitle: 'Quiz'
     },
     createAdvert: {
       requirements: 'Requirements',

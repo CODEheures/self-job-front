@@ -2,7 +2,7 @@
   <q-card>
     <q-card-title class="bg-primary text-white">
       {{ strings.questionCardTitle }} {{ index + 1 }}
-      <p slot="right" class="text-white">{{ strings.questionCardtype.preview }}</p>
+      <p slot="right" v-if="underConstruction" class="text-white">{{ strings.questionCardtype.preview }}</p>
     </q-card-title>
     <q-card-main>
       <q-field
@@ -25,7 +25,12 @@
     props: {
       strings: Object,
       question: Object,
-      index: Number
+      index: Number,
+      underConstruction: {
+        type: Boolean,
+        required: false,
+        default: false
+      }
     },
     data () {
       return {

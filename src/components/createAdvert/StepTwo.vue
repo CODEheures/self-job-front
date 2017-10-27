@@ -29,6 +29,7 @@
             :strings="getPreviewStrings(0)"
             :index="index"
             :question="question"
+            :underConstruction="true"
           ></question-type0-preview>
         </template>
       </div>

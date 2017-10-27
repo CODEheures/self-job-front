@@ -56,7 +56,7 @@
       <div class="col-12 text-center" v-if="submit">
         <q-spinner-gears color="primary" v-if="submit" :size="90" />
       </div>
-      <div class="row" v-if="!submit && adverts.length > 0">
+      <div style="max-width: 95%" class="col-12" v-if="!submit && adverts.length > 0">
           <q-infinite-scroll ref="infiniteScroll" :handler="loadMore" :offset="10">
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4" v-for="advert,index in adverts" :key="advert.id">

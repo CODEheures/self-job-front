@@ -134,7 +134,8 @@ const fr = {
       invalidEmail: 'Addresse email mal formée',
       phoneLabel: 'Votre Téléphone',
       invalidPhone: 'Téléphone invalide',
-      infoForAccess: 'Remplir Email et téléphone pour acceder au questions d\'affinité'
+      infoForAccess: 'Remplir Email et téléphone pour acceder au questionnaire #savoirÊtre de l\'employeur',
+      quizTitle: 'Questionnaire #savoirÊtre'
     },
     createAdvert: {
       requirements: 'Exigences',
