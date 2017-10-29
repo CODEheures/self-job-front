@@ -103,8 +103,14 @@
     mounted () {
       LanguageSetter.setStrings(this)
       LanguageSetter.setUnits(this)
+      if (localStorage.getItem('createQuestions')) {
+        this.questions = JSON.parse(localStorage.getItem('createQuestions'))
+      }
     },
     methods: {
+      store (value) {
+        localStorage.setItem('createQuestions', JSON.stringify(value))
+      },
       getExampleStrings (type) {
         return Question.getExampleStrings(this, type)
       },
@@ -116,12 +122,15 @@
       },
       addQuestion (type) {
         this.questions.push(Object.assign({}, {type: type}, Question.getModel(this, type)))
+        this.store(this.questions)
       },
       updateLabel (label, index) {
         this.questions[index].label = label
+        this.store(this.questions)
       },
       updateOptions (options, index) {
         this.questions[index].options = options
+        this.store(this.questions)
         this.flagUpdatePreview = !this.flagUpdatePreview
       },
       updateValidation (isValid, index) {
@@ -136,6 +145,7 @@
       },
       removeQuestion (index) {
         this.questions.splice(index, 1)
+        this.store(this.questions)
       }
     }
   }
