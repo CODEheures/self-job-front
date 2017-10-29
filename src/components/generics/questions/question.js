@@ -6,10 +6,21 @@ const Question = {
         return {
           label: component.$store.state.strings[language].questions.model[type].label,
           options: [
-            {name: component.$store.state.strings[language].questions.model[type].option1, rank: []},
-            {name: component.$store.state.strings[language].questions.model[type].option2, rank: []},
-            {name: component.$store.state.strings[language].questions.model[type].option3, rank: []}
-          ]
+            {label: component.$store.state.strings[language].questions.model[type].option1, value: 0, rank: []},
+            {label: component.$store.state.strings[language].questions.model[type].option2, value: 1, rank: []},
+            {label: component.$store.state.strings[language].questions.model[type].option3, value: 2, rank: []}
+          ],
+          isValid: false
+        }
+      case 1:
+        return {
+          label: component.$store.state.strings[language].questions.model[type].label,
+          options: [
+            {label: component.$store.state.strings[language].questions.model[type].option1, value: 0, rank: []},
+            {label: component.$store.state.strings[language].questions.model[type].option2, value: 1, rank: []},
+            {label: component.$store.state.strings[language].questions.model[type].option3, value: 2, rank: []}
+          ],
+          isValid: false
         }
     }
   },
@@ -25,7 +36,7 @@ const Question = {
       component.$store.state.strings[language].questions.strings.common,
       component.$store.state.strings[language].questions.strings.constructor[type])
   },
-  getPreviewStrings (component, type) {
+  getViewStrings (component, type) {
     let language = component.$store.state.properties.appLanguage.choice
     return Object.assign({},
       component.$store.state.strings[language].questions.strings.common,

@@ -25,6 +25,7 @@
         iconChips="stars"
         :postLabel="strings.label_rank_chips"
         :list="ranks"
+        :clone="true"
       ></draggable-chips>
     </q-card-main>
     <q-card-actions>
@@ -84,15 +85,10 @@
         this.$emit('removeQuestion')
       },
       ranksUpdate () {
-        let completeList = [...this.options.keys()]
+        let completeList = [-1, ...this.options.keys()]
         this.options.forEach((item) => {
-          if (item.rank.length > 0) {
-            if (item.rank[0] >= this.options.length) {
-              item.rank = []
-            }
-            else {
-              completeList.splice(completeList.indexOf(item.rank[0]), 1)
-            }
+          if (item.rank.length > 0 && item.rank[0] >= this.options.length) {
+            item.rank = []
           }
         })
         this.ranks = completeList

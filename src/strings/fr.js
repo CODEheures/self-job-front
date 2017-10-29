@@ -175,10 +175,23 @@ const fr = {
           choices_label1: 'seul',
           choices_label2: 'en duo',
           choices_label3: 'en groupe'
+        },
+        1: {
+          title: 'Question à choix multiples',
+          field_helper: 'Choisir une ou plusieurs réponse(s)',
+          field_label: 'Mon futur employeur doit',
+          choices_label1: 'Etre à l\'écoute de mes demandes',
+          choices_label2: 'Me laisser un maximum d\'autonomie',
+          choices_label3: 'Être ferme avec les clients',
+          choices_label4: 'Être souple avec les clients'
         }
       },
       constructor: {
         0: {
+          label_helper: 'Votre Question:',
+          label_rank_chips: 'pts'
+        },
+        1: {
           label_helper: 'Votre Question:',
           label_rank_chips: 'pts'
         }
@@ -186,11 +199,20 @@ const fr = {
       preview: {
         0: {
           field_helper: 'Choisir une réponse'
+        },
+        1: {
+          field_helper: 'Choisir une ou plusieurs réponse(s)'
         }
       }
     },
     model: {
       0: {
+        label: 'Votre Question...',
+        option1: 'option 1',
+        option2: 'option 2',
+        option3: 'option 3'
+      },
+      1: {
         label: 'Votre Question...',
         option1: 'option 1',
         option2: 'option 2',

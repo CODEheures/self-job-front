@@ -9,7 +9,7 @@
         :helper="strings.field_helper"
         :label="strings.field_label">
         <q-option-group
-          type="radio"
+          type="checkbox"
           v-model="option"
           :options="[
                       { label: strings.choices_label1, value: 1 },
@@ -32,7 +32,7 @@
     },
     data () {
       return {
-        option: ''
+        option: []
       }
     },
     methods: {

@@ -28,6 +28,11 @@
       },
       list: {
         type: Array
+      },
+      clone: {
+        type: Boolean,
+        required: false,
+        default: false
       }
     },
     data () {
@@ -43,7 +48,12 @@
     },
     methods: {
       chipsDragOptions () {
-        return {draggable: '.draggableChips', sort: true, group: {name: this.groupChipsName, pull: true, put: false}}
+        if (this.clone) {
+          return {draggable: '.draggableChips', sort: true, group: {name: this.groupChipsName, pull: 'clone', put: false}}
+        }
+        else {
+          return {draggable: '.draggableChips', sort: true, group: {name: this.groupChipsName, pull: true, put: false}}
+        }
       }
     }
   }

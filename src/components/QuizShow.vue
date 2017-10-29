@@ -21,11 +21,11 @@
           <h5 class="text-italic thin-paragraph text-brown-5">{{ strings.quizTitle }}</h5>
           <template v-for="question, index in questions">
             <template v-if="question.type == 0">
-              <question-type0-preview
-                :strings="getPreviewStrings(0)"
+              <question-type0-view
+                :strings="getViewStrings(0)"
                 :index="index"
                 :question="question.datas"
-              ></question-type0-preview>
+              ></question-type0-view>
             </template>
           </template>
         </div>
@@ -39,7 +39,7 @@
 
 <script>
   import Question from './generics/questions/question'
-  import QuestionType0Preview from './generics/questions/type0/Preview.vue'
+  import QuestionType0View from './generics/questions/type0/View.vue'
   import LanguageSetter from '../strings/languageSetter'
   import ApiRequests from '../api/requests'
   import Utils from './utils'
@@ -47,7 +47,7 @@
 
   export default {
     components: {
-      QuestionType0Preview
+      QuestionType0View
     },
     props: {
       stringPageScopeName: String
@@ -95,8 +95,8 @@
         this.phone = Utils.formPhone(this.phone)
         this.phoneError = Utils.checkCorrectPhone(this.phone)
       },
-      getPreviewStrings (type) {
-        return Question.getPreviewStrings(this, type)
+      getViewStrings (type) {
+        return Question.getViewStrings(this, type)
       }
     }
   }

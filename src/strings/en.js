@@ -175,10 +175,23 @@ const en = {
           choices_label1: 'alone',
           choices_label2: 'duet',
           choices_label3: 'in a group'
+        },
+        1: {
+          title: 'Multiple choice question',
+          field_helper: 'Choose one or more answer(s)',
+          field_label: 'My future employer must',
+          choices_label1: 'Listen to my requests',
+          choices_label2: 'Give me maximum autonomy',
+          choices_label3: 'Be firm with customers',
+          choices_label4: 'Be flexible with customers'
         }
       },
       constructor: {
         0: {
+          label_helper: 'Your Question:',
+          label_rank_chips: 'pts'
+        },
+        1: {
           label_helper: 'Your Question:',
           label_rank_chips: 'pts'
         }
@@ -186,11 +199,20 @@ const en = {
       preview: {
         0: {
           field_helper: 'Choose your option'
+        },
+        1: {
+          field_helper: 'Choose one or more answer(s)'
         }
       }
     },
     model: {
       0: {
+        label: 'Your Question...',
+        option1: 'option 1',
+        option2: 'option 2',
+        option3: 'option 3'
+      },
+      1: {
         label: 'Your Question...',
         option1: 'option 1',
         option2: 'option 2',

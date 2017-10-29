@@ -2,14 +2,14 @@
   <q-card>
     <q-card-title class="bg-primary text-white">
       {{ strings.questionCardTitle }} {{ index + 1 }}
-      <p slot="right" v-if="underConstruction" class="text-white">{{ strings.questionCardtype.preview }}</p>
+      <p slot="right" v-if="preview" class="text-white">{{ strings.questionCardtype.preview }}</p>
     </q-card-title>
     <q-card-main>
       <q-field
         :helper="strings.field_helper"
         :label="question.label">
         <q-option-group
-          type="radio"
+          type="checkbox"
           v-model="option"
           :options="options"
         />
@@ -31,7 +31,7 @@
         default: false
       },
       index: Number,
-      underConstruction: {
+      preview: {
         type: Boolean,
         required: false,
         default: false
@@ -39,7 +39,7 @@
     },
     data () {
       return {
-        option: '',
+        option: [],
         options: []
       }
     },
@@ -51,11 +51,10 @@
       that.makeOptions()
     },
     methods: {
-      makeOptions (options) {
-        let that = this
+      makeOptions () {
         this.options = []
-        this.question.options.forEach(function (elem, index) {
-          that.options.push({label: elem.name, value: index})
+        this.question.options.forEach((elem) => {
+          this.options.push({label: elem.label, value: elem.value})
         })
       }
     }

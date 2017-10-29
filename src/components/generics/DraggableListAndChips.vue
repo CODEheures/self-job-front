@@ -3,14 +3,14 @@
     <draggable v-model="dataList" :options="{draggable:'li.draggable', handle: '.q-icon.reorder'}">
       <li class="draggable" v-for="item,index in dataList" :key="'item_' + index + '_' + _uid">
         <q-field style="margin-top: 0; margin-bottom: 0; display: inline-block">
-          <q-input v-model="dataList[index].name" type="text" @keyup="emitUpdateList"
+          <q-input v-model="dataList[index].label" type="text" @keyup="emitUpdateList"
                    :after="[
                {icon: 'delete forever', error: false, handler () { removeOfList(index) } },
                {icon: 'reorder', error: false }
              ]"
           />
         </q-field>
-        <draggable v-model="dataList[index].rank" :options="chipsDragOptions(dataList[index].rank.length)" style="display: inline-block">
+        <draggable v-model="dataList[index].rank" :options="chipsDragOptions(dataList[index].rank.length)" style="display: inline-block" @add="emitUpdateList">
           <div class="draggableChips">
             <q-chip  :icon="iconChips" v-if="dataList[index].rank.length > 0" color="primary" closable @close="clearRank(index)">{{ dataList[index].rank[0] }}{{postLabelChips}}</q-chip>
             <q-chip  :icon="iconChips" v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</q-chip>
@@ -84,7 +84,7 @@
       },
       addToList () {
         if (this.tempo.length > 0) {
-          this.dataList.push({name: this.tempo, rank: []})
+          this.dataList.push({label: this.tempo, rank: []})
           this.tempo = ''
         }
       },
