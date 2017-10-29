@@ -161,7 +161,7 @@ const en = {
   questions: {
     strings: {
       common: {
-        example: 'Example:',
+        example: 'Example',
         add: 'add',
         remove: 'remove',
         questionCardTitle: 'Question',

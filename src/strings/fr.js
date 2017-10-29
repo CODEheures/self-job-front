@@ -161,7 +161,7 @@ const fr = {
   questions: {
     strings: {
       common: {
-        example: 'Exemple:',
+        example: 'Exemple',
         add: 'ajouter',
         remove: 'supprimer',
         questionCardTitle: 'Question',
