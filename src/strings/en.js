@@ -184,16 +184,35 @@ const en = {
           choices_label2: 'Give me maximum autonomy',
           choices_label3: 'Be firm with customers',
           choices_label4: 'Be flexible with customers'
+        },
+        2: {
+          title: 'List to sort',
+          field_helper: 'Sort this list',
+          field_label: 'Rank these qualities according to your preferences',
+          choices_label1: 'Patience',
+          choices_label2: 'Respect',
+          choices_label3: 'Altruism',
+          choices_label4: 'Coherence',
+          choices_label5: 'Trust',
+          choices_label6: 'Courage',
+          choices_label7: 'Curiosity',
+          choices_label8: 'Tenacity'
         }
       },
       constructor: {
         0: {
           label_helper: 'Your Question:',
+          label_helper2: 'Award of points',
           label_rank_chips: 'pts'
         },
         1: {
           label_helper: 'Your Question:',
+          label_helper2: 'Award of points',
           label_rank_chips: 'pts'
+        },
+        2: {
+          label_helper: 'Your Question:',
+          label_helper2: 'Your favorite ranking:'
         }
       },
       preview: {
@@ -202,6 +221,9 @@ const en = {
         },
         1: {
           field_helper: 'Choose one or more answer(s)'
+        },
+        2: {
+          field_helper: 'Sort this list'
         }
       }
     },
@@ -213,6 +235,12 @@ const en = {
         option3: 'option 3'
       },
       1: {
+        label: 'Your Question...',
+        option1: 'option 1',
+        option2: 'option 2',
+        option3: 'option 3'
+      },
+      2: {
         label: 'Your Question...',
         option1: 'option 1',
         option2: 'option 2',

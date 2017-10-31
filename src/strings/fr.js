@@ -184,16 +184,35 @@ const fr = {
           choices_label2: 'Me laisser un maximum d\'autonomie',
           choices_label3: 'Être ferme avec les clients',
           choices_label4: 'Être souple avec les clients'
+        },
+        2: {
+          title: 'Liste à classer',
+          field_helper: 'Classer cette liste',
+          field_label: 'Classez ces qualités selon vos préférences',
+          choices_label1: 'La patience',
+          choices_label2: 'Le respect',
+          choices_label3: 'L\'altruisme',
+          choices_label4: 'La cohérence',
+          choices_label5: 'La confiance',
+          choices_label6: 'Le courage',
+          choices_label7: 'La curiosité',
+          choices_label8: 'La ténacité'
         }
       },
       constructor: {
         0: {
           label_helper: 'Votre Question:',
+          label_helper2: 'Attribution des points',
           label_rank_chips: 'pts'
         },
         1: {
           label_helper: 'Votre Question:',
+          label_helper2: 'Attribution des points',
           label_rank_chips: 'pts'
+        },
+        2: {
+          label_helper: 'Votre Question:',
+          label_helper2: 'Votre classement préféré:'
         }
       },
       preview: {
@@ -202,6 +221,9 @@ const fr = {
         },
         1: {
           field_helper: 'Choisir une ou plusieurs réponse(s)'
+        },
+        2: {
+          field_helper: 'Classer cette liste'
         }
       }
     },
@@ -213,6 +235,12 @@ const fr = {
         option3: 'option 3'
       },
       1: {
+        label: 'Votre Question...',
+        option1: 'option 1',
+        option2: 'option 2',
+        option3: 'option 3'
+      },
+      2: {
         label: 'Votre Question...',
         option1: 'option 1',
         option2: 'option 2',

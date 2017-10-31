@@ -64,11 +64,10 @@
         <q-item-main>
           <q-item-tile color="brown-5">{{ strings.requirements }}</q-item-tile>
           <q-item-tile color="brown-5">
-            <draggable-list
-              @update="updateRequirements"
+            <draggable-input-list
               :label="strings.requirementLabel"
-              :list="advert.requirements"
-            ></draggable-list>
+              v-model="advert.requirements"
+            />
           </q-item-tile>
         </q-item-main>
       </q-item>
@@ -77,7 +76,7 @@
 </template>
 
 <script>
-  import DraggableList from '../generics/DraggableList.vue'
+  import DraggableInputList from '../generics/DraggableInputList.vue'
   import LanguageSetter from '../../strings/languageSetter'
   import Utils from '../utils'
   import ApiRequests from '../../api/requests'
@@ -85,7 +84,7 @@
 
   export default {
     components: {
-      DraggableList
+      DraggableInputList
     },
     props: {
       stringPageScopeName: String
@@ -131,6 +130,9 @@
         that.$emit('stepOneStatusChange', {'isCompleteStepOne': value})
       })
       this.testCompleteStepOne()
+      this.$watch('advert.requirements', function () {
+        this.store('requirements', this.advert.requirements)
+      })
     },
     methods: {
       store (key, value) {
@@ -195,9 +197,6 @@
             this.isCompleteStepOne = false
           }
         })
-      },
-      updateRequirements (list) {
-        this.store('requirements', list)
       }
     }
   }

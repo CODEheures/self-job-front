@@ -2,17 +2,23 @@
   <q-step name="stepTwo" :title="'' + strings.stepTwoTitle" :subtitle="strings.stepTwoSubTitle" :disable="!isCompleteStepOne">
     <h5 class="text-italic thin-paragraph text-brown-5">{{ strings.stepTwoInstructions }}</h5>
     <div class="row">
-      <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="col-md-6 col-lg-6 col-xl-4">
         <question-type0-example
           @addQuestion="addQuestion(0)"
           :strings="getExampleStrings(0)"
         ></question-type0-example>
       </div>
-      <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="col-md-6 col-lg-6 col-xl-4">
         <question-type1-example
           @addQuestion="addQuestion(1)"
           :strings="getExampleStrings(1)"
         ></question-type1-example>
+      </div>
+      <div class="col-md-6 col-lg-6 col-xl-4">
+        <question-type2-example
+          @addQuestion="addQuestion(2)"
+          :strings="getExampleStrings(2)"
+        ></question-type2-example>
       </div>
     </div>
     <q-item-separator />
@@ -20,25 +26,27 @@
       <div class="col-md-6" >
         <template v-if="question.type === 0">
           <question-type0-contructor
-            @updateLabel="updateLabel($event, index)"
-            @updateOptions="updateOptions($event, index)"
-            @updateValidation="updateValidation($event, index)"
             @removeQuestion="removeQuestion(index)"
             :index="index"
             :strings="getConstructorStrings(0)"
-            :question="question"
+            v-model="questions[index]"
           ></question-type0-contructor>
         </template>
         <template v-if="question.type === 1">
           <question-type1-contructor
-            @updateLabel="updateLabel($event, index)"
-            @updateOptions="updateOptions($event, index)"
-            @updateValidation="updateValidation($event, index)"
             @removeQuestion="removeQuestion(index)"
             :index="index"
             :strings="getConstructorStrings(1)"
-            :question="question"
+            v-model="questions[index]"
           ></question-type1-contructor>
+        </template>
+        <template v-if="question.type === 2">
+          <question-type2-contructor
+            @removeQuestion="removeQuestion(index)"
+            :index="index"
+            :strings="getConstructorStrings(2)"
+            v-model="questions[index]"
+          ></question-type2-contructor>
         </template>
       </div>
       <div class="col-md-6" >
@@ -47,7 +55,6 @@
             :strings="getViewStrings(0)"
             :index="index"
             :question="question"
-            :flagUpdate="flagUpdatePreview"
             :preview="true"
           ></question-type0-view>
         </template>
@@ -56,9 +63,16 @@
             :strings="getViewStrings(1)"
             :index="index"
             :question="question"
-            :flagUpdate="flagUpdatePreview"
             :preview="true"
           ></question-type1-view>
+        </template>
+        <template v-if="question.type === 2">
+          <question-type2-view
+            :strings="getViewStrings(2)"
+            :index="index"
+            :question="question"
+            :preview="true"
+          ></question-type2-view>
         </template>
       </div>
     </div>
@@ -75,6 +89,9 @@
   import QuestionType1Example from '../generics/questions/type1/Example.vue'
   import QuestionType1Contructor from '../generics/questions/type1/Constructor.vue'
   import QuestionType1View from '../generics/questions/type1/View.vue'
+  import QuestionType2Example from '../generics/questions/type2/Example.vue'
+  import QuestionType2Contructor from '../generics/questions/type2/Constructor.vue'
+  import QuestionType2View from '../generics/questions/type2/View.vue'
   import LanguageSetter from '../../strings/languageSetter'
 
   export default {
@@ -84,7 +101,10 @@
       QuestionType0View,
       QuestionType1Example,
       QuestionType1Contructor,
-      QuestionType1View
+      QuestionType1View,
+      QuestionType2Example,
+      QuestionType2Contructor,
+      QuestionType2View
     },
     props: {
       stringPageScopeName: String,
@@ -96,20 +116,25 @@
         units: [],
         submit: false,
         questions: [],
-        flagUpdatePreview: false,
         isValid: false
       }
     },
     mounted () {
+      let that = this
       LanguageSetter.setStrings(this)
       LanguageSetter.setUnits(this)
       if (localStorage.getItem('createQuestions')) {
         this.questions = JSON.parse(localStorage.getItem('createQuestions'))
+        this.updateValidation()
       }
+      this.$watch('questions', function () {
+        that.updateValidation()
+        that.store()
+      }, {deep: true})
     },
     methods: {
-      store (value) {
-        localStorage.setItem('createQuestions', JSON.stringify(value))
+      store () {
+        localStorage.setItem('createQuestions', JSON.stringify(this.questions))
       },
       getExampleStrings (type) {
         return Question.getExampleStrings(this, type)
@@ -122,30 +147,20 @@
       },
       addQuestion (type) {
         this.questions.push(Object.assign({}, {type: type}, Question.getModel(this, type)))
-        this.store(this.questions)
+        this.store()
       },
-      updateLabel (label, index) {
-        this.questions[index].label = label
-        this.store(this.questions)
+      removeQuestion (index) {
+        this.questions.splice(index, 1)
+        this.store()
       },
-      updateOptions (options, index) {
-        this.questions[index].options = options
-        this.store(this.questions)
-        this.flagUpdatePreview = !this.flagUpdatePreview
-      },
-      updateValidation (isValid, index) {
+      updateValidation () {
         this.isValid = true
-        this.questions[index].isValid = isValid
         this.questions.forEach((item) => {
           if (item.isValid === false) {
             this.isValid = false
             return null
           }
         })
-      },
-      removeQuestion (index) {
-        this.questions.splice(index, 1)
-        this.store(this.questions)
       }
     }
   }

@@ -8,6 +8,17 @@
 </template>
 
 <script>
+  /**
+   * Props
+   *  - groupChipsName: String. The name of available draggable Chips group
+   *  - iconChips: String. The name of icon of chips if you want
+   *  - postLabel: String. If you want a label after chips value
+   *  - list: Array of chips values. [1,2,3,...]
+   *  - clone: Boolean. If you want a clone after drag
+   *
+   * Events:
+   *
+   */
   import draggable from 'vuedraggable'
 
   export default {

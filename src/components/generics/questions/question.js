@@ -22,6 +22,16 @@ const Question = {
           ],
           isValid: false
         }
+      case 2:
+        return {
+          label: component.$store.state.strings[language].questions.model[type].label,
+          options: [
+            {label: component.$store.state.strings[language].questions.model[type].option1, value: 0, rank: [0]},
+            {label: component.$store.state.strings[language].questions.model[type].option2, value: 1, rank: [1]},
+            {label: component.$store.state.strings[language].questions.model[type].option3, value: 2, rank: [2]}
+          ],
+          isValid: false
+        }
     }
   },
   getExampleStrings (component, type) {

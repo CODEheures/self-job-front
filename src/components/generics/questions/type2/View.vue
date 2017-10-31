@@ -8,19 +8,17 @@
       <q-field
         :helper="strings.field_helper"
         :label="question.label">
-        <q-option-group
-          type="checkbox"
-          v-model="option"
-          :options="options"
-        />
+        <draggable-list  v-model="list"/>
       </q-field>
     </q-card-main>
   </q-card>
 </template>
 
 <script>
+  import DraggableList from '../../../generics/DraggableList.vue'
   export default {
     components: {
+      DraggableList
     },
     props: {
       strings: Object,
@@ -34,24 +32,23 @@
     },
     data () {
       return {
-        option: [],
-        options: []
+        list: []
       }
     },
     mounted () {
       let that = this
       this.$watch('question.options', function () {
-        that.makeOptions()
+        that.constructList()
       })
-      that.makeOptions()
+      this.constructList()
     },
     methods: {
-      makeOptions () {
-        let options = []
-        this.question.options.forEach((elem) => {
-          options.push({label: elem.label, value: elem.value})
+      constructList () {
+        let list = []
+        this.question.options.forEach((item) => {
+          list.push(item.label)
         })
-        this.options = options
+        this.list = list
       }
     }
   }

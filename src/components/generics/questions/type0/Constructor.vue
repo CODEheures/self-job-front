@@ -2,24 +2,22 @@
   <q-card>
     <q-card-title class="bg-secondary text-white">
       {{ strings.questionCardTitle }} {{ index + 1 }}
-      <q-icon v-if="isValid" name="thumb up" color="white" size="20px"></q-icon>
-      <q-icon v-if="!isValid" name="thumb down" color="warning" size="20px"></q-icon>
+      <q-icon v-if="dataQuestion.isValid" name="thumb up" color="white" size="20px"></q-icon>
+      <q-icon v-if="!dataQuestion.isValid" name="thumb down" color="warning" size="20px"></q-icon>
       <p slot="right" class="text-white">{{ strings.questionCardtype.constructor }}</p>
     </q-card-title>
     <q-card-main>
       <q-field>
-        <q-input v-model="label" type="text" :float-label="strings.label_helper" clearable @change="updateLabel" />
+        <q-input v-model="dataQuestion.label" type="text" :float-label="strings.label_helper" clearable @change="emitChange" />
       </q-field>
-      <draggable-list-and-chips
-        @updateList="updateOptions"
-        @updateRank="ranksUpdate"
+      <draggable-input-list-and-chips
         :label="''"
-        :list="options"
+        v-model="dataQuestion.options"
         groupChipsName="rankingChips"
         iconChips="stars"
         :postLabelChips="strings.label_rank_chips"
-      ></draggable-list-and-chips>
-      <p>Attribution des points</p>
+      ></draggable-input-list-and-chips>
+      <p>{{ strings.label_helper2 }}</p>
       <draggable-chips
         groupChipsName="rankingChips"
         iconChips="stars"
@@ -35,12 +33,17 @@
 
 <script>
   import DraggableChips from '../../../generics/DraggableChips.vue'
-  import DraggableListAndChips from '../../../generics/DraggableListAndChips.vue'
+  import DraggableInputListAndChips from '../../../generics/DraggableInputListAndChips.vue'
+  import _ from 'lodash'
 
   export default {
     components: {
       DraggableChips,
-      DraggableListAndChips
+      DraggableInputListAndChips
+    },
+    model: {
+      prop: 'question',
+      event: 'change'
     },
     props: {
       strings: Object,
@@ -50,44 +53,24 @@
     data () {
       return {
         label: '',
-        options: [],
         ranks: [],
-        isValid: false
+        dataQuestion: {}
       }
     },
     mounted () {
-      let that = this
-      this.label = this.question.label
-      this.options = this.question.options
+      this.dataQuestion = _.cloneDeep(this.question)
       this.ranksUpdate()
-      this.$watch('question.label', function () {
-        that.label = that.question.label
-      })
-      this.$watch('question.options', function () {
-        that.options = that.question.options
-        that.ranksUpdate()
+      this.$watch('dataQuestion.options', function () {
+        this.ranksUpdate()
+        this.emitChange()
       })
     },
     methods: {
-      updateLabel () {
-        this.testIfValid()
-        this.$emit('updateLabel', this.label)
-      },
-      updateOptions (options) {
-        options.forEach((item, index) => {
-          item.value = index
-        })
-        this.testIfValid()
-        this.$emit('updateOptions', options)
-      },
-      removeQuestion () {
-        this.$emit('removeQuestion')
-      },
       ranksUpdate () {
-        let completeList = [...this.options.keys()]
-        this.options.forEach((item) => {
+        let completeList = [...this.dataQuestion.options.keys()]
+        this.dataQuestion.options.forEach((item) => {
           if (item.rank.length > 0) {
-            if (item.rank[0] >= this.options.length) {
+            if (item.rank[0] >= this.dataQuestion.options.length) {
               item.rank = []
             }
             else {
@@ -100,19 +83,27 @@
       },
       testIfValid () {
         let isValid = true
-        if (this.label.length === 0) {
+        if (this.dataQuestion.label.length === 0) {
           isValid = false
         }
-        if (this.options.length < 2) {
+        if (this.dataQuestion.options.length < 2) {
           isValid = false
         }
-        this.options.forEach((item) => {
+        this.dataQuestion.options.forEach((item) => {
           if (item.rank.length === 0) {
             isValid = false
           }
         })
-        this.isValid = isValid
-        this.$emit('updateValidation', this.isValid)
+        this.dataQuestion.isValid = isValid
+        return isValid
+      },
+      removeQuestion () {
+        this.$emit('removeQuestion', this.index)
+      },
+      emitChange () {
+        let newQuestion = _.cloneDeep(this.dataQuestion)
+        newQuestion.isValid = this.testIfValid()
+        this.$emit('change', newQuestion)
       }
     }
   }
