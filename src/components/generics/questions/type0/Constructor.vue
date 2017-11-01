@@ -13,13 +13,13 @@
       <draggable-input-list-and-chips
         :label="''"
         v-model="dataQuestion.options"
-        groupChipsName="rankingChips"
+        :groupChipsName="'rankingChips'+index"
         iconChips="stars"
         :postLabelChips="strings.label_rank_chips"
       ></draggable-input-list-and-chips>
       <p>{{ strings.label_helper2 }}</p>
       <draggable-chips
-        groupChipsName="rankingChips"
+        :groupChipsName="'rankingChips'+index"
         iconChips="stars"
         :postLabel="strings.label_rank_chips"
         :list="ranks"
