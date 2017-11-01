@@ -85,7 +85,9 @@
       },
       getRankingList (options) {
         let list = []
-        options
+        // clone because sorting affect object by reference
+        let cloneOptions = _.cloneDeep(options)
+        cloneOptions
           .sort((item1, item2) => {
             return item1.rank - item2.rank
           })
