@@ -34,24 +34,18 @@
     },
     data () {
       return {
-        option: '',
-        options: []
+        option: ''
       }
     },
-    mounted () {
-      let that = this
-      this.$watch('question.options', function () {
-        that.makeOptions()
-      })
-      that.makeOptions()
-    },
-    methods: {
-      makeOptions () {
-        let options = []
-        this.question.options.forEach((elem) => {
-          options.push({label: elem.label, value: elem.value})
-        })
-        this.options = options
+    computed: {
+      options: {
+        get () {
+          let options = []
+          this.question.options.forEach((elem) => {
+            options.push({label: elem.label, value: elem.value})
+          })
+          return options
+        }
       }
     }
   }

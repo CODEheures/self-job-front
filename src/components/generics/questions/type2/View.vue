@@ -30,25 +30,18 @@
         default: false
       }
     },
-    data () {
-      return {
-        list: []
-      }
-    },
-    mounted () {
-      let that = this
-      this.$watch('question.options', function () {
-        that.constructList()
-      })
-      this.constructList()
-    },
-    methods: {
-      constructList () {
-        let list = []
-        this.question.options.forEach((item) => {
-          list.push(item.label)
-        })
-        this.list = list
+    computed: {
+      list: {
+        get () {
+          let list = []
+          this.question.options.forEach((item) => {
+            list.push(item.label)
+          })
+          return list
+        },
+        set () {
+          console.log('list bouge')
+        }
       }
     }
   }
