@@ -22,6 +22,7 @@
 
 <script>
   /**
+   * v-model: question
    * Props
    *  - strings: array of strings for i18n
    *  - question: Object, structure
@@ -58,25 +59,21 @@
     },
     data () {
       return {
-        label: '',
-        list: [],
-        rankingList: [],
-        dataQuestion: {}
+        dataQuestion: _.cloneDeep(this.question),
+        list: this.getList(this.question.options),
+        rankingList: this.getRankingList(this.question.options)
       }
     },
-    mounted () {
-      this.dataQuestion = _.cloneDeep(this.question)
-      this.list = this.getList(this.dataQuestion.options)
-      this.rankingList = this.getRankingList(this.dataQuestion.options)
-      this.$watch('list', function () {
+    watch: {
+      list () {
         this.updateOptions()
         this.rankingList = this.getRankingList(this.dataQuestion.options)
         this.emitChange()
-      })
-      this.$watch('rankingList', function () {
+      },
+      rankingList () {
         this.updateOptions()
         this.emitChange()
-      })
+      }
     },
     methods: {
       getList (options) {
