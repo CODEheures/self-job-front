@@ -25,19 +25,10 @@
    * v-model: question
    * Props
    *  - strings: array of strings for i18n
-   *  - question: Object, structure
-   *    {label: 'abcd',
-   *      options: [
-   *        {label: 'aaa', value: 0, rank: [0]},
-   *        ... ]
-   *      isValid: false
-   *    }
    *  - index: integer for question number
    *
    * Events:
-   *  - @updateLabel : send new label 'abcd'
-   *  - @updateOptions: send new options [{label: 'aaa', value: 0, rank: [0]}, ...]
-   *  - @updateValidation: send boolean validation
+   *  - @removeQuestion
    */
   import DraggableInputList from '../../../generics/DraggableInputList.vue'
   import DraggableList from '../../../generics/DraggableList.vue'

@@ -33,6 +33,15 @@
 </template>
 
 <script>
+  /**
+   * v-model: question
+   * Props
+   *  - strings: array of strings for i18n
+   *  - index: integer for question number
+   *
+   * Events:
+   *  - @removeQuestion
+   */
   import DraggableChips from '../../../generics/DraggableChips.vue'
   import DraggableInputListAndChips from '../../../generics/DraggableInputListAndChips.vue'
   import _ from 'lodash'
@@ -53,18 +62,18 @@
     },
     data () {
       return {
-        label: '',
         ranks: [],
-        dataQuestion: {}
+        dataQuestion: _.cloneDeep(this.question)
+      }
+    },
+    watch: {
+      'dataQuestion.options' () {
+        this.ranksUpdate()
+        this.emitChange()
       }
     },
     mounted () {
-      this.dataQuestion = _.cloneDeep(this.question)
       this.ranksUpdate()
-      this.$watch('dataQuestion.options', function () {
-        this.ranksUpdate()
-        this.emitChange()
-      })
     },
     methods: {
       ranksUpdate () {
