@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul :id="'selfJob'+_uid">
     <draggable v-model="dataList" :options="{draggable:'li.draggable', handle: '.q-icon.reorder'}" @update="updateList()">
       <li class="draggable" v-for="item,index in dataList" :key="'item_' + index + '_' + _uid">
         <q-field style="margin-top: 0; margin-bottom: 0; display: inline-block">
@@ -65,23 +65,23 @@
       },
       postLabelChips: String
     },
+    watch: {
+      list () {
+        this.dataList = _.clone(this.list)
+        this.$nextTick(function () {
+          this.addDragSelector()
+        })
+      }
+    },
     data () {
       return {
-        strings: {},
         dataList: _.cloneDeep(this.list),
         tempo: ''
       }
     },
     mounted () {
-      let that = this
       this.$nextTick(function () {
-        that.addDragSelector()
-      })
-      this.$watch('list', function () {
-        that.dataList = _.clone(that.list)
-        that.$nextTick(function () {
-          that.addDragSelector()
-        })
+        this.addDragSelector()
       })
     },
     methods: {
@@ -111,7 +111,7 @@
         this.emitChange(newList)
       },
       addDragSelector () {
-        document.querySelectorAll('li.draggable .q-icon:last-of-type').forEach(function (elem) {
+        document.querySelectorAll('#selfJob' + this._uid + ' li.draggable .q-icon:last-of-type').forEach(function (elem) {
           elem.classList.add('reorder')
         })
       },

@@ -37,18 +37,15 @@
         type: Array
       }
     },
-    data () {
-      return {
-        strings: {},
-        dataList: _.clone(this.list),
-        tempo: ''
+    watch: {
+      list () {
+        this.dataList = _.clone(this.list)
       }
     },
-    mounted () {
-      let that = this
-      this.$watch('list', function () {
-        that.dataList = _.clone(that.list)
-      })
+    data () {
+      return {
+        dataList: _.clone(this.list)
+      }
     },
     methods: {
       updateList () {

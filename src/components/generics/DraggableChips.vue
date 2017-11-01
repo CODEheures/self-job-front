@@ -46,16 +46,15 @@
         default: false
       }
     },
-    data () {
-      return {
-        dataList: []
+    watch: {
+      list () {
+        this.dataList = this.list
       }
     },
-    mounted () {
-      this.$watch('list', function () {
-        this.dataList = this.list
-      })
-      this.dataList = this.list
+    data () {
+      return {
+        dataList: this.list
+      }
     },
     methods: {
       chipsDragOptions () {
