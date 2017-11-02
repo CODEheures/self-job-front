@@ -155,7 +155,10 @@ const en = {
       stepOneInstructions: 'Complete the card below to make your offer',
       stepTwoTitle: 'Create Quiz #knowHow',
       stepTwoSubTitle: '2/3',
-      stepTwoInstructions: 'Add #knowHow questions to your Quiz'
+      stepTwoInstructions: 'Add #knowHow questions to your Quiz',
+      stepTwoQuestionListTitle0: 'Quiz',
+      stepTwoQuestionListTitle1: 'New questions',
+      stepTwoQuestionListTitle2: 'My library'
     }
   },
   questions: {
@@ -215,7 +218,7 @@ const en = {
           label_helper2: 'Your favorite ranking:'
         }
       },
-      preview: {
+      view: {
         0: {
           field_helper: 'Choose your option'
         },

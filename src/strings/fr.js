@@ -155,7 +155,10 @@ const fr = {
       stepOneInstructions: 'Remplissez la carte ci-dessous pour constituer votre annonce',
       stepTwoTitle: 'Création du questionnaire #savoirÊtre',
       stepTwoSubTitle: '2/3',
-      stepTwoInstructions: 'Ajouter des questions #savoirÊtre à votre questionnaire'
+      stepTwoInstructions: 'Ajouter des questions #savoirÊtre à votre questionnaire',
+      stepTwoQuestionListTitle0: 'Questionnaire',
+      stepTwoQuestionListTitle1: 'Nouvelles',
+      stepTwoQuestionListTitle2: 'Bibliotheque'
     }
   },
   questions: {
@@ -215,7 +218,7 @@ const fr = {
           label_helper2: 'Votre classement préféré:'
         }
       },
-      preview: {
+      view: {
         0: {
           field_helper: 'Choisir une réponse'
         },

@@ -35,22 +35,19 @@ const Question = {
     }
   },
   getExampleStrings (component, type) {
-    let language = component.$store.state.properties.appLanguage.choice
-    return Object.assign({},
-      component.$store.state.strings[language].questions.strings.common,
-      component.$store.state.strings[language].questions.strings.example[type])
+    return this.getStrings(component, type, 'example')
   },
   getConstructorStrings (component, type) {
-    let language = component.$store.state.properties.appLanguage.choice
-    return Object.assign({},
-      component.$store.state.strings[language].questions.strings.common,
-      component.$store.state.strings[language].questions.strings.constructor[type])
+    return this.getStrings(component, type, 'constructor')
   },
   getViewStrings (component, type) {
+    return this.getStrings(component, type, 'view')
+  },
+  getStrings (component, typeQuestion, typeString) {
     let language = component.$store.state.properties.appLanguage.choice
     return Object.assign({},
       component.$store.state.strings[language].questions.strings.common,
-      component.$store.state.strings[language].questions.strings.preview[type])
+      component.$store.state.strings[language].questions.strings[typeString][typeQuestion])
   }
 }
 

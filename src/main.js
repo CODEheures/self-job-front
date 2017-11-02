@@ -14,7 +14,7 @@ import 'quasar-extras/animate/bounceOutDown.css'
 
 import Vue from 'vue'
 import Quasar, {
-  QLayout, QToolbar, QBtn, QIcon, QToolbarTitle, QTabs, QRouteTab, QPopover,
+  QLayout, QToolbar, QBtn, QIcon, QToolbarTitle, QTabs, QTab, QRouteTab, QPopover,
   QList, QItem, QField, QInput, QSelect, QSpinner, QSpinnerGears, QAlert, QCard, QCardTitle, QCardActions,
   QCardMedia, QCardSeparator, QCardMain, QChipsInput, QRange, QListHeader, QItemSide, QItemMain, QItemTile,
   QInfiniteScroll, QChip, QCheckbox, QItemSeparator, QOptionGroup, QSideLink, QCollapsible, QFixedPosition,
@@ -33,6 +33,7 @@ Vue.use(Quasar, { components: {
   QIcon,
   QToolbarTitle,
   QTabs,
+  QTab,
   QRouteTab,
   QPopover,
   QList,
