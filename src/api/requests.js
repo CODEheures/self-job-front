@@ -14,7 +14,8 @@ const routes = {
   showQuiz: apiDomain + '/quiz/',
   getMyAdverts: apiDomain + '/myAdverts',
   postAdvertImg: apiDomain + '/advert/img',
-  getTempoImg: apiDomain + '/advert/img/tempo'
+  getTempoImg: apiDomain + '/advert/img/tempo',
+  getQuestionsLibrary: apiDomain + '/question/library'
 }
 
 axios.defaults.timeout = 3000
@@ -151,6 +152,16 @@ const ApiRequests = {
       method: 'delete',
       url: routes.getTempoImg,
       headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      }
+    })
+  },
+  getQuestionsLibrary () {
+    return axios.request({
+      method: 'get',
+      url: routes.getQuestionsLibrary,
+      headers: {
+        'Accept': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('_at')
       }
     })

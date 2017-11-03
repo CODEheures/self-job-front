@@ -158,7 +158,28 @@ const fr = {
       stepTwoInstructions: 'Ajouter des questions #savoirÊtre à votre questionnaire',
       stepTwoQuestionListTitle0: 'Questionnaire',
       stepTwoQuestionListTitle1: 'Nouvelles',
-      stepTwoQuestionListTitle2: 'Bibliotheque'
+      stepTwoQuestionListTitle2: 'Bibliotheque',
+      stepTwoValidation: {
+        numQuestions: {
+          ok: 'Nombre de questions suffisant',
+          ko: 'Nombre de questions insuffisant'
+        },
+        allQuestions: {
+          ok: 'Toutes les questions sont valides',
+          ko: {
+            start: {
+              singular: 'La question',
+              plural: 'Les questions'
+            },
+            end: {
+              singular: 'est invalide',
+              plural: 'sont invalides'
+            }
+          }
+        },
+        btn: 'Valider'
+      },
+      StepTwoGetLibraryError: 'Votre bibliothèque de questions n\'a pas pu être chargée'
     }
   },
   questions: {

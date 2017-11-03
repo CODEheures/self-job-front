@@ -15,6 +15,9 @@
         />
       </q-field>
     </q-card-main>
+    <q-card-actions v-if="library">
+      <q-btn flat @click="$emit('addQuestion')">{{ strings.add }}</q-btn>
+    </q-card-actions>
   </q-card>
 </template>
 
@@ -27,6 +30,11 @@
       question: Object,
       index: Number,
       preview: {
+        type: Boolean,
+        required: false,
+        default: false
+      },
+      library: {
         type: Boolean,
         required: false,
         default: false

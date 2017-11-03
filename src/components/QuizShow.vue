@@ -24,7 +24,7 @@
               <question-type0-view
                 :strings="getViewStrings(0)"
                 :index="index"
-                :question="question.datas"
+                :question="question.form"
               ></question-type0-view>
             </template>
           </template>

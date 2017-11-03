@@ -158,7 +158,28 @@ const en = {
       stepTwoInstructions: 'Add #knowHow questions to your Quiz',
       stepTwoQuestionListTitle0: 'Quiz',
       stepTwoQuestionListTitle1: 'New questions',
-      stepTwoQuestionListTitle2: 'My library'
+      stepTwoQuestionListTitle2: 'My library',
+      stepTwoValidation: {
+        numQuestions: {
+          ok: 'Suufficient number of questions',
+          ko: 'Insufficient number of questions'
+        },
+        allQuestions: {
+          ok: 'All questions are valid',
+          ko: {
+            start: {
+              singular: 'The question',
+              plural: 'Questions'
+            },
+            end: {
+              singular: 'is invalid',
+              plural: 'are invalid'
+            }
+          }
+        },
+        btn: 'Validate'
+      },
+      StepTwoGetLibraryError: 'Fail to load Your personnal question library'
     }
   },
   questions: {

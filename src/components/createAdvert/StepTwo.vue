@@ -34,11 +34,45 @@
         </div>
       </div>
       <q-item-separator />
-      <q-btn color="secondary" :disabled="!isValid">Valider</q-btn>
+      <p class="thin-paragraph">
+        <template v-if="validation.numQuestions.isValid">
+          <q-icon size="30px" color="positive"  name="check box" />
+          {{ strings.stepTwoValidation.numQuestions.ok }}
+        </template>
+        <template v-else>
+          <q-icon size="30px" color="warning" name="warning" />
+          {{ strings.stepTwoValidation.numQuestions.ko }}: {{ questions.length }} /{{ validation.numQuestions.min }}
+        </template>
+      </p>
+      <p class="thin-paragraph" v-if="questions.length > 0 && validation.allQuestions.isValid">
+        <q-icon size="30px" color="positive" name="check box" /> {{ strings.stepTwoValidation.allQuestions.ok }}
+      </p>
+      <p class="thin-paragraph" v-if="questions.length > 0 && !validation.allQuestions.isValid">
+        <q-icon size="30px" color="warning" name="warning" />
+        <template v-if="validation.allQuestions.invalids.length === 1">
+          {{ strings.stepTwoValidation.allQuestions.ko.start.singular }} {{ validation.allQuestions.invalids[0] + 1 }} {{ strings.stepTwoValidation.allQuestions.ko.end.singular }}
+        </template>
+        <template v-else>
+          {{ strings.stepTwoValidation.allQuestions.ko.start.plural }}
+          <span v-for="invalid, index in validation.allQuestions.invalids">
+            <template v-if="index === validation.allQuestions.invalids.length - 1">
+              {{ invalid + 1 }}
+            </template>
+            <template v-if="index === validation.allQuestions.invalids.length - 2">
+              {{ invalid + 1 }} et
+            </template>
+            <template v-if="index !== validation.allQuestions.invalids.length - 2 && index !== validation.allQuestions.invalids.length - 1">
+              {{ invalid + 1 }},
+            </template>
+          </span>
+          {{ strings.stepTwoValidation.allQuestions.ko.end.plural }}
+        </template>
+      </p>
+      <q-btn color="secondary" :disabled="!validation.isValid">Valider</q-btn>
     </div>
 
     <div class="row" v-show="selectedTab=='tab1'">
-      <div class="col-md-6 col-lg-6 col-xl-3" v-for="type in 3">
+      <div class="col-md-6 col-lg-6 col-xl-4" v-for="type in 3">
         <question-example
           @addQuestion="addQuestion"
           :type="type-1"
@@ -46,7 +80,13 @@
       </div>
     </div>
     <div class="row" v-show="selectedTab=='tab2'">
-      Ma biblio
+      <div class="col-md-6 col-lg-6 col-xl-4"  v-for="question, index in questionsLibrary">
+        <question-library
+          @addQuestion="addLibraryQuestion"
+          :index="index"
+          :question="question"
+        ></question-library>
+      </div>
     </div>
   </q-step>
 </template>
@@ -55,13 +95,17 @@
   import Question from '../generics/questions/question'
   import QuestionConstructor from '../generics/questions/Constructor.vue'
   import QuestionView from '../generics/questions/View.vue'
+  import QuestionLibrary from '../generics/questions/Library.vue'
   import QuestionExample from '../generics/questions/Example.vue'
   import LanguageSetter from '../../strings/languageSetter'
+  import ApiRequests from '../../api/requests'
+  import { Alert } from 'quasar'
 
   export default {
     components: {
       QuestionConstructor,
       QuestionView,
+      QuestionLibrary,
       QuestionExample
     },
     props: {
@@ -70,11 +114,32 @@
     },
     data () {
       return {
-        strings: {},
+        strings: {
+          stepTwoValidation: {
+            numQuestions: {},
+            allQuestions: {
+              ko: {
+                start: {},
+                end: {}
+              }
+            }
+          }
+        },
         units: [],
         submit: false,
         questions: [],
-        isValid: false,
+        questionsLibrary: [],
+        validation: {
+          isValid: false,
+          numQuestions: {
+            min: 2,
+            isValid: false
+          },
+          allQuestions: {
+            invalids: [],
+            isValid: false
+          }
+        },
         selectedTab: undefined
       }
     },
@@ -94,6 +159,7 @@
         this.questions = JSON.parse(localStorage.getItem('createQuestions'))
         this.updateValidation()
       }
+      this.getQuestionsLibrary()
     },
     methods: {
       store () {
@@ -109,23 +175,56 @@
           window.scroll(0, (elem.offsetTop - window.pageYOffset))
         })
       },
+      addLibraryQuestion (index) {
+        this.questions.push(Object.assign({}, {type: this.questionsLibrary[index].type}, this.questionsLibrary[index].datas))
+        this.store()
+        this.selectedTab = 'tab0'
+        this.$nextTick(function () {
+          let $name = 'selfJobQuestion' + this._uid + '_' + (this.questions.length - 1)
+          let elem = this.$refs[$name][0]
+          window.scroll(0, (elem.offsetTop - window.pageYOffset))
+        })
+      },
       removeQuestion (index) {
         this.questions.splice(index, 1)
         this.updateValidation()
         this.store()
       },
       updateValidation () {
-        this.isValid = true
-        if (this.questions.length === 0) {
-          this.isValid = false
-          return null
-        }
-        this.questions.forEach((item) => {
+        // Minimun num of questions for a valid quiz
+        this.validation.numQuestions.isValid = this.questions.length >= this.validation.numQuestions.min
+
+        // Each question is valid
+        this.validation.allQuestions.invalids = []
+        this.questions.forEach((item, index) => {
           if (item.isValid === false) {
-            this.isValid = false
-            return null
+            this.validation.allQuestions.invalids.push(index)
           }
         })
+        this.validation.allQuestions.isValid = this.validation.allQuestions.invalids.length === 0
+
+        // Global Results
+        this.validation.isValid = this.validation.numQuestions.isValid && this.validation.allQuestions.isValid
+      },
+      getQuestionsLibrary () {
+        let that = this
+        ApiRequests.getQuestionsLibrary()
+          .then(function (response) {
+            that.questionsLibrary = response.data
+          })
+          .catch(function (error) {
+            console.log(error)
+            that.submit = false
+            Alert.create({
+              enter: 'bounceInUp',
+              leave: 'bounceOutDown',
+              color: 'negative',
+              icon: 'warning',
+              html: that.strings.StepTwoGetLibraryError,
+              position: 'bottom-center',
+              dismissible: true
+            })
+          })
       }
     }
   }
