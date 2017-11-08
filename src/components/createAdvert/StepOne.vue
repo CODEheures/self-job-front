@@ -6,12 +6,15 @@
         <q-item-side avatar="/statics/quasar-logo.png" />
         <q-item-main>
           <q-field style="margin-top: 0">
-            <q-input v-model="advert.title" type="text" :float-label="strings.titleLabel" clearable @change="store('title',advert.title)" />
+            <q-input v-model="advert.title" type="text" :float-label="strings.titleLabel" clearable @change="store" />
           </q-field>
           <q-item-tile sublabel>
             {{ $store.state.properties.auth.user.company + ' - ' }}
             <q-field style="margin-top: 0; display: inline-block">
-              <q-input v-model="advert.contract" type="text" :float-label="strings.contractLabel" clearable @change="store('contract',advert.contract)" />
+              <q-input v-model="advert.contract" type="text" :float-label="strings.contractLabel" clearable @change="store" />
+            </q-field>
+            <q-field>
+              <q-input id="inputAutoComplete" v-model="advert.place.formatted_address" type="text" :placeholder="strings.placeLabel" clearable @change="testClearPlace" />
             </q-field>
           </q-item-tile>
         </q-item-main>
@@ -42,7 +45,7 @@
           <q-chips-input
             v-model="advert.tags"
             :placeholder="strings.tagsLabel"
-            @change="store('tags',advert.tags)"
+            @change="store"
           />
         </div>
       </q-card-title>
@@ -55,11 +58,10 @@
             :max-height="100"
             :min-rows="7"
             clearable
-            @change="store('description',advert.description)"
+            @change="store"
           />
         </q-field>
       </q-card-main>
-      <q-card-separator />
       <q-item>
         <q-item-main>
           <q-item-tile color="brown-5">{{ strings.requirements }}</q-item-tile>
@@ -80,7 +82,7 @@
   import LanguageSetter from '../../strings/languageSetter'
   import Utils from '../utils'
   import ApiRequests from '../../api/requests'
-  import { Alert, date } from 'quasar'
+  import { Alert, date, Events } from 'quasar'
 
   export default {
     components: {
@@ -88,6 +90,17 @@
     },
     props: {
       stringPageScopeName: String
+    },
+    computed: {
+      postImgUrl () {
+        return ApiRequests.listRoutes().postAdvertImg
+      },
+      headers () {
+        return {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('_at')
+        }
+      }
     },
     data () {
       return {
@@ -100,43 +113,43 @@
           description: '',
           contract: '',
           tags: [],
-          requirements: []
+          requirements: [],
+          place: {
+            formatted_address: '',
+            lat: '',
+            lon: ''
+          }
         },
         fakeDate: '',
-        postImgUrl: '',
-        headers: {},
         imgSrc: null,
         isCompleteStepOne: false
       }
     },
+    watch: {
+      isCompleteStepOne (value) {
+        this.$emit('stepOneStatusChange', {'isCompleteStepOne': value})
+      },
+      'advert.requirements' () {
+        this.store()
+      }
+    },
     mounted () {
-      let that = this
       LanguageSetter.setStrings(this)
       LanguageSetter.setUnits(this)
-      this.postImgUrl = ApiRequests.listRoutes().postAdvertImg
-      this.headers = {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('_at')
-      }
       this.fakeDate = this.formatMyDate(date.subtractFromDate(new Date(), { days: 2 }))
-      let advertParams = Object.keys(this.advert)
-      advertParams.forEach((key) => {
-        if (localStorage.getItem('createAdvert_' + key)) {
-          this.advert[key] = JSON.parse(localStorage.getItem('createAdvert_' + key))
-        }
-      })
+      let localAdvert = localStorage.getItem('createAdvert')
+      if (localAdvert) {
+        this.advert = JSON.parse(localAdvert)
+      }
       this.loadImg(true)
-      this.$watch('isCompleteStepOne', function (value) {
-        that.$emit('stepOneStatusChange', {'isCompleteStepOne': value})
-      })
       this.testCompleteStepOne()
-      this.$watch('advert.requirements', function () {
-        this.store('requirements', this.advert.requirements)
+      Events.$on('placeChanged', (place) => {
+        this.placeChanged(place)
       })
     },
     methods: {
-      store (key, value) {
-        localStorage.setItem('createAdvert_' + key, JSON.stringify(value))
+      store () {
+        localStorage.setItem('createAdvert', JSON.stringify(this.advert))
         this.testCompleteStepOne()
       },
       formatMyDate (myDate) {
@@ -196,7 +209,31 @@
           if (this.advert[key].length === 0) {
             this.isCompleteStepOne = false
           }
+          if (key === 'place') {
+            let place = this.advert[key]
+            let placeKeys = Object.keys(this.advert[key])
+            placeKeys.forEach((placeKey) => {
+              if (place[placeKey].length === 0) {
+                this.isCompleteStepOne = false
+              }
+            })
+          }
         })
+      },
+      testClearPlace () {
+        if (this.advert.place.formatted_address === '') {
+          this.advert.place.lat = ''
+          this.advert.place.lon = ''
+          this.store()
+        }
+      },
+      placeChanged (place) {
+        if ('geometry' in place && 'location' in place.geometry && 'lat' in place.geometry.location && 'lng' in place.geometry.location) {
+          this.advert.place.formatted_address = place.formatted_address
+          this.advert.place.lat = place.geometry.location.lat()
+          this.advert.place.lon = place.geometry.location.lng()
+          this.store()
+        }
       }
     }
   }

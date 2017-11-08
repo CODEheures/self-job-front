@@ -5,6 +5,8 @@ require(`./themes/app.${__THEME}.styl`)
 // 2. or, use next line to activate DEFAULT QUASAR STYLE
 // require(`quasar/dist/quasar.${__THEME}.css`)
 // ==============================
+import googleAutocomplete from './api/googleMap/autocomplete'
+window.initAutocomplete = googleAutocomplete.initAutocomplete
 
 // Uncomment the following lines if you need IE11/Edge support
 // require(`quasar/dist/quasar.ie`)

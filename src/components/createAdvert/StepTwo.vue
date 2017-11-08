@@ -68,7 +68,10 @@
           {{ strings.stepTwoValidation.allQuestions.ko.end.plural }}
         </template>
       </p>
-      <q-btn color="secondary" :disabled="!validation.isValid">Valider</q-btn>
+      <q-btn v-model="submit" loader color="secondary" :disabled="!validation.isValid" @click="postAdvert">
+        {{ strings.stepTwoValidation.btn }}
+        <span slot="loading">{{ strings.stepTwoValidation.btn }}...<q-spinner-gears size="20px" /></span>
+      </q-btn>
     </div>
 
     <div class="row" v-show="selectedTab=='tab1'">
@@ -80,6 +83,9 @@
       </div>
     </div>
     <div class="row" v-show="selectedTab=='tab2'">
+      <div class="col-12" v-if="!libraryLoaded">
+        <q-alert color="warning" icon="warning" appear>{{ strings.StepTwoGetLibraryError }}</q-alert>
+      </div>
       <div class="col-md-6 col-lg-6 col-xl-4"  v-for="question, index in questionsLibrary">
         <question-library
           @addQuestion="addLibraryQuestion"
@@ -127,6 +133,7 @@
         },
         units: [],
         submit: false,
+        libraryLoaded: false,
         questions: [],
         questionsLibrary: [],
         validation: {
@@ -208,19 +215,42 @@
       },
       getQuestionsLibrary () {
         let that = this
+        this.libraryLoaded = false
         ApiRequests.getQuestionsLibrary()
           .then(function (response) {
             that.questionsLibrary = response.data
+            that.libraryLoaded = true
           })
           .catch(function (error) {
             console.log(error)
+          })
+      },
+      postAdvert () {
+        let that = this
+        this.submit = true
+        let advert = localStorage.getItem('createAdvert')
+        let questions = localStorage.getItem('createQuestions')
+        ApiRequests.postAdvert(advert, questions, this.$store.state.properties.appLanguage.choice)
+          .then(function () {
+            that.submit = false
+            Alert.create({
+              enter: 'bounceInUp',
+              leave: 'bounceOutDown',
+              color: 'positive',
+              icon: 'check',
+              html: that.strings.StepTwoAdvertSaved,
+              position: 'bottom-center',
+              dismissible: true
+            })
+          })
+          .catch(function () {
             that.submit = false
             Alert.create({
               enter: 'bounceInUp',
               leave: 'bounceOutDown',
               color: 'negative',
               icon: 'warning',
-              html: that.strings.StepTwoGetLibraryError,
+              html: that.strings.StepTwoAdvertSaveError,
               position: 'bottom-center',
               dismissible: true
             })

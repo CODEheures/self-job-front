@@ -14,6 +14,7 @@ const routes = {
   showQuiz: apiDomain + '/quiz/',
   getMyAdverts: apiDomain + '/myAdverts',
   postAdvertImg: apiDomain + '/advert/img',
+  postAdvert: apiDomain + '/advert',
   getTempoImg: apiDomain + '/advert/img/tempo',
   getQuestionsLibrary: apiDomain + '/question/library'
 }
@@ -87,6 +88,21 @@ const ApiRequests = {
       data: {
         property: property,
         value: value
+      }
+    })
+  },
+  postAdvert (advert, questions, language) {
+    return axios.request({
+      method: 'post',
+      url: routes.postAdvert,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      },
+      data: {
+        'advert': advert,
+        'questions': questions,
+        'language': language
       }
     })
   },

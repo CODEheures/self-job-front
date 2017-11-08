@@ -145,6 +145,7 @@ const fr = {
       titleLabel: 'Titre de l\'annonce',
       descriptionLabel: 'Texte de l\'annonce',
       contractLabel: 'Type de contrat',
+      placeLabel: 'Lieu du poste',
       tagsLabel: 'Mots clés de recherche',
       requirementLabel: 'Ex: Bac+2, Permis B...',
       addImgLabel: 'Télécharger une image pour personnaliser votre annonce',
@@ -179,7 +180,9 @@ const fr = {
         },
         btn: 'Valider'
       },
-      StepTwoGetLibraryError: 'Votre bibliothèque de questions n\'a pas pu être chargée'
+      StepTwoGetLibraryError: 'Votre bibliothèque de questions n\'a pas pu être chargée correctement',
+      StepTwoAdvertSaved: 'Votre annonce est enregistrée. Vous devez la publier pour la rendre visible dns les recherches',
+      StepTwoAdvertSaveError: 'Erreur pendant l\'enregistrement'
     }
   },
   questions: {

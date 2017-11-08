@@ -8,7 +8,7 @@
             <q-item-main>
               <q-item-tile label>{{ advert.title }}
               </q-item-tile>
-              <q-item-tile sublabel>{{ advert.user.company + ' - ' + advert.contract.toUpperCase() }}</q-item-tile>
+              <q-item-tile sublabel>{{ advert.user.company + ' - ' + advert.formatted_address + ' - ' + advert.contract.toUpperCase() }}</q-item-tile>
             </q-item-main>
             <q-item-side right>
               <q-item-tile stamp><q-icon name="place" />{{ advert.mileage }}Km</q-item-tile>
@@ -22,7 +22,7 @@
             </div>
           </q-card-title>
           <q-card-main>
-            <p>{{ advert.description }}</p>
+            <p style="white-space: pre-wrap">{{ advert.description }}</p>
           </q-card-main>
           <q-card-separator />
           <q-item>

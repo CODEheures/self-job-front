@@ -145,6 +145,7 @@ const en = {
       titleLabel: 'Offer title',
       descriptionLabel: 'Offer description',
       contractLabel: 'Contract type',
+      placeLabel: 'Place of job',
       tagsLabel: 'Keywords',
       requirementLabel: 'Ex: driver\'s license,... ',
       addImgLabel: 'Upload a picture to personalize your offer',
@@ -179,7 +180,8 @@ const en = {
         },
         btn: 'Validate'
       },
-      StepTwoGetLibraryError: 'Fail to load Your personnal question library'
+      StepTwoGetLibraryError: 'Fail to load Your personnal question library',
+      StepTwoConfirmationTitle: 'Confirmation'
     }
   },
   questions: {

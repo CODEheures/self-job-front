@@ -13,6 +13,7 @@ const store = new Vuex.Store({
       en: en
     },
     properties: {
+      appGoogleKey: 'AIzaSyB6YONdutLGDWC70gK9f3VZp_3_eIE7Alw',
       appLanguage: {
         list: ['fr', 'en'],
         choice: 'fr'
