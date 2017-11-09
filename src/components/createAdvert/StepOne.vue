@@ -146,6 +146,8 @@
       Events.$on('placeChanged', (place) => {
         this.placeChanged(place)
       })
+      // Add googleApi
+      this.addGoogleApiScript()
     },
     methods: {
       store () {
@@ -234,6 +236,17 @@
           this.advert.place.lon = place.geometry.location.lng()
           this.store()
         }
+      },
+      addGoogleApiScript () {
+        let key = this.$store.state.properties.appGoogleKey
+        let lang = this.$store.state.properties.appLanguage.choice
+        let url = 'https://maps.googleapis.com/maps/api/js?key=' + key + '&libraries=places&language=' + lang + '&callback=initAutocomplete'
+        let gScript = document.createElement('script')
+
+        gScript.async = true
+        gScript.defer = true
+        gScript.src = url
+        document.body.appendChild(gScript)
       }
     }
   }

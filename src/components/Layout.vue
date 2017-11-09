@@ -99,9 +99,6 @@ export default {
 
     // If login launch the auto logout
     this.$q.events.$on('login', () => this.launchAutoLogoutTimer())
-
-    // Add googleApi
-    this.addGoogleApiScript()
   },
   methods: {
     login () {
@@ -185,18 +182,6 @@ export default {
           that.logout()
         }, lifetime * 1000)
       }
-    },
-    addGoogleApiScript () {
-      let key = this.$store.state.properties.appGoogleKey
-      let lang = this.$store.state.properties.appLanguage.choice
-      let url = 'https://maps.googleapis.com/maps/api/js?key=' + key + '&libraries=places&language=' + lang + '&callback=initAutocomplete'
-      let gScript = document.createElement('script')
-
-      gScript.async = true
-      gScript.defer = true
-      gScript.src = url
-      console.log('append')
-      document.body.appendChild(gScript)
     }
   }
 }
