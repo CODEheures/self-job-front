@@ -160,6 +160,8 @@ const fr = {
       stepTwoQuestionListTitle0: 'Questionnaire',
       stepTwoQuestionListTitle1: 'Nouvelles',
       stepTwoQuestionListTitle2: 'Bibliotheque',
+      stepTwoQuestionListTitle2Private: 'Personnelle',
+      stepTwoQuestionListTitle2Public: 'Publique',
       stepTwoValidation: {
         numQuestions: {
           ok: 'Nombre de questions suffisant',
@@ -180,9 +182,10 @@ const fr = {
         },
         btn: 'Valider'
       },
-      StepTwoGetLibraryError: 'Votre bibliothèque de questions n\'a pas pu être chargée correctement',
-      StepTwoAdvertSaved: 'Votre annonce est enregistrée. Vous devez la publier pour la rendre visible dns les recherches',
-      StepTwoAdvertSaveError: 'Erreur pendant l\'enregistrement'
+      stepTwoGetLibraryError: 'Votre bibliothèque de questions n\'a pas pu être chargée correctement',
+      stepTwoPatchLibraryError: 'Erreur pendant ma mise à jour de votre librairie personnelle',
+      stepTwoAdvertSaved: 'Votre annonce est enregistrée. Vous devez la publier pour la rendre visible dns les recherches',
+      stepTwoAdvertSaveError: 'Erreur pendant l\'enregistrement'
     }
   },
   questions: {
@@ -192,86 +195,37 @@ const fr = {
         add: 'ajouter',
         remove: 'supprimer',
         questionCardTitle: 'Question',
-        questionCardtype: {constructor: 'constructeur', preview: 'apperçu'}
+        questionCardtype: {constructor: 'constructeur', preview: 'apperçu'},
+        libraryRemoveConfirmTitle: 'Confirmation',
+        libraryRemoveConfirmMessage: 'Veuillez confirmer la suppression de cette question de votre librairie personnelle',
+        libraryRemoveCancel: 'Annuler',
+        libraryRemoveConfirm: 'Confirmer'
       },
-      example: {
-        0: {
-          title: 'Question à choix unique',
-          field_helper: 'Choisir une réponse',
-          field_label: 'Préférez-vous travailler',
-          choices_label1: 'seul',
-          choices_label2: 'en duo',
-          choices_label3: 'en groupe'
-        },
-        1: {
-          title: 'Question à choix multiples',
-          field_helper: 'Choisir une ou plusieurs réponse(s)',
-          field_label: 'Mon futur employeur doit',
-          choices_label1: 'Etre à l\'écoute de mes demandes',
-          choices_label2: 'Me laisser un maximum d\'autonomie',
-          choices_label3: 'Être ferme avec les clients',
-          choices_label4: 'Être souple avec les clients'
-        },
-        2: {
-          title: 'Liste à classer',
-          field_helper: 'Classer cette liste',
-          field_label: 'Classez ces qualités selon vos préférences',
-          choices_label1: 'La patience',
-          choices_label2: 'Le respect',
-          choices_label3: 'L\'altruisme',
-          choices_label4: 'La cohérence',
-          choices_label5: 'La confiance',
-          choices_label6: 'Le courage',
-          choices_label7: 'La curiosité',
-          choices_label8: 'La ténacité'
+      0: {
+        title: 'Question à choix unique',
+        field_helper: 'Choisir une réponse',
+        constructor: {
+          label_helper: 'Votre Question:',
+          label_helper2: 'Attribution des points',
+          label_rank_chips: 'pts'
         }
       },
-      constructor: {
-        0: {
+      1: {
+        title: 'Question à choix multiples',
+        field_helper: 'Choisir une ou plusieurs réponse(s)',
+        constructor: {
           label_helper: 'Votre Question:',
           label_helper2: 'Attribution des points',
           label_rank_chips: 'pts'
-        },
-        1: {
-          label_helper: 'Votre Question:',
-          label_helper2: 'Attribution des points',
-          label_rank_chips: 'pts'
-        },
-        2: {
+        }
+      },
+      2: {
+        title: 'Liste à classer',
+        field_helper: 'Classer cette liste',
+        constructor: {
           label_helper: 'Votre Question:',
           label_helper2: 'Votre classement préféré:'
         }
-      },
-      view: {
-        0: {
-          field_helper: 'Choisir une réponse'
-        },
-        1: {
-          field_helper: 'Choisir une ou plusieurs réponse(s)'
-        },
-        2: {
-          field_helper: 'Classer cette liste'
-        }
-      }
-    },
-    model: {
-      0: {
-        label: 'Votre Question...',
-        option1: 'option 1',
-        option2: 'option 2',
-        option3: 'option 3'
-      },
-      1: {
-        label: 'Votre Question...',
-        option1: 'option 1',
-        option2: 'option 2',
-        option3: 'option 3'
-      },
-      2: {
-        label: 'Votre Question...',
-        option1: 'option 1',
-        option2: 'option 2',
-        option3: 'option 3'
       }
     }
   }

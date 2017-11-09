@@ -7,12 +7,13 @@
     <q-card-main>
       <q-field
         :helper="strings.field_helper"
-        :label="question.label">
+        :label="question.form.label">
         <draggable-list  v-model="list"/>
       </q-field>
     </q-card-main>
     <q-card-actions v-if="library">
-      <q-btn flat @click="addQuestion">{{ strings.add }}</q-btn>
+      <q-btn flat @click="$emit('addQuestion')">{{ strings.add }}</q-btn>
+      <q-btn v-if="library=='private'" flat @click="$emit('removeOfLibrary')">{{ strings.remove }}</q-btn>
     </q-card-actions>
   </q-card>
 </template>
@@ -33,16 +34,16 @@
         default: false
       },
       library: {
-        type: Boolean,
+        type: String,
         required: false,
-        default: false
+        default: undefined
       }
     },
     computed: {
       list: {
         get () {
           let list = []
-          this.question.options.forEach((item) => {
+          this.question.form.options.forEach((item) => {
             list.push(item.label)
           })
           return list

@@ -20,13 +20,10 @@
         <div class="col-12">
           <h5 class="text-italic thin-paragraph text-brown-5">{{ strings.quizTitle }}</h5>
           <template v-for="question, index in questions">
-            <template v-if="question.type == 0">
-              <question-type0-view
-                :strings="getViewStrings(0)"
-                :index="index"
-                :question="question.form"
-              ></question-type0-view>
-            </template>
+            <question-view
+              :index="index"
+              :question="question"
+            ></question-view>
           </template>
         </div>
         <div class="col-12">
@@ -38,8 +35,7 @@
 </template>
 
 <script>
-  import Question from './generics/questions/question'
-  import QuestionType0View from './generics/questions/type0/View.vue'
+  import QuestionView from './generics/questions/View.vue'
   import LanguageSetter from '../strings/languageSetter'
   import ApiRequests from '../api/requests'
   import Utils from './utils'
@@ -47,7 +43,7 @@
 
   export default {
     components: {
-      QuestionType0View
+      QuestionView
     },
     props: {
       stringPageScopeName: String
@@ -95,8 +91,11 @@
         this.phone = Utils.formPhone(this.phone)
         this.phoneError = Utils.checkCorrectPhone(this.phone)
       },
-      getViewStrings (type) {
-        return Question.getViewStrings(this, type)
+      getStrings (type) {
+        let language = this.$store.state.properties.appLanguage.choice
+        return Object.assign({},
+          this.$store.state.strings[language].questions.strings.common,
+          this.$store.state.strings[language].questions.strings[type])
       }
     }
   }

@@ -7,16 +7,17 @@
     <q-card-main>
       <q-field
         :helper="strings.field_helper"
-        :label="question.label">
+        :label="question.form.label">
         <q-option-group
           type="checkbox"
           v-model="option"
-          :options="options"
+          :options="question.form.options"
         />
       </q-field>
     </q-card-main>
     <q-card-actions v-if="library">
       <q-btn flat @click="$emit('addQuestion')">{{ strings.add }}</q-btn>
+      <q-btn v-if="library=='private'" flat @click="$emit('removeOfLibrary')">{{ strings.remove }}</q-btn>
     </q-card-actions>
   </q-card>
 </template>
@@ -35,25 +36,14 @@
         default: false
       },
       library: {
-        type: Boolean,
+        type: String,
         required: false,
-        default: false
+        default: undefined
       }
     },
     data () {
       return {
         option: []
-      }
-    },
-    computed: {
-      options: {
-        get () {
-          let options = []
-          this.question.options.forEach((elem) => {
-            options.push({label: elem.label, value: elem.value})
-          })
-          return options
-        }
       }
     }
   }

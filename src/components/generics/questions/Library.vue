@@ -3,28 +3,31 @@
     <template v-if="question.type === 0">
       <question-type0-view
         @addQuestion="addQuestion"
-        :strings="getViewStrings(0)"
+        @removeOfLibrary="removeOfLibrary"
+        :strings="getStrings(0)"
         :index="index"
-        :question="computedQuestion"
-        :library="true"
+        :question="question"
+        :library="mode"
       ></question-type0-view>
     </template>
     <template v-if="question.type === 1">
       <question-type1-view
         @addQuestion="addQuestion"
-        :strings="getViewStrings(1)"
+        @removeOfLibrary="removeOfLibrary"
+        :strings="getStrings(1)"
         :index="index"
-        :question="computedQuestion"
-        :library="true"
+        :question="question"
+        :library="mode"
       ></question-type1-view>
     </template>
     <template v-if="question.type === 2">
       <question-type2-view
         @addQuestion="addQuestion"
-        :strings="getViewStrings(2)"
+        @removeOfLibrary="removeOfLibrary"
+        :strings="getStrings(2)"
         :index="index"
-        :question="computedQuestion"
-        :library="true"
+        :question="question"
+        :library="mode"
       ></question-type2-view>
     </template>
   </div>
@@ -38,10 +41,10 @@
    *
    * Events:
    */
-  import Question from '../questions/question'
   import QuestionType0View from '../questions/type0/View.vue'
   import QuestionType1View from '../questions/type1/View.vue'
   import QuestionType2View from '../questions/type2/View.vue'
+  import { Dialog } from 'quasar'
 
   export default {
     components: {
@@ -52,20 +55,41 @@
     props: {
       index: Number,
       question: Object,
-      preview: Boolean
+      mode: String
     },
     computed: {
-      computedQuestion () {
-        return Object.assign({}, {label: this.question.datas.label, options: this.question.datas.options})
+      strings () {
+        let language = this.$store.state.properties.appLanguage.choice
+        return this.$store.state.strings[language].questions.strings.common
       }
     },
     methods: {
-      getViewStrings (type) {
-        return Question.getViewStrings(this, type)
+      getStrings (type) {
+        let language = this.$store.state.properties.appLanguage.choice
+        return Object.assign({},
+          this.$store.state.strings[language].questions.strings.common,
+          this.$store.state.strings[language].questions.strings[type])
       },
       addQuestion () {
-        console.log('emit add', this.index)
         this.$emit('addQuestion', this.index)
+      },
+      removeOfLibrary () {
+        let that = this
+        Dialog.create({
+          title: this.strings.libraryRemoveConfirmTitle,
+          message: this.strings.libraryRemoveConfirmMessage,
+          buttons: [
+            {
+              label: this.strings.libraryRemoveCancel
+            },
+            {
+              label: this.strings.libraryRemoveConfirm,
+              handler () {
+                that.$emit('removeOfLibrary', that.question.md5)
+              }
+            }
+          ]
+        })
       }
     }
   }

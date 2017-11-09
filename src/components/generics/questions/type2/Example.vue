@@ -7,18 +7,9 @@
       <q-collapsible icon="live help" :label="strings.example">
         <q-field
           :helper="strings.field_helper"
-          :label="strings.field_label">
+          :label="example.label">
           <draggable-list
-            :list="[
-                      strings.choices_label1,
-                      strings.choices_label2,
-                      strings.choices_label3,
-                      strings.choices_label4,
-                      strings.choices_label5,
-                      strings.choices_label6,
-                      strings.choices_label7,
-                      strings.choices_label8
-                    ]"
+            :list="list"
           />
         </q-field>
       </q-collapsible>
@@ -36,11 +27,26 @@
       DraggableList
     },
     props: {
-      strings: Object
+      strings: Object,
+      example: Object
     },
     data () {
       return {
         option: []
+      }
+    },
+    computed: {
+      list: {
+        get () {
+          let list = []
+          this.example.options.forEach((item) => {
+            list.push(item.label)
+          })
+          return list
+        },
+        set () {
+          console.log('list bouge')
+        }
       }
     },
     methods: {

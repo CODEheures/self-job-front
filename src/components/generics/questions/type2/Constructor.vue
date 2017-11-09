@@ -8,7 +8,7 @@
     </q-card-title>
     <q-card-main>
       <q-field>
-        <q-input v-model="dataQuestion.label" type="text" :float-label="strings.label_helper" clearable @change="emitChange" />
+        <q-input v-model="dataQuestion.datas.label" type="text" :float-label="strings.label_helper" clearable @change="emitChange" />
       </q-field>
       <draggable-input-list v-model="list" />
       <p>{{ strings.label_helper2 }}</p>
@@ -51,14 +51,14 @@
     data () {
       return {
         dataQuestion: _.cloneDeep(this.question),
-        list: this.getList(this.question.options),
-        rankingList: this.getRankingList(this.question.options)
+        list: this.getList(this.question.datas.options),
+        rankingList: this.getRankingList(this.question.datas.options)
       }
     },
     watch: {
       list () {
         this.updateOptions()
-        this.rankingList = this.getRankingList(this.dataQuestion.options)
+        this.rankingList = this.getRankingList(this.dataQuestion.datas.options)
         this.emitChange()
       },
       rankingList () {
@@ -101,14 +101,14 @@
         this.list.forEach((item, index) => {
           newOptions.push({label: item, value: index, rank: this.getRanking(item, index)})
         })
-        this.dataQuestion.options = newOptions
+        this.dataQuestion.datas.options = newOptions
       },
       testIfValid () {
         let isValid = true
-        if (this.dataQuestion.label.length === 0) {
+        if (this.dataQuestion.datas.label.length === 0) {
           isValid = false
         }
-        if (this.dataQuestion.options.length < 2) {
+        if (this.dataQuestion.datas.options.length < 2) {
           isValid = false
         }
         this.dataQuestion.isValid = isValid
@@ -119,6 +119,11 @@
       },
       emitChange () {
         let newQuestion = _.cloneDeep(this.dataQuestion)
+        newQuestion.form = _.cloneDeep(newQuestion.datas)
+        newQuestion.form.options.forEach(item => {
+          delete item.rank
+          delete item.value
+        })
         newQuestion.isValid = this.testIfValid()
         this.$emit('change', newQuestion)
       }

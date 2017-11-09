@@ -4,7 +4,7 @@
       <question-type0-constructor
         @removeQuestion="removeQuestion(index)"
         :index="index"
-        :strings="getConstructorStrings(0)"
+        :strings="getStrings(0)"
         v-model="dataQuestion"
       ></question-type0-constructor>
     </template>
@@ -12,7 +12,7 @@
       <question-type1-constructor
         @removeQuestion="removeQuestion(index)"
         :index="index"
-        :strings="getConstructorStrings(1)"
+        :strings="getStrings(1)"
         v-model="dataQuestion"
       ></question-type1-constructor>
     </template>
@@ -20,7 +20,7 @@
       <question-type2-constructor
         @removeQuestion="removeQuestion(index)"
         :index="index"
-        :strings="getConstructorStrings(2)"
+        :strings="getStrings(2)"
         v-model="dataQuestion"
       ></question-type2-constructor>
     </template>
@@ -36,7 +36,6 @@
    * Events:
    *  - @removeQuestion
    */
-  import Question from '../questions/question'
   import QuestionType0Constructor from '../questions/type0/Constructor.vue'
   import QuestionType1Constructor from '../questions/type1/Constructor.vue'
   import QuestionType2Constructor from '../questions/type2/Constructor.vue'
@@ -70,8 +69,11 @@
       }
     },
     methods: {
-      getConstructorStrings (type) {
-        return Question.getConstructorStrings(this, type)
+      getStrings (type) {
+        let language = this.$store.state.properties.appLanguage.choice
+        return Object.assign({},
+          this.$store.state.strings[language].questions.strings.common,
+          this.$store.state.strings[language].questions.strings[type]['constructor'])
       },
       removeQuestion (index) {
         this.$emit('removeQuestion', index)

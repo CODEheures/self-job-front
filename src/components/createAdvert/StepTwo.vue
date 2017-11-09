@@ -17,7 +17,10 @@
     </div>
     <q-item-separator />
     <div v-show="selectedTab=='tab0'">
-      <div class="row" v-for="question, index in questions" :ref="'selfJobQuestion' + _uid + '_' + index">
+      <div class="col-12 text-center" v-show="onReindexed">
+        <q-spinner-gears color="primary" :size="90" />
+      </div>
+      <div class="row" v-show="!onReindexed" v-for="question, index in questions" :ref="'selfJobQuestion' + _uid + '_' + index">
         <div class="col-md-6" >
           <question-constructor
             @removeQuestion="removeQuestion(index)"
@@ -75,44 +78,66 @@
     </div>
 
     <div class="row" v-show="selectedTab=='tab1'">
-      <div class="col-md-6 col-lg-6 col-xl-4" v-for="type in 3">
-        <question-example
+      <div class="col-md-6 col-lg-6 col-xl-4" v-for="newQuestion in questionsLibrary.news">
+        <question-news
           @addQuestion="addQuestion"
-          :type="type-1"
-        ></question-example>
+          :question="newQuestion"
+        ></question-news>
       </div>
     </div>
     <div class="row" v-show="selectedTab=='tab2'">
       <div class="col-12" v-if="!libraryLoaded">
-        <q-alert color="warning" icon="warning" appear>{{ strings.StepTwoGetLibraryError }}</q-alert>
+        <q-alert color="warning" icon="warning" appear>{{ strings.stepTwoGetLibraryError }}</q-alert>
       </div>
-      <div class="col-md-6 col-lg-6 col-xl-4"  v-for="question, index in questionsLibrary">
-        <question-library
-          @addQuestion="addLibraryQuestion"
-          :index="index"
-          :question="question"
-        ></question-library>
+      <div class="col-12">
+        <q-list no-border>
+          <q-collapsible icon="person" :label="strings.stepTwoQuestionListTitle2Private">
+            <div class="row">
+              <div class="col-md-6 col-lg-6 col-xl-4"  v-for="question, index in questionsLibrary.privates">
+                <question-library
+                  @addQuestion="addLibraryQuestion('privates', $event)"
+                  @removeOfLibrary="removeOfLibrary"
+                  :index="index"
+                  :question="question"
+                  :mode="'private'"
+                ></question-library>
+              </div>
+            </div>
+          </q-collapsible>
+          <q-collapsible icon="cloud" :label="strings.stepTwoQuestionListTitle2Public">
+            <div class="row">
+              <div class="col-md-6 col-lg-6 col-xl-4"  v-for="question, index in questionsLibrary.publics">
+                <question-library
+                  @addQuestion="addLibraryQuestion('publics', $event)"
+                  :index="index"
+                  :question="question"
+                  :mode="'public'"
+                ></question-library>
+              </div>
+            </div>
+          </q-collapsible>
+        </q-list>
       </div>
     </div>
   </q-step>
 </template>
 
 <script>
-  import Question from '../generics/questions/question'
   import QuestionConstructor from '../generics/questions/Constructor.vue'
   import QuestionView from '../generics/questions/View.vue'
   import QuestionLibrary from '../generics/questions/Library.vue'
-  import QuestionExample from '../generics/questions/Example.vue'
+  import QuestionNews from '../generics/questions/News.vue'
   import LanguageSetter from '../../strings/languageSetter'
   import ApiRequests from '../../api/requests'
   import { Alert } from 'quasar'
+  import _ from 'lodash'
 
   export default {
     components: {
       QuestionConstructor,
       QuestionView,
       QuestionLibrary,
-      QuestionExample
+      QuestionNews
     },
     props: {
       stringPageScopeName: String,
@@ -135,6 +160,7 @@
         submit: false,
         libraryLoaded: false,
         questions: [],
+        onReindexed: false,
         questionsLibrary: [],
         validation: {
           isValid: false,
@@ -163,8 +189,12 @@
       LanguageSetter.setStrings(this)
       LanguageSetter.setUnits(this)
       if (localStorage.getItem('createQuestions')) {
+        this.onReindexed = true
         this.questions = JSON.parse(localStorage.getItem('createQuestions'))
         this.updateValidation()
+        this.$nextTick(() => {
+          this.onReindexed = false
+        })
       }
       this.getQuestionsLibrary()
     },
@@ -172,8 +202,12 @@
       store () {
         localStorage.setItem('createQuestions', JSON.stringify(this.questions))
       },
+      emptyStorage () {
+        localStorage.removeItem('createAdvert')
+        localStorage.removeItem('createQuestions')
+      },
       addQuestion (type) {
-        this.questions.push(Object.assign({}, {type: type}, Question.getModel(this, type)))
+        this.questions.push(Object.assign({}, {type: type, datas: this.questionsLibrary.news[type].blueprint.datas, form: this.questionsLibrary.news[type].blueprint.form}))
         this.store()
         this.selectedTab = 'tab0'
         this.$nextTick(function () {
@@ -182,8 +216,8 @@
           window.scroll(0, (elem.offsetTop - window.pageYOffset))
         })
       },
-      addLibraryQuestion (index) {
-        this.questions.push(Object.assign({}, {type: this.questionsLibrary[index].type}, this.questionsLibrary[index].datas))
+      addLibraryQuestion (mode, index) {
+        this.questions.push(Object.assign({}, {type: this.questionsLibrary[mode][index].type, datas: this.questionsLibrary[mode][index].datas, form: this.questionsLibrary[mode][index].form}))
         this.store()
         this.selectedTab = 'tab0'
         this.$nextTick(function () {
@@ -193,9 +227,19 @@
         })
       },
       removeQuestion (index) {
-        this.questions.splice(index, 1)
-        this.updateValidation()
-        this.store()
+        this.onReindexed = true
+        let questions = _.cloneDeep(this.questions)
+        questions.splice(index, 1)
+        // Force empty question for remounted because uncomprehensible bug of watcher in constructor
+        this.questions = []
+        this.$nextTick(() => {
+          this.questions = questions
+          this.updateValidation()
+          this.store()
+          this.$nextTick(() => {
+            this.onReindexed = false
+          })
+        })
       },
       updateValidation () {
         // Minimun num of questions for a valid quiz
@@ -216,7 +260,7 @@
       getQuestionsLibrary () {
         let that = this
         this.libraryLoaded = false
-        ApiRequests.getQuestionsLibrary()
+        ApiRequests.getQuestionsLibrary(this.$store.state.properties.appLanguage.choice)
           .then(function (response) {
             that.questionsLibrary = response.data
             that.libraryLoaded = true
@@ -233,15 +277,17 @@
         ApiRequests.postAdvert(advert, questions, this.$store.state.properties.appLanguage.choice)
           .then(function () {
             that.submit = false
+            that.emptyStorage()
             Alert.create({
               enter: 'bounceInUp',
               leave: 'bounceOutDown',
               color: 'positive',
               icon: 'check',
-              html: that.strings.StepTwoAdvertSaved,
+              html: that.strings.stepTwoAdvertSaved,
               position: 'bottom-center',
               dismissible: true
             })
+            that.$router.push({name: 'myAdverts'})
           })
           .catch(function () {
             that.submit = false
@@ -250,7 +296,29 @@
               leave: 'bounceOutDown',
               color: 'negative',
               icon: 'warning',
-              html: that.strings.StepTwoAdvertSaveError,
+              html: that.strings.stepTwoAdvertSaveError,
+              position: 'bottom-center',
+              dismissible: true
+            })
+          })
+      },
+      removeOfLibrary (md5) {
+        console.log(md5)
+        this.libraryLoaded = false
+        let that = this
+        ApiRequests.removeOfLibrary(md5)
+          .then(function (response) {
+            that.questionsLibrary = response.data
+            that.libraryLoaded = true
+          })
+          .catch(function (error) {
+            console.log(error)
+            Alert.create({
+              enter: 'bounceInUp',
+              leave: 'bounceOutDown',
+              color: 'negative',
+              icon: 'warning',
+              html: that.strings.stepTwoPatchLibraryError,
               position: 'bottom-center',
               dismissible: true
             })

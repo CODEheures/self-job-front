@@ -7,15 +7,11 @@
       <q-collapsible icon="live help" :label="strings.example">
         <q-field
           :helper="strings.field_helper"
-          :label="strings.field_label">
+          :label="example.label">
           <q-option-group
             type="checkbox"
             v-model="option"
-            :options="[
-                      { label: strings.choices_label1, value: 1 },
-                      { label: strings.choices_label2, value: 2 },
-                      { label: strings.choices_label3, value: 3 }
-                    ]"
+            :options="example.options"
           />
         </q-field>
       </q-collapsible>
@@ -29,7 +25,8 @@
 <script>
   export default {
     props: {
-      strings: Object
+      strings: Object,
+      example: Object
     },
     data () {
       return {

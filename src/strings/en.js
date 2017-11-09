@@ -160,6 +160,8 @@ const en = {
       stepTwoQuestionListTitle0: 'Quiz',
       stepTwoQuestionListTitle1: 'New questions',
       stepTwoQuestionListTitle2: 'My library',
+      stepTwoQuestionListTitle2Private: 'Personnal',
+      stepTwoQuestionListTitle2Public: 'Public',
       stepTwoValidation: {
         numQuestions: {
           ok: 'Suufficient number of questions',
@@ -180,8 +182,10 @@ const en = {
         },
         btn: 'Validate'
       },
-      StepTwoGetLibraryError: 'Fail to load Your personnal question library',
-      StepTwoConfirmationTitle: 'Confirmation'
+      stepTwoGetLibraryError: 'Fail to load Your personnal question library',
+      stepTwoPatchLibraryError: 'Fail to update Your personnal question library',
+      stepTwoAdvertSaved: 'Your ad is saved You must publish it to make it visible in searches',
+      stepTwoAdvertSaveError: 'Saving failed'
     }
   },
   questions: {
@@ -191,86 +195,37 @@ const en = {
         add: 'add',
         remove: 'remove',
         questionCardTitle: 'Question',
-        questionCardtype: {constructor: 'constructor', preview: 'preview'}
+        questionCardtype: {constructor: 'constructor', preview: 'preview'},
+        libraryRemoveConfirmTitle: 'Confirm',
+        libraryRemoveConfirmMessage: 'Confirm to definitively remove this question of your personnal library',
+        libraryRemoveCancel: 'Cancel',
+        libraryRemoveConfirm: 'Confirm'
       },
-      example: {
-        0: {
-          title: 'Question with one choice',
-          field_helper: 'Choose your option',
-          field_label: 'You prefer to work',
-          choices_label1: 'alone',
-          choices_label2: 'duet',
-          choices_label3: 'in a group'
-        },
-        1: {
-          title: 'Multiple choice question',
-          field_helper: 'Choose one or more answer(s)',
-          field_label: 'My future employer must',
-          choices_label1: 'Listen to my requests',
-          choices_label2: 'Give me maximum autonomy',
-          choices_label3: 'Be firm with customers',
-          choices_label4: 'Be flexible with customers'
-        },
-        2: {
-          title: 'List to sort',
-          field_helper: 'Sort this list',
-          field_label: 'Rank these qualities according to your preferences',
-          choices_label1: 'Patience',
-          choices_label2: 'Respect',
-          choices_label3: 'Altruism',
-          choices_label4: 'Coherence',
-          choices_label5: 'Trust',
-          choices_label6: 'Courage',
-          choices_label7: 'Curiosity',
-          choices_label8: 'Tenacity'
+      0: {
+        title: 'Question with one choice',
+        field_helper: 'Choose your option',
+        constructor: {
+          label_helper: 'Your Question:',
+          label_helper2: 'Award of points',
+          label_rank_chips: 'pts'
         }
       },
-      constructor: {
-        0: {
+      1: {
+        title: 'Multiple choice question',
+        field_helper: 'Choose one or more answer(s)',
+        constructor: {
           label_helper: 'Your Question:',
           label_helper2: 'Award of points',
           label_rank_chips: 'pts'
-        },
-        1: {
-          label_helper: 'Your Question:',
-          label_helper2: 'Award of points',
-          label_rank_chips: 'pts'
-        },
-        2: {
+        }
+      },
+      2: {
+        title: 'List to sort',
+        field_helper: 'Sort this list',
+        constructor: {
           label_helper: 'Your Question:',
           label_helper2: 'Your favorite ranking:'
         }
-      },
-      view: {
-        0: {
-          field_helper: 'Choose your option'
-        },
-        1: {
-          field_helper: 'Choose one or more answer(s)'
-        },
-        2: {
-          field_helper: 'Sort this list'
-        }
-      }
-    },
-    model: {
-      0: {
-        label: 'Your Question...',
-        option1: 'option 1',
-        option2: 'option 2',
-        option3: 'option 3'
-      },
-      1: {
-        label: 'Your Question...',
-        option1: 'option 1',
-        option2: 'option 2',
-        option3: 'option 3'
-      },
-      2: {
-        label: 'Your Question...',
-        option1: 'option 1',
-        option2: 'option 2',
-        option3: 'option 3'
       }
     }
   }

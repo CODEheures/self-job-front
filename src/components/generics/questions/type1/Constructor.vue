@@ -8,14 +8,15 @@
     </q-card-title>
     <q-card-main>
       <q-field>
-        <q-input v-model="dataQuestion.label" type="text" :float-label="strings.label_helper" clearable @change="emitChange" />
+        <q-input v-model="dataQuestion.datas.label" type="text" :float-label="strings.label_helper" clearable @change="emitChange" />
       </q-field>
       <draggable-input-list-and-chips
         :label="''"
-        v-model="dataQuestion.options"
+        v-model="dataQuestion.datas.options"
         :groupChipsName="'rankingChips'+index"
         iconChips="stars"
         :postLabelChips="strings.label_rank_chips"
+        @change="updateAndEmit"
       ></draggable-input-list-and-chips>
       <p>{{ strings.label_helper2 }}</p>
       <draggable-chips
@@ -67,19 +68,26 @@
       }
     },
     watch: {
-      'dataQuestion.options' () {
-        this.ranksUpdate()
-        this.emitChange()
+      question: {
+        handler () {
+          this.dataQuestion = _.cloneDeep(this.question)
+        },
+        deep: true
       }
     },
     mounted () {
       this.ranksUpdate()
     },
     methods: {
+      valueUpdate () {
+        this.dataQuestion.datas.options.forEach((item, index) => {
+          item.value = index
+        })
+      },
       ranksUpdate () {
-        let completeList = [-1, ...this.dataQuestion.options.keys()]
-        this.dataQuestion.options.forEach((item) => {
-          if (item.rank.length > 0 && item.rank[0] >= this.dataQuestion.options.length) {
+        let completeList = [-1, ...this.dataQuestion.datas.options.keys()]
+        this.dataQuestion.datas.options.forEach((item) => {
+          if (item.rank.length > 0 && item.rank[0] >= this.dataQuestion.datas.options.length) {
             item.rank = []
           }
         })
@@ -87,13 +95,13 @@
       },
       testIfValid () {
         let isValid = true
-        if (this.dataQuestion.label.length === 0) {
+        if (this.dataQuestion.datas.label.length === 0) {
           isValid = false
         }
-        if (this.dataQuestion.options.length < 2) {
+        if (this.dataQuestion.datas.options.length < 2) {
           isValid = false
         }
-        this.dataQuestion.options.forEach((item) => {
+        this.dataQuestion.datas.options.forEach((item) => {
           if (item.rank.length === 0) {
             isValid = false
           }
@@ -106,8 +114,17 @@
       },
       emitChange () {
         let newQuestion = _.cloneDeep(this.dataQuestion)
+        newQuestion.form = _.cloneDeep(newQuestion.datas)
+        newQuestion.form.options.forEach(item => {
+          delete item.rank
+        })
         newQuestion.isValid = this.testIfValid()
         this.$emit('change', newQuestion)
+      },
+      updateAndEmit () {
+        this.valueUpdate()
+        this.ranksUpdate()
+        this.emitChange()
       }
     }
   }

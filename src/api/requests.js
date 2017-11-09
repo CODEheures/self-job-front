@@ -16,7 +16,8 @@ const routes = {
   postAdvertImg: apiDomain + '/advert/img',
   postAdvert: apiDomain + '/advert',
   getTempoImg: apiDomain + '/advert/img/tempo',
-  getQuestionsLibrary: apiDomain + '/question/library'
+  getQuestionsLibrary: apiDomain + '/question/library',
+  removeOfLibrary: apiDomain + '/question/library/remove'
 }
 
 axios.defaults.timeout = 3000
@@ -172,13 +173,29 @@ const ApiRequests = {
       }
     })
   },
-  getQuestionsLibrary () {
+  getQuestionsLibrary (language) {
     return axios.request({
       method: 'get',
       url: routes.getQuestionsLibrary,
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      },
+      params: {
+        language: language
+      }
+    })
+  },
+  removeOfLibrary (md5) {
+    return axios.request({
+      method: 'put',
+      url: routes.removeOfLibrary,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      },
+      data: {
+        md5: md5
       }
     })
   }
