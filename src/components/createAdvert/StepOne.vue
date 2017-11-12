@@ -24,19 +24,19 @@
         </q-item-side>
       </q-item>
       <q-card-media>
-        <img v-if="imgSrc" :src="imgSrc">
-        <q-uploader :url="postImgUrl"
+        <img v-if="$store.state.properties.auth.user.pictureUrl" :src="$store.state.properties.auth.user.pictureUrl">
+        <q-uploader :url="postPicture"
                     :headers="headers"
                     :extensions="'.png,.jpg,.jpeg'"
-                    :name="'tempo'"
+                    :name="'addpicture'"
                     :multiple="false"
                     :float-label="strings.addImgLabel"
                     hide-upload-button
                     @add="uploadFile()"
-                    @finish="loadImg()"
+                    @finish="updateImg()"
                     ref="uploader"
                     :after="[
-                                     {icon: 'remove circle', error: false, handler () { delTempoImg() } }
+                                     {icon: 'remove circle', error: false, handler () { delPicture() } }
                                    ]"
         />
       </q-card-media>
@@ -92,8 +92,8 @@
       stringPageScopeName: String
     },
     computed: {
-      postImgUrl () {
-        return ApiRequests.listRoutes().postAdvertImg
+      postPicture () {
+        return ApiRequests.listRoutes().postPicture
       },
       headers () {
         return {
@@ -121,7 +121,6 @@
           }
         },
         fakeDate: '',
-        imgSrc: null,
         isCompleteStepOne: false
       }
     },
@@ -141,7 +140,6 @@
       if (localAdvert) {
         this.advert = JSON.parse(localAdvert)
       }
-      this.loadImg(true)
       this.testCompleteStepOne()
       Events.$on('placeChanged', (place) => {
         this.placeChanged(place)
@@ -162,35 +160,12 @@
           this.$refs.uploader.upload()
         }, 200)
       },
-      loadImg (onMounted = false) {
+      delPicture () {
         let that = this
-        ApiRequests.getTempoImg()
-          .then(function (response) {
-            that.imgSrc = URL.createObjectURL(response.data)
-            that.$refs.uploader.reset()
-          })
-          .catch(function (error) {
-            if ('response' in error && error.response.status === 404 && onMounted === true) {
-              // nothing
-            }
-            else {
-              Alert.create({
-                enter: 'bounceInUp',
-                leave: 'bounceOutDown',
-                color: 'negative',
-                icon: 'warning',
-                html: that.strings.errorLoadImage,
-                position: 'bottom-center',
-                dismissible: true
-              })
-            }
-          })
-      },
-      delTempoImg () {
-        let that = this
-        ApiRequests.delTempoImg()
+        let url = this.$store.state.properties.auth.user.pictureUrl
+        ApiRequests.delPicture(url)
           .then(function () {
-            that.imgSrc = null
+            that.$store.commit('updateUser')
           })
           .catch(function () {
             Alert.create({
@@ -203,6 +178,10 @@
               dismissible: true
             })
           })
+      },
+      updateImg () {
+        this.$refs.uploader.reset()
+        this.$store.commit('updateUser')
       },
       testCompleteStepOne () {
         let advertParams = Object.keys(this.advert)

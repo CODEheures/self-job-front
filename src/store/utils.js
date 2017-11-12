@@ -42,6 +42,14 @@ const StoreUtils = {
         })
       })
   },
+  updateUser (state) {
+    ApiRequests.getUser()
+      .then(function (response) {
+        state.properties.auth.user = response.data
+      })
+      .catch(function () {
+      })
+  },
   setPropertiesByUser (state) {
     let user = state.properties.auth.user
     if (user.pref_language !== null) {

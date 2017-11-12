@@ -15,7 +15,7 @@
               <q-item-tile stamp><q-icon name="hourglass empty"/>{{ formatMyDate(advert.created_at) }}</q-item-tile>
             </q-item-side>
           </q-item>
-          <q-card-media><img src="~assets/be.jpg"></q-card-media>
+          <q-card-media v-if="advert.pictureUrl"><img :src="advert.pictureUrl"></q-card-media>
           <q-card-title>
             <div slot="right" class="row items-center">
               <q-chip v-for="tag,index in advert.tags" :key="tag+_uid">{{ tag }} </q-chip>

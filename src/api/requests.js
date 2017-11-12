@@ -13,9 +13,9 @@ const routes = {
   showAdvert: apiDomain + '/advert/',
   showQuiz: apiDomain + '/quiz/',
   getMyAdverts: apiDomain + '/myAdverts',
-  postAdvertImg: apiDomain + '/advert/img',
+  postPicture: apiDomain + '/picture',
+  delPicture: apiDomain + '/picture',
   postAdvert: apiDomain + '/advert',
-  getTempoImg: apiDomain + '/advert/img/tempo',
   getQuestionsLibrary: apiDomain + '/question/library',
   removeOfLibrary: apiDomain + '/question/library/remove'
 }
@@ -154,22 +154,16 @@ const ApiRequests = {
       }
     })
   },
-  getTempoImg () {
-    return axios.request({
-      method: 'get',
-      url: routes.getTempoImg,
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('_at')
-      },
-      responseType: 'blob'
-    })
-  },
-  delTempoImg () {
+  delPicture (url) {
     return axios.request({
       method: 'delete',
-      url: routes.getTempoImg,
+      url: routes.delPicture,
       headers: {
+        'Accept': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      },
+      data: {
+        url: url
       }
     })
   },

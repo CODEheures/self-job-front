@@ -48,6 +48,9 @@ const store = new Vuex.Store({
       localStorage.setItem('_ex', payload.expire)
       StoreUtils.getUser(state, payload)
     },
+    updateUser (state) {
+      StoreUtils.updateUser(state)
+    },
     unsetAuth (state, payload) {
       localStorage.removeItem('_at')
       localStorage.removeItem('_rt')
