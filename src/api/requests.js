@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiDomain = 'http://api.selfjob.test/api'
+const apiDomain = window.apiRootDomain + '/api'
 
 const routes = {
   login: apiDomain + '/login',

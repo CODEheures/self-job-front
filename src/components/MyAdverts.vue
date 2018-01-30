@@ -69,7 +69,7 @@
 </template>
 
 <script>
-// TODO implementer delete, v-if delete et edit annonce et voir responses selon etat annonce
+// TODO implementer edit
 import LanguageSetter from '../strings/languageSetter'
 import ApiRequests from '../api/requests'
 import Utils from './utils'
@@ -102,6 +102,7 @@ export default {
         .then(function (response) {
           that.submit = false
           that.adverts = response.data
+          that.subscribeToAnswers()
         })
         .catch(function () {
           that.submit = false
@@ -196,6 +197,14 @@ export default {
             }
           }
         ]
+      })
+    },
+    subscribeToAnswers () {
+      this.adverts.forEach(function (advert) {
+        window.Echo.private('new-answer-on.' + advert.id)
+          .listen('NewAnswerEvent', function (event) {
+            advert.responses_count = event.numberOfAnswers
+          })
       })
     }
   }

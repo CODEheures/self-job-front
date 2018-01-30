@@ -1,7 +1,19 @@
+import Echo from 'laravel-echo'
 import ApiRequests from '../api/requests'
 import { Alert } from 'quasar'
 
 const StoreUtils = {
+  startEcho () {
+    window.Echo = new Echo({
+      broadcaster: 'socket.io',
+      host: window.apiRootDomain + ':6001',
+      auth: {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('_at')
+        }
+      }
+    })
+  },
   getUser (state, payload) {
     let that = this
     let isAlreadyAuth = localStorage.getItem('_at') === payload.accessToken && localStorage.getItem('_rt') === payload.refreshToken

@@ -46,6 +46,7 @@ const store = new Vuex.Store({
       localStorage.setItem('_at', payload.accessToken)
       localStorage.setItem('_rt', payload.refreshToken)
       localStorage.setItem('_ex', payload.expire)
+      StoreUtils.startEcho()
       StoreUtils.getUser(state, payload)
     },
     updateUser (state) {
