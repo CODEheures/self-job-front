@@ -104,6 +104,18 @@
               </div>
             </div>
           </q-collapsible>
+          <q-collapsible icon="person" :label="strings.stepTwoQuestionListTitle2Corporate">
+            <div class="row">
+              <div class="col-md-6 col-lg-6 col-xl-4"  v-for="question, index in questionsLibrary.corporates">
+                <question-library
+                  @addQuestion="addLibraryQuestion('privates', $event)"
+                  :index="index"
+                  :question="question"
+                  :mode="'corporate'"
+                ></question-library>
+              </div>
+            </div>
+          </q-collapsible>
           <q-collapsible icon="cloud" :label="strings.stepTwoQuestionListTitle2Public">
             <div class="row">
               <div class="col-md-6 col-lg-6 col-xl-4"  v-for="question, index in questionsLibrary.publics">

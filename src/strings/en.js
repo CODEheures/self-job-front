@@ -120,22 +120,45 @@ const en = {
     },
     myAdverts: {
       findError: 'Server problem, your ads can not be found',
+      findAnswersError: 'Server problem, response can\'t be loaded',
+      deleteError: 'Server problem when deleting. Please reload the page',
+      publishError: 'Server problem when change publish parameter. Please reload the page',
       tableTh1: 'Title',
       tableTh2: 'Responses',
       verticalMenu1: 'See',
       verticalMenu2: 'Remove',
       verticalMenu3: 'Edit',
+      verticalMenu4: 'Publish',
+      verticalMenu5: 'Unpublish',
       verticalHead1: 'Offer',
       verticalHead2: 'Responses',
-      title: 'My offers'
+      title: 'My offers',
+      emptyMessage: 'You have not created any ads yet',
+      confirmDialogTitle: 'Confirmation',
+      confirmDialogMessage: 'Confirm deleting of this advert?',
+      confirmDialogBtnCancel: 'Cancel',
+      confirmDialogBtnConfirm: 'Delete',
+      modalAnswersTitle: 'Scores',
+      modalAnswersTh1: 'Contact Infos',
+      modalAnswersTh2: 'Score'
     },
     quizShow: {
+      findError: 'Server problem, Quiz is not available for this advert',
+      sendError: 'Server problem, yous answsers can`t be saved',
+      alreadySendError: 'You have already send answers for this quiz',
+      sendSuccess: 'Congratulations, you are now in the list of candidates for this offer with a score of',
       emailLabel: 'Youre Email',
       invalidEmail: 'Invalid Email address',
       phoneLabel: 'Your Phone number',
       invalidPhone: 'Invalid Phone number',
       infoForAccess: 'Fill in email and phone to access employer quiz of #knowHow',
-      quizTitle: 'Quiz'
+      quizTitle: 'Quiz',
+      btnValidationLabel: 'Send my answers',
+      btnValidationInProgressLabel: 'Sending',
+      confirmDialogTitle: 'Confirmation',
+      confirmDialogMessage: 'Confirm the sending of your answer? You will not be able to return to this questionnaire.',
+      confirmDialogBtnCancel: 'Cancel',
+      confirmDialogBtnConfirm: 'Send'
     },
     createAdvert: {
       requirements: 'Requirements',
@@ -161,6 +184,7 @@ const en = {
       stepTwoQuestionListTitle1: 'New questions',
       stepTwoQuestionListTitle2: 'My library',
       stepTwoQuestionListTitle2Private: 'Personnal',
+      stepTwoQuestionListTitle2Corporate: 'Corporate',
       stepTwoQuestionListTitle2Public: 'Public',
       stepTwoValidation: {
         numQuestions: {
@@ -199,7 +223,13 @@ const en = {
         libraryRemoveConfirmTitle: 'Confirm',
         libraryRemoveConfirmMessage: 'Confirm to definitively remove this question of your personnal library',
         libraryRemoveCancel: 'Cancel',
-        libraryRemoveConfirm: 'Confirm'
+        libraryRemoveConfirm: 'Confirm',
+        questionVisibilityLabel: 'This question has a visibility',
+        questionTypePrivate: 'Personal',
+        questionTypeCorporate: 'Corporate',
+        questionTypePublic: 'Public',
+        updateLibraryTypeOk: 'Visibility updated',
+        updateLibraryTypeKo: 'Fail to process the update of visibility'
       },
       0: {
         title: 'Question with one choice',

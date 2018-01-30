@@ -65,7 +65,7 @@
                     <q-item-side avatar="statics/quasar-logo.png" />
                     <q-item-main>
                       <q-item-tile label>{{ advert.title }}</q-item-tile>
-                      <q-item-tile sublabel>{{ advert.user.company }}</q-item-tile>
+                      <q-item-tile sublabel>{{ advert.company.name }}</q-item-tile>
                     </q-item-main>
                     <q-item-side right>
                       <q-item-tile stamp><q-icon name="place" />{{ advert.mileage }}Km</q-item-tile>

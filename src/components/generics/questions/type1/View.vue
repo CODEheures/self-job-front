@@ -3,6 +3,18 @@
     <q-card-title class="bg-primary text-white">
       {{ strings.questionCardTitle }} {{ index + 1 }}
       <p slot="right" v-if="preview" class="text-white">{{ strings.questionCardtype.preview }}</p>
+      <q-select
+        v-if="library=='private'"
+        dark
+        v-model="question.library_type"
+        :float-label="strings.questionVisibilityLabel"
+        radio
+        :options="[
+          {label: strings.questionTypePrivate, value:0},
+          {label: strings.questionTypeCorporate, value:1},
+          {label: strings.questionTypePublic, value:2}
+        ]"
+      />
     </q-card-title>
     <q-card-main>
       <q-field
@@ -26,10 +38,15 @@
   export default {
     components: {
     },
+    model: {
+      prop: 'answer',
+      event: 'change'
+    },
     props: {
       strings: Object,
       question: Object,
       index: Number,
+      answer: Array,
       preview: {
         type: Boolean,
         required: false,
@@ -39,6 +56,11 @@
         type: String,
         required: false,
         default: undefined
+      }
+    },
+    watch: {
+      option () {
+        this.$emit('change', this.option.length > 0 ? this.option : undefined)
       }
     },
     data () {

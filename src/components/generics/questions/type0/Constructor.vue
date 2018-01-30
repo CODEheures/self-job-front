@@ -72,6 +72,7 @@
     mounted () {
       console.log('mount constructor type 0')
       this.ranksUpdate()
+      this.emitChange()
     },
     methods: {
       valueUpdate () {

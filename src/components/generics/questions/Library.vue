@@ -44,7 +44,8 @@
   import QuestionType0View from '../questions/type0/View.vue'
   import QuestionType1View from '../questions/type1/View.vue'
   import QuestionType2View from '../questions/type2/View.vue'
-  import { Dialog } from 'quasar'
+  import ApiRequests from '../../../api/requests'
+  import { Alert, Dialog } from 'quasar'
 
   export default {
     components: {
@@ -61,6 +62,35 @@
       strings () {
         let language = this.$store.state.properties.appLanguage.choice
         return this.$store.state.strings[language].questions.strings.common
+      }
+    },
+    watch: {
+      'question.library_type' () {
+        console.log('question bouge', this.question.id)
+        let that = this
+        ApiRequests.changeQuestionLibraryType(this.question.md5, this.question.library_type)
+          .then(function (response) {
+            Alert.create({
+              enter: 'bounceInUp',
+              leave: 'bounceOutDown',
+              color: 'positive',
+              icon: 'check circle',
+              html: that.strings.updateLibraryTypeOk,
+              position: 'bottom-center',
+              dismissible: true
+            })
+          })
+          .catch(function () {
+            Alert.create({
+              enter: 'bounceInUp',
+              leave: 'bounceOutDown',
+              color: 'negative',
+              icon: 'warning',
+              html: that.strings.updateLibraryTypeKo,
+              position: 'bottom-center',
+              dismissible: true
+            })
+          })
       }
     },
     methods: {

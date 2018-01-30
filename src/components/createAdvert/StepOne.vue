@@ -9,7 +9,7 @@
             <q-input v-model="advert.title" type="text" :float-label="strings.titleLabel" clearable @change="store" />
           </q-field>
           <q-item-tile sublabel>
-            {{ $store.state.properties.auth.user.company + ' - ' }}
+            {{ $store.state.properties.auth.user.company.name + ' - ' }}
             <q-field style="margin-top: 0; display: inline-block">
               <q-input v-model="advert.contract" type="text" :float-label="strings.contractLabel" clearable @change="store" />
             </q-field>

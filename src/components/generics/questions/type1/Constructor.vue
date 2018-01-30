@@ -77,6 +77,7 @@
     },
     mounted () {
       this.ranksUpdate()
+      this.emitChange()
     },
     methods: {
       valueUpdate () {

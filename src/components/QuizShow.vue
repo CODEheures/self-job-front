@@ -23,11 +23,15 @@
             <question-view
               :index="index"
               :question="question"
+              v-model="answers[index]"
             ></question-view>
           </template>
         </div>
         <div class="col-12">
-
+          <q-btn loader color="secondary" class="full-width" :disabled="!quizIsValid" big @click="sendQuizAnswers" icon-right="flight takeoff">
+            {{ strings.btnValidationLabel }}
+            <span v-if="submit" slot="loading">{{ strings.btnValidationInProgressLabel }}...<q-spinner-gears size="20px" /></span>
+          </q-btn>
         </div>
       </template>
     </div>
@@ -39,7 +43,8 @@
   import LanguageSetter from '../strings/languageSetter'
   import ApiRequests from '../api/requests'
   import Utils from './utils'
-  import { Alert } from 'quasar'
+  import _ from 'lodash'
+  import { Alert, Dialog } from 'quasar'
 
   export default {
     components: {
@@ -48,15 +53,22 @@
     props: {
       stringPageScopeName: String
     },
+    watch: {
+      answers () {
+        this.testQuizValidity()
+      }
+    },
     data () {
       return {
         strings: {},
         questions: [],
-        answer: [],
+        answers: [],
         email: '',
         phone: '',
         emailError: false,
-        phoneError: false
+        phoneError: false,
+        quizIsValid: false,
+        submit: false
       }
     },
     mounted () {
@@ -96,6 +108,71 @@
         return Object.assign({},
           this.$store.state.strings[language].questions.strings.common,
           this.$store.state.strings[language].questions.strings[type])
+      },
+      testQuizValidity () {
+        let answersNotUndefined = _.filter(this.answers, function (v) { return v !== undefined })
+        this.quizIsValid = answersNotUndefined.length === this.questions.length
+      },
+      sendQuizAnswers (event, done) {
+        let that = this
+        that.submit = false
+        Dialog.create({
+          title: this.strings.confirmDialogTitle,
+          message: this.strings.confirmDialogMessage,
+          buttons: [
+            {
+              label: this.strings.confirmDialogBtnCancel,
+              handler () {
+                done()
+              }
+            },
+            {
+              label: this.strings.confirmDialogBtnConfirm,
+              handler () {
+                let answers = {}
+                that.answers.forEach(function (answer) {
+                  //  answers.push({'order': answer.order, 'answer': answer.answer})
+                  answers[answer.order] = answer.answer
+                })
+                // that.$emit('removeOfLibrary', that.question.md5)
+                that.submit = true
+                ApiRequests.sendQuizAnswers(that.$route.params.id, that.email, that.phone, answers)
+                  .then(function (response) {
+                    that.submit = false
+                    done()
+                    console.log(response.data)
+                    Alert.create({
+                      enter: 'bounceInUp',
+                      leave: 'bounceOutDown',
+                      color: 'positive',
+                      icon: 'check',
+                      html: that.strings.sendSuccess + '<strong>' + response.data + '%</strong>',
+                      position: 'bottom-center',
+                      dismissible: true
+                    })
+                    that.$router.push({name: 'home'})
+                  })
+                  .catch(function (error) {
+                    that.submit = false
+                    done()
+                    let stringError = that.strings.sendError
+                    if (error.response.status === 403) {
+                      stringError = that.strings.alreadySendError
+                    }
+                    Alert.create({
+                      enter: 'bounceInUp',
+                      leave: 'bounceOutDown',
+                      color: 'negative',
+                      icon: 'warning',
+                      html: stringError,
+                      position: 'bottom-center',
+                      dismissible: true
+                    })
+                  })
+              }
+            }
+          ]
+        })
       }
     }
   }

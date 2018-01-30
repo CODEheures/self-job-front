@@ -120,22 +120,45 @@ const fr = {
     },
     myAdverts: {
       findError: 'Problème serveur, vos annonces sont introuvables',
+      findAnswersError: 'Problème serveur, les réponses n\'ont pas pû être téléchargées',
+      deleteError: 'Problème serveur pendant l\'effacement. Merci de recharger la page',
+      publishError: 'Problème serveur pendant le changement d\'état du parametre de publication. Merci de recharger la page',
       tableTh1: 'Titre',
       tableTh2: 'Réponses',
       verticalMenu1: 'Voir',
       verticalMenu2: 'Supprimer',
       verticalMenu3: 'Modifier',
+      verticalMenu4: 'Publier',
+      verticalMenu5: 'Dépublier',
       verticalHead1: 'Annonce',
       verticalHead2: 'Réponses',
-      title: 'Mes annonces'
+      title: 'Mes annonces',
+      emptyMessage: 'Vous n\'avez encore créé aucune annonce',
+      confirmDialogTitle: 'Confirmation',
+      confirmDialogMessage: 'Confirmez la supression de cette annonce?',
+      confirmDialogBtnCancel: 'Annuler',
+      confirmDialogBtnConfirm: 'Supprimer',
+      modalAnswersTitle: 'Scores',
+      modalAnswersTh1: 'Coordonnées',
+      modalAnswersTh2: 'Score'
     },
     quizShow: {
+      findError: 'Problème serveur, le questionnaire n\'est pas disponible pour cette annonce',
+      sendError: 'Problème serveur, vos réponses n\'ont pas pû être sauvegardées',
+      alreadySendError: 'Vous avez déjà répondu à ce questionnaire',
+      sendSuccess: 'Félicitation, vous êtes désormais dans la liste des candidats pour cette offre avec un score de ',
       emailLabel: 'Votre Email',
       invalidEmail: 'Addresse email mal formée',
       phoneLabel: 'Votre Téléphone',
       invalidPhone: 'Téléphone invalide',
       infoForAccess: 'Remplir Email et téléphone pour acceder au questionnaire #savoirÊtre de l\'employeur',
-      quizTitle: 'Questionnaire #savoirÊtre'
+      quizTitle: 'Questionnaire #savoirÊtre',
+      btnValidationLabel: 'Envoyer mes réponses',
+      btnValidationInProgressLabel: 'Envoi en cours',
+      confirmDialogTitle: 'Confirmation',
+      confirmDialogMessage: 'Confirmez l\'envoi de vos réponse? Il ne vous sera plus possible ensuite de repasser ce questionnaire.',
+      confirmDialogBtnCancel: 'Annuler',
+      confirmDialogBtnConfirm: 'Envoyer'
     },
     createAdvert: {
       requirements: 'Exigences',
@@ -161,6 +184,7 @@ const fr = {
       stepTwoQuestionListTitle1: 'Nouvelles',
       stepTwoQuestionListTitle2: 'Bibliotheque',
       stepTwoQuestionListTitle2Private: 'Personnelle',
+      stepTwoQuestionListTitle2Corporate: 'Corporate',
       stepTwoQuestionListTitle2Public: 'Publique',
       stepTwoValidation: {
         numQuestions: {
@@ -184,7 +208,7 @@ const fr = {
       },
       stepTwoGetLibraryError: 'Votre bibliothèque de questions n\'a pas pu être chargée correctement',
       stepTwoPatchLibraryError: 'Erreur pendant ma mise à jour de votre librairie personnelle',
-      stepTwoAdvertSaved: 'Votre annonce est enregistrée. Vous devez la publier pour la rendre visible dns les recherches',
+      stepTwoAdvertSaved: 'Votre annonce est enregistrée. Vous devez la publier pour la rendre visible dans les recherches',
       stepTwoAdvertSaveError: 'Erreur pendant l\'enregistrement'
     }
   },
@@ -199,7 +223,13 @@ const fr = {
         libraryRemoveConfirmTitle: 'Confirmation',
         libraryRemoveConfirmMessage: 'Veuillez confirmer la suppression de cette question de votre librairie personnelle',
         libraryRemoveCancel: 'Annuler',
-        libraryRemoveConfirm: 'Confirmer'
+        libraryRemoveConfirm: 'Confirmer',
+        questionVisibilityLabel: 'Cette question a une visibilité',
+        questionTypePrivate: 'Personnelle',
+        questionTypeCorporate: 'Corporate',
+        questionTypePublic: 'Publique',
+        updateLibraryTypeOk: 'Visibilité mise à jour',
+        updateLibraryTypeKo: 'La mise à jour de la visibilité a échouée'
       },
       0: {
         title: 'Question à choix unique',

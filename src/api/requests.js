@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiDomain = 'http://api.selfjob.dev/api'
+const apiDomain = 'http://api.selfjob.test/api'
 
 const routes = {
   login: apiDomain + '/login',
@@ -12,12 +12,17 @@ const routes = {
   getAdverts: apiDomain + '/getAdverts',
   showAdvert: apiDomain + '/advert/',
   showQuiz: apiDomain + '/quiz/',
+  sendQuizAnswers: apiDomain + '/quiz/',
   getMyAdverts: apiDomain + '/myAdverts',
+  getAdvertAnswers: apiDomain + '/advert/answers/',
   postPicture: apiDomain + '/picture',
   delPicture: apiDomain + '/picture',
   postAdvert: apiDomain + '/advert',
+  publishAdvert: apiDomain + '/advert/publish',
+  deleteAdvert: apiDomain + '/advert',
   getQuestionsLibrary: apiDomain + '/question/library',
-  removeOfLibrary: apiDomain + '/question/library/remove'
+  removeOfLibrary: apiDomain + '/question/library/remove',
+  changeQuestionLibraryType: apiDomain + '/question/library/type'
 }
 
 axios.defaults.timeout = 3000
@@ -107,6 +112,33 @@ const ApiRequests = {
       }
     })
   },
+  publishAdvert (id, publish) {
+    return axios.request({
+      method: 'put',
+      url: routes.publishAdvert,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      },
+      data: {
+        'id': id,
+        'publish': publish
+      }
+    })
+  },
+  deleteAdvert (id) {
+    return axios.request({
+      method: 'delete',
+      url: routes.deleteAdvert,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      },
+      data: {
+        'id': id
+      }
+    })
+  },
   getAdverts (searchs, location, mileage, fromResult, language) {
     return axios.request({
       method: 'post',
@@ -144,10 +176,35 @@ const ApiRequests = {
       }
     })
   },
+  sendQuizAnswers (id, email, phone, answers) {
+    return axios.request({
+      method: 'post',
+      url: routes.sendQuizAnswers,
+      headers: {
+        'Accept': 'application/json'
+      },
+      data: {
+        'id': id,
+        'email': email,
+        'phone': phone,
+        'answers': answers
+      }
+    })
+  },
   getMyAdverts () {
     return axios.request({
       method: 'get',
       url: routes.getMyAdverts,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      }
+    })
+  },
+  getAdvertAnswers (id) {
+    return axios.request({
+      method: 'get',
+      url: routes.getAdvertAnswers + id,
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('_at')
@@ -190,6 +247,20 @@ const ApiRequests = {
       },
       data: {
         md5: md5
+      }
+    })
+  },
+  changeQuestionLibraryType (md5, type) {
+    return axios.request({
+      method: 'put',
+      url: routes.changeQuestionLibraryType,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      },
+      data: {
+        md5: md5,
+        type: type
       }
     })
   }

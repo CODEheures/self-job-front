@@ -66,6 +66,9 @@
         this.emitChange()
       }
     },
+    mounted () {
+      this.emitChange()
+    },
     methods: {
       getList (options) {
         let list = []
