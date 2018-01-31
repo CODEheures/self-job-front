@@ -79,6 +79,25 @@ export default {
   props: {
     stringPageScopeName: String
   },
+  computed: {
+    authCheck: {
+      get () {
+        return this.$store.state.properties.auth.check === true
+      }
+    }
+  },
+  watch: {
+    authCheck (isCheck) {
+      console.log('watch computed auth check', isCheck)
+      if (isCheck === true) {
+        this.getMyAdverts()
+      }
+    },
+    adverts () {
+      this.subscribeToNewAdvert()
+      this.subscribeToAnswers()
+    }
+  },
   data () {
     return {
       strings: {},
@@ -93,28 +112,31 @@ export default {
   mounted () {
     LanguageSetter.setStrings(this)
     LanguageSetter.setUnits(this)
-    this.getMyAdverts()
+    if (this.authCheck) {
+      this.getMyAdverts()
+    }
   },
   methods: {
-    getMyAdverts () {
+    getMyAdverts (onBack = false) {
       let that = this
       ApiRequests.getMyAdverts()
         .then(function (response) {
           that.submit = false
           that.adverts = response.data
-          that.subscribeToAnswers()
         })
         .catch(function () {
           that.submit = false
-          Alert.create({
-            enter: 'bounceInUp',
-            leave: 'bounceOutDown',
-            color: 'negative',
-            icon: 'warning',
-            html: that.strings.findError,
-            position: 'bottom-center',
-            dismissible: true
-          })
+          if (onBack === false) {
+            Alert.create({
+              enter: 'bounceInUp',
+              leave: 'bounceOutDown',
+              color: 'negative',
+              icon: 'warning',
+              html: that.strings.findError,
+              position: 'bottom-center',
+              dismissible: true
+            })
+          }
         })
     },
     formatMyDate (myDate) {
@@ -147,12 +169,11 @@ export default {
       let that = this
       that.submit = true
       ApiRequests.publishAdvert(advert.id, !advert.is_publish)
-        .then(function (response) {
+        .then(function () {
           that.submit = false
-          that.adverts = response.data
         })
         .catch(function () {
-          that.submit2 = false
+          that.submit = false
           Alert.create({
             enter: 'bounceInUp',
             leave: 'bounceOutDown',
@@ -178,9 +199,8 @@ export default {
             handler () {
               that.submit = true
               ApiRequests.deleteAdvert(id)
-                .then(function (response) {
+                .then(function () {
                   that.submit = false
-                  that.adverts = response.data
                 })
                 .catch(function () {
                   that.submit = false
@@ -199,8 +219,17 @@ export default {
         ]
       })
     },
+    subscribeToNewAdvert () {
+      window.Echo.leave('update-adverts-for-company.' + this.$store.state.properties.auth.user.company.id)
+      window.Echo.private('update-adverts-for-company.' + this.$store.state.properties.auth.user.company.id)
+        .listen('UpdateAdvertEvent', () => {
+          this.getMyAdverts(true)
+        })
+    },
     subscribeToAnswers () {
       this.adverts.forEach(function (advert) {
+        // leave befor to ensure not double subscription
+        window.Echo.leave('new-answer-on.' + advert.id)
         window.Echo.private('new-answer-on.' + advert.id)
           .listen('NewAnswerEvent', function (event) {
             advert.responses_count = event.numberOfAnswers
