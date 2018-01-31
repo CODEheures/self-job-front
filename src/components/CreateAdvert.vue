@@ -2,7 +2,7 @@
   <div class="layout-padding">
     <div class="row sm-gutter">
       <div class="col-12">
-        <q-stepper ref="stepper" contractable v-model="currentStep">
+        <q-stepper v-if="$store.state.properties.auth.check === true" ref="stepper" contractable v-model="currentStep">
           <step-one :stringPageScopeName="stringPageScopeName" @stepOneStatusChange="setCompleteStepOne"></step-one>
           <step-two :stringPageScopeName="stringPageScopeName" :isCompleteStepOne="isCompleteStepOne"></step-two>
           <q-stepper-navigation>
