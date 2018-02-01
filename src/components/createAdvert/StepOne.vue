@@ -74,6 +74,12 @@
         </q-item-main>
       </q-item>
     </q-card>
+    <div style="max-width: 700px; margin: auto; margin-top: 20px">
+      <q-alert color="brown-1" class="icon-black" icon="folder shared">
+        <q-radio class="text-black" v-model="advert.is_internal_private" :val="false" :label="strings.stepOneShareOption1" @change="store" />
+        <q-radio class="text-black" v-model="advert.is_internal_private" :val="true" :label="strings.stepOneShareOption2" @change="store"/>
+      </q-alert>
+    </div>
   </q-step>
 </template>
 
@@ -118,7 +124,8 @@
             formatted_address: '',
             lat: '',
             lon: ''
-          }
+          },
+          is_internal_private: false
         },
         fakeDate: '',
         isCompleteStepOne: false

@@ -20,7 +20,7 @@ import Quasar, {
   QList, QItem, QField, QInput, QSelect, QSpinner, QSpinnerGears, QAlert, QCard, QCardTitle, QCardActions,
   QCardMedia, QCardSeparator, QCardMain, QChipsInput, QRange, QListHeader, QItemSide, QItemMain, QItemTile,
   QInfiniteScroll, QChip, QCheckbox, QItemSeparator, QOptionGroup, QSideLink, QCollapsible, QFixedPosition,
-  QUploader, QStepper, QStep, QStepperNavigation, QModal
+  QUploader, QStepper, QStep, QStepperNavigation, QModal, QRadio
 } from 'quasar'
 
 import router from './router'
@@ -70,7 +70,8 @@ Vue.use(Quasar, { components: {
   QStepper,
   QStep,
   QStepperNavigation,
-  QModal
+  QModal,
+  QRadio
 } }) // Install Quasar Framework
 
 if (__THEME === 'mat') {

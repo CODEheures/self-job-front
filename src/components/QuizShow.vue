@@ -19,6 +19,9 @@
       <template v-else="">
         <div class="col-12">
           <h5 class="text-italic thin-paragraph text-brown-5">{{ strings.quizTitle }}</h5>
+          <q-alert color="brown-1" class="text-brown-6" icon="security">
+            <span class="text-brown-6">{{ strings.quizInfo }}</span>
+          </q-alert>
           <template v-for="question, index in questions">
             <question-view
               :index="index"
