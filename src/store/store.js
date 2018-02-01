@@ -18,6 +18,7 @@ const store = new Vuex.Store({
         list: ['fr', 'en'],
         choice: 'fr'
       },
+      echoReady: false,
       auth: {
         check: null,
         isNew: false,
@@ -46,7 +47,7 @@ const store = new Vuex.Store({
       localStorage.setItem('_at', payload.accessToken)
       localStorage.setItem('_rt', payload.refreshToken)
       localStorage.setItem('_ex', payload.expire)
-      StoreUtils.startEcho()
+      StoreUtils.startEcho((isReadyState) => { state.properties.echoReady = isReadyState })
       StoreUtils.getUser(state, payload)
     },
     updateUser (state) {

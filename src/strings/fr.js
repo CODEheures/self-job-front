@@ -140,7 +140,8 @@ const fr = {
       confirmDialogBtnConfirm: 'Supprimer',
       modalAnswersTitle: 'Scores',
       modalAnswersTh1: 'Coordonnées',
-      modalAnswersTh2: 'Score'
+      modalAnswersTh2: 'Score',
+      modalAnswersCloseBtn: 'Fermer'
     },
     quizShow: {
       findError: 'Problème serveur, le questionnaire n\'est pas disponible pour cette annonce',

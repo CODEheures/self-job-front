@@ -140,7 +140,8 @@ const en = {
       confirmDialogBtnConfirm: 'Delete',
       modalAnswersTitle: 'Scores',
       modalAnswersTh1: 'Contact Infos',
-      modalAnswersTh2: 'Score'
+      modalAnswersTh2: 'Score',
+      modalAnswersCloseBtn: 'Close Me'
     },
     quizShow: {
       findError: 'Server problem, Quiz is not available for this advert',

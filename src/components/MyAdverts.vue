@@ -1,7 +1,10 @@
 <template>
   <div class="layout-padding">
     <q-modal v-model="openAnswerModalView" minimized :content-css="{padding: '50px'}">
-      <h4>{{ strings.modalAnswersTitle }}</h4>
+      <h4>
+        {{ strings.modalAnswersTitle }}
+        <q-btn color="primary" @click="openAnswerModalView = false">{{ strings.modalAnswersCloseBtn }}</q-btn>
+      </h4>
       <div class="col-12 text-center" v-if="submit2">
         <q-spinner-gears color="primary" v-if="submit2" :size="90" />
       </div>
@@ -16,8 +19,8 @@
             <q-item-side right :stamp="answer.score + '%'" />
           </q-item>
         </q-list>
+        <q-btn color="primary" @click="openAnswerModalView = false">{{ strings.modalAnswersCloseBtn }}</q-btn>
       </div>
-      <q-btn color="primary" @click="openAnswerModalView = false">Close Me</q-btn>
     </q-modal>
     <div class="row sm-gutter">
       <div class="col-12">
@@ -84,6 +87,11 @@ export default {
       get () {
         return this.$store.state.properties.auth.check === true
       }
+    },
+    echoReady: {
+      get () {
+        return this.$store.state.properties.echoReady === true
+      }
     }
   },
   watch: {
@@ -93,9 +101,22 @@ export default {
         this.getMyAdverts()
       }
     },
+    echoReady (isReady) {
+      console.log('watch computed Echo ready', isReady)
+      if (isReady === true) {
+        console.log('echo is ready')
+        // case if echo ready after adverts loaded
+        if (this.advertsLoaded === true) {
+          this.subscribeToNewAdvert()
+          this.subscribeToAnswers()
+        }
+      }
+    },
     adverts () {
-      this.subscribeToNewAdvert()
-      this.subscribeToAnswers()
+      if (this.echoReady === true) {
+        this.subscribeToNewAdvert()
+        this.subscribeToAnswers()
+      }
     }
   },
   data () {
@@ -106,7 +127,8 @@ export default {
       answers: [],
       submit: true,
       submit2: false,
-      openAnswerModalView: false
+      openAnswerModalView: false,
+      advertsLoaded: false
     }
   },
   mounted () {
@@ -123,6 +145,7 @@ export default {
         .then(function (response) {
           that.submit = false
           that.adverts = response.data
+          that.advertsLoaded = true
         })
         .catch(function () {
           that.submit = false
@@ -220,21 +243,25 @@ export default {
       })
     },
     subscribeToNewAdvert () {
-      window.Echo.leave('update-adverts-for-company.' + this.$store.state.properties.auth.user.company.id)
-      window.Echo.private('update-adverts-for-company.' + this.$store.state.properties.auth.user.company.id)
-        .listen('UpdateAdvertEvent', () => {
-          this.getMyAdverts(true)
-        })
+      if ('Echo' in window) {
+        window.Echo.leave('update-adverts-for-company.' + this.$store.state.properties.auth.user.company.id)
+        window.Echo.private('update-adverts-for-company.' + this.$store.state.properties.auth.user.company.id)
+          .listen('UpdateAdvertEvent', () => {
+            this.getMyAdverts(true)
+          })
+      }
     },
     subscribeToAnswers () {
-      this.adverts.forEach(function (advert) {
-        // leave befor to ensure not double subscription
-        window.Echo.leave('new-answer-on.' + advert.id)
-        window.Echo.private('new-answer-on.' + advert.id)
-          .listen('NewAnswerEvent', function (event) {
-            advert.responses_count = event.numberOfAnswers
-          })
-      })
+      if ('Echo' in window) {
+        this.adverts.forEach(function (advert) {
+          // leave befor to ensure not double subscription
+          window.Echo.leave('new-answer-on.' + advert.id)
+          window.Echo.private('new-answer-on.' + advert.id)
+            .listen('NewAnswerEvent', function (event) {
+              advert.responses_count = event.numberOfAnswers
+            })
+        })
+      }
     }
   }
 }

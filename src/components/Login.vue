@@ -30,6 +30,21 @@
     props: {
       stringPageScopeName: String
     },
+    computed: {
+      authCheck: {
+        get () {
+          return this.$store.state.properties.auth.check === true
+        }
+      }
+    },
+    watch: {
+      authCheck (isCheck) {
+        if (isCheck === true) {
+          this.submit = false
+          this.$q.events.$emit('login')
+        }
+      }
+    },
     data () {
       return {
         strings: {},
@@ -52,8 +67,7 @@
             that.$store.commit('setAuth', {
               accessToken: response.data.access_token,
               refreshToken: response.data.refresh_token,
-              expire: date.addToDate(new Date(), { seconds: response.data.expires_in }),
-              callBack: that.actionsAfterLogin
+              expire: date.addToDate(new Date(), { seconds: response.data.expires_in })
             })
           })
           .catch(function (error) {
@@ -98,10 +112,6 @@
       register () {
         // Goto Login view
         this.$router.push({name: 'register'})
-      },
-      actionsAfterLogin () {
-        this.submit = false
-        this.$q.events.$emit('login')
       },
       checkEmail () {
         this.emailError = Utils.checkCorrectEmail(this.email)

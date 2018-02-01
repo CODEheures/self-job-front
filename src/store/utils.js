@@ -3,16 +3,27 @@ import ApiRequests from '../api/requests'
 import { Alert } from 'quasar'
 
 const StoreUtils = {
-  startEcho () {
-    window.Echo = new Echo({
-      broadcaster: 'socket.io',
-      host: window.apiRootDomain + ':6001',
-      auth: {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('_at')
+  startEcho (callBackSetReadyState) {
+    let ioScript = document.createElement('script')
+    ioScript.defer = true
+    ioScript.async = true
+    ioScript.setAttribute('src', window.apiRootDomain + ':6001/socket.io/socket.io.js')
+    document.body.appendChild(ioScript)
+    ioScript.onload = function () {
+      window.Echo = new Echo({
+        broadcaster: 'socket.io',
+        host: window.apiRootDomain + ':6001',
+        auth: {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('_at')
+          }
         }
-      }
-    })
+      })
+      callBackSetReadyState(true)
+    }
+    ioScript.onerror = function () {
+      callBackSetReadyState(false)
+    }
   },
   getUser (state, payload) {
     let that = this
@@ -37,12 +48,12 @@ const StoreUtils = {
           state.properties.auth.isNew = payload.isNew
         }
         // Launching callBack after get User Infos
-        payload.callBack()
+        if ('callBack' in payload) { payload.callBack() }
       })
       .catch(function () {
         state.properties.auth.check = false
         // Launching callBack after get User Infos
-        payload.callBack()
+        if ('callBack' in payload) { payload.callBack() }
         Alert.create({
           enter: 'bounceInUp',
           leave: 'bounceOutDown',
