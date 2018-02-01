@@ -76,8 +76,8 @@
     </q-card>
     <div style="max-width: 700px; margin: auto; margin-top: 20px">
       <q-alert color="brown-1" class="icon-black" icon="folder shared">
-        <q-radio class="text-black" v-model="advert.is_internal_private" :val="false" :label="strings.stepOneShareOption1" @change="store" />
-        <q-radio class="text-black" v-model="advert.is_internal_private" :val="true" :label="strings.stepOneShareOption2" @change="store"/>
+        <q-radio color="brown-8" class="text-brown-8" v-model="advert.is_internal_private" :val="false" :label="strings.stepOneShareOption1" @change="store" />
+        <q-radio color="brown-8" class="text-brown-8" v-model="advert.is_internal_private" :val="true" :label="strings.stepOneShareOption2" @change="store"/>
       </q-alert>
     </div>
   </q-step>
