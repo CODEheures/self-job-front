@@ -237,7 +237,7 @@ const ApiRequests = {
       }
     })
   },
-  removeOfLibrary (md5) {
+  removeOfLibrary (hash) {
     return axios.request({
       method: 'put',
       url: routes.removeOfLibrary,
@@ -246,11 +246,11 @@ const ApiRequests = {
         'Authorization': 'Bearer ' + localStorage.getItem('_at')
       },
       data: {
-        md5: md5
+        hash: hash
       }
     })
   },
-  changeQuestionLibraryType (md5, type) {
+  changeQuestionLibraryType (hash, type) {
     return axios.request({
       method: 'put',
       url: routes.changeQuestionLibraryType,
@@ -259,7 +259,7 @@ const ApiRequests = {
         'Authorization': 'Bearer ' + localStorage.getItem('_at')
       },
       data: {
-        md5: md5,
+        hash: hash,
         type: type
       }
     })

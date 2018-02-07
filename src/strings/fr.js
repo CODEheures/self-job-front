@@ -188,7 +188,7 @@ const fr = {
       stepTwoQuestionListTitle1: 'Nouvelles',
       stepTwoQuestionListTitle2: 'Bibliotheque',
       stepTwoQuestionListTitle2Private: 'Personnelle',
-      stepTwoQuestionListTitle2Corporate: 'Corporate',
+      stepTwoQuestionListTitle2Corporate: 'Entre Collègues',
       stepTwoQuestionListTitle2Public: 'Publique',
       stepTwoValidation: {
         numQuestions: {
@@ -230,7 +230,7 @@ const fr = {
         libraryRemoveConfirm: 'Confirmer',
         questionVisibilityLabel: 'Cette question a une visibilité',
         questionTypePrivate: 'Personnelle',
-        questionTypeCorporate: 'Corporate',
+        questionTypeCorporate: 'Entre collègues',
         questionTypePublic: 'Publique',
         updateLibraryTypeOk: 'Visibilité mise à jour',
         updateLibraryTypeKo: 'La mise à jour de la visibilité a échouée'

@@ -137,7 +137,6 @@
                   //  answers.push({'order': answer.order, 'answer': answer.answer})
                   answers[answer.order] = answer.answer
                 })
-                // that.$emit('removeOfLibrary', that.question.md5)
                 that.submit = true
                 ApiRequests.sendQuizAnswers(that.$route.params.id, that.email, that.phone, answers)
                   .then(function (response) {

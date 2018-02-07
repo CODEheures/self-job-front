@@ -68,7 +68,7 @@
       'question.library_type' () {
         console.log('question bouge', this.question.id)
         let that = this
-        ApiRequests.changeQuestionLibraryType(this.question.md5, this.question.library_type)
+        ApiRequests.changeQuestionLibraryType(this.question.hash, this.question.library_type)
           .then(function (response) {
             Alert.create({
               enter: 'bounceInUp',
@@ -115,7 +115,7 @@
             {
               label: this.strings.libraryRemoveConfirm,
               handler () {
-                that.$emit('removeOfLibrary', that.question.md5)
+                that.$emit('removeOfLibrary', that.question.hash)
               }
             }
           ]

@@ -314,11 +314,11 @@
             })
           })
       },
-      removeOfLibrary (md5) {
-        console.log(md5)
+      removeOfLibrary (hash) {
+        console.log(hash)
         this.libraryLoaded = false
         let that = this
-        ApiRequests.removeOfLibrary(md5)
+        ApiRequests.removeOfLibrary(hash)
           .then(function (response) {
             that.questionsLibrary = response.data
             that.libraryLoaded = true
