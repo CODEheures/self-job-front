@@ -260,6 +260,16 @@ const en = {
           label_helper: 'Your Question:',
           label_helper2: 'Your favorite ranking:'
         }
+      },
+      3: {
+        title: 'Open question',
+        field_helper: 'Write your answer directly in the text field',
+        float_helper: 'Write your answer here',
+        constructor: {
+          label_helper: 'Your question:',
+          label_helper2: 'Expected Key Expressions:',
+          label_helper3: 'Unwanted key phrases:'
+        }
       }
     }
   }

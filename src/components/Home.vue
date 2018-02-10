@@ -42,12 +42,16 @@
     </div>
     <div class="row sm-gutter justify-center">
       <div v-if="!$store.state.properties.auth.check" style="max-width: 95%" class="col-12">
-        <q-field icon="search">
-          <q-chips-input v-model="searchs" :float-label="strings.searchLabel" :placeholder="strings.searchPlaceHolder"/>
-        </q-field>
-        <q-field  icon="zoom out map" :label="strings.mileageLabel" style="max-width: 90%">
-          <q-range v-model="mileage" :min="0" :max="maxiMileage" label-always :left-label-value="`${mileage.min}Km`" :right-label-value="mileage.max === maxiMileage ? `+${mileage.max}Km` : `${mileage.max}Km`" />
-        </q-field>
+        <!--<q-chips-input v-model="searchs" :float-label="strings.searchLabel" :placeholder="strings.searchPlaceHolder" :before="[{icon: 'search', handler () {}}]"/>-->
+        <q-range v-model="mileage" :min="0" :max="maxiMileage" label-always :left-label-value="`${mileage.min}Km`" :right-label-value="mileage.max === maxiMileage ? `+${mileage.max}Km` : `${mileage.max}Km`" style="max-width: 90%; margin: auto;"/>
+        <q-chips-input inverted v-model="searchs" :float-label="strings.searchLabel" :placeholder="strings.searchPlaceHolder" :before="[{icon: 'search', handler () {}}]"/>
+
+        <!--<q-field icon="search">-->
+          <!--<q-chips-input v-model="searchs" :float-label="strings.searchLabel" :placeholder="strings.searchPlaceHolder"/>-->
+        <!--</q-field>-->
+        <!--<q-field  icon="zoom out map" :label="strings.mileageLabel" style="max-width: 90%">-->
+          <!--<q-range v-model="mileage" :min="0" :max="maxiMileage" label-always :left-label-value="`${mileage.min}Km`" :right-label-value="mileage.max === maxiMileage ? `+${mileage.max}Km` : `${mileage.max}Km`" />-->
+        <!--</q-field>-->
         <q-btn v-model="submit" loader color="secondary" class="full-width" icon-right="arrow forward" @click="findAdverts()" :disable="submit">
           {{ strings.btnFindLabel }}
           <span slot="loading">{{ strings.btnFindLabel }}...<q-spinner-gears size="20px" /></span>

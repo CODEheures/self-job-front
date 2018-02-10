@@ -260,6 +260,16 @@ const fr = {
           label_helper: 'Votre Question:',
           label_helper2: 'Votre classement préféré:'
         }
+      },
+      3: {
+        title: 'Question ouverte',
+        field_helper: 'Ecrire votre réponse directement dans le champs texte',
+        float_helper: 'Ecrire votre réponse ici',
+        constructor: {
+          label_helper: 'Votre Question:',
+          label_helper2: 'Les expressions clés attendues:',
+          label_helper3: 'Les expressions clés non désirées:'
+        }
       }
     }
   }

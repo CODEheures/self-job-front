@@ -21,6 +21,13 @@
         :example="question.example.form"
       ></question-type2-example>
     </template>
+    <template v-if="question.example.type === 3">
+      <question-type3-example
+        @addQuestion="addQuestion(3)"
+        :strings="getStrings(3)"
+        :example="question.example.form"
+      ></question-type3-example>
+    </template>
   </div>
 </template>
 
@@ -35,12 +42,14 @@
   import QuestionType0Example from '../questions/type0/Example.vue'
   import QuestionType1Example from '../questions/type1/Example.vue'
   import QuestionType2Example from '../questions/type2/Example.vue'
+  import QuestionType3Example from '../questions/type3/Example.vue'
 
   export default {
     components: {
       QuestionType0Example,
       QuestionType1Example,
-      QuestionType2Example
+      QuestionType2Example,
+      QuestionType3Example
     },
     props: {
       question: Object

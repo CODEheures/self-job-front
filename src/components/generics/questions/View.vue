@@ -27,6 +27,15 @@
         v-model="dataAnswer"
       ></question-type2-view>
     </template>
+    <template v-if="question.type === 3">
+      <question-type3-view
+        :strings="getStrings(3)"
+        :index="index"
+        :question="question"
+        :preview="preview"
+        v-model="dataAnswer"
+      ></question-type3-view>
+    </template>
   </div>
 </template>
 
@@ -41,12 +50,14 @@
   import QuestionType0View from '../questions/type0/View.vue'
   import QuestionType1View from '../questions/type1/View.vue'
   import QuestionType2View from '../questions/type2/View.vue'
+  import QuestionType3View from '../questions/type3/View.vue'
 
   export default {
     components: {
       QuestionType0View,
       QuestionType1View,
-      QuestionType2View
+      QuestionType2View,
+      QuestionType3View
     },
     model: {
       prop: 'answer',

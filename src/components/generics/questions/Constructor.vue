@@ -24,6 +24,14 @@
         v-model="dataQuestion"
       ></question-type2-constructor>
     </template>
+    <template v-if="question.type === 3">
+      <question-type3-constructor
+        @removeQuestion="removeQuestion(index)"
+        :index="index"
+        :strings="getStrings(3)"
+        v-model="dataQuestion"
+      ></question-type3-constructor>
+    </template>
   </div>
 </template>
 
@@ -39,13 +47,15 @@
   import QuestionType0Constructor from '../questions/type0/Constructor.vue'
   import QuestionType1Constructor from '../questions/type1/Constructor.vue'
   import QuestionType2Constructor from '../questions/type2/Constructor.vue'
+  import QuestionType3Constructor from '../questions/type3/Constructor.vue'
   import _ from 'lodash'
 
   export default {
     components: {
       QuestionType0Constructor,
       QuestionType1Constructor,
-      QuestionType2Constructor
+      QuestionType2Constructor,
+      QuestionType3Constructor
     },
     model: {
       prop: 'question',
