@@ -13,31 +13,29 @@
     <div class="col-12" v-show="!availableForQuiz">
       <p>{{ strings.infoForAccess }}</p>
     </div>
-    <div class="row">
-      <template v-if="firstViewQuiz">
-        <div v-show="availableForQuiz">
-          <div class="col-12">
-            <h5 class="text-italic thin-paragraph text-brown-5">{{ strings.quizTitle }}</h5>
-            <q-alert color="brown-1" class="text-brown-6" icon="security">
-              <span class="text-brown-8">{{ strings.quizInfo }}</span>
-            </q-alert>
-            <template v-for="question, index in questions">
-              <question-view
-                :index="index"
-                :question="question"
-                v-model="answers[index]"
-              ></question-view>
-            </template>
-          </div>
-          <div class="col-12" v-if="availableForQuiz">
-            <q-btn loader color="secondary" class="full-width" :disabled="!quizIsValid" big @click="sendQuizAnswers" icon-right="flight takeoff">
-              {{ strings.btnValidationLabel }}
-              <span v-if="submit" slot="loading">{{ strings.btnValidationInProgressLabel }}...<q-spinner-gears size="20px" /></span>
-            </q-btn>
-          </div>
+    <template v-if="firstViewQuiz">
+      <div class="row" v-show="availableForQuiz">
+        <div class="col-12">
+          <h5 class="text-italic thin-paragraph text-brown-5">{{ strings.quizTitle }}</h5>
+          <q-alert color="brown-1" class="text-brown-6" icon="security">
+            <span class="text-brown-8">{{ strings.quizInfo }}</span>
+          </q-alert>
+          <template v-for="question, index in questions">
+            <question-view
+              :index="index"
+              :question="question"
+              v-model="answers[index]"
+            ></question-view>
+          </template>
         </div>
-      </template>
-    </div>
+        <div class="col-12" v-if="availableForQuiz">
+          <q-btn loader color="secondary" class="full-width" :disabled="!quizIsValid" big @click="sendQuizAnswers" icon-right="flight takeoff">
+            {{ strings.btnValidationLabel }}
+            <span v-if="submit" slot="loading">{{ strings.btnValidationInProgressLabel }}...<q-spinner-gears size="20px" /></span>
+          </q-btn>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
