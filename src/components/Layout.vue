@@ -53,11 +53,11 @@
       <q-icon name="keyboard_arrow_up" />
     </q-btn>
     <!-- Footer -->
-    <q-toolbar slot="footer" >
-      <q-toolbar-title>
-        Layout Footer
-      </q-toolbar-title>
-    </q-toolbar>
+    <!--<q-toolbar slot="footer" >-->
+      <!--<q-toolbar-title>-->
+        <!--Layout Footer-->
+      <!--</q-toolbar-title>-->
+    <!--</q-toolbar>-->
 
   </q-layout>
 </template>

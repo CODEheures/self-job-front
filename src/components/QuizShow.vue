@@ -1,40 +1,40 @@
 <template>
   <div class="layout-padding">
-    <q-field :error="emailError" :error-label="strings.invalidEmail">
+    <q-field :error="emailError && email.length > 0" :error-label="strings.invalidEmail">
       <q-input v-model="email" type="text" :float-label="strings.emailLabel" clearable @change="checkEmail()"
                :after="[{icon: 'done', condition: !emailError && email.length > 1, handler () {}}]">
       </q-input>
     </q-field>
-    <q-field :error="phoneError" :error-label="strings.invalidPhone">
+    <q-field :error="phoneError && phone.length > 0" :error-label="strings.invalidPhone">
       <q-input v-model="phone" type="text" :float-label="strings.phoneLabel" clearable @keyup="checkAndFormPhone()"
                :after="[{icon: 'done', condition: !phoneError && phone.length > 1, handler () {}}]">
       </q-input>
     </q-field>
+    <div class="col-12" v-show="!availableForQuiz">
+      <p>{{ strings.infoForAccess }}</p>
+    </div>
     <div class="row">
-      <template v-if="emailError || phoneError || email == '' || phone == ''">
-        <div class="col-12">
-          <p>{{ strings.infoForAccess }}</p>
-        </div>
-      </template>
-      <template v-else="">
-        <div class="col-12">
-          <h5 class="text-italic thin-paragraph text-brown-5">{{ strings.quizTitle }}</h5>
-          <q-alert color="brown-1" class="text-brown-6" icon="security">
-            <span class="text-brown-8">{{ strings.quizInfo }}</span>
-          </q-alert>
-          <template v-for="question, index in questions">
-            <question-view
-              :index="index"
-              :question="question"
-              v-model="answers[index]"
-            ></question-view>
-          </template>
-        </div>
-        <div class="col-12">
-          <q-btn loader color="secondary" class="full-width" :disabled="!quizIsValid" big @click="sendQuizAnswers" icon-right="flight takeoff">
-            {{ strings.btnValidationLabel }}
-            <span v-if="submit" slot="loading">{{ strings.btnValidationInProgressLabel }}...<q-spinner-gears size="20px" /></span>
-          </q-btn>
+      <template v-if="firstViewQuiz">
+        <div v-show="availableForQuiz">
+          <div class="col-12">
+            <h5 class="text-italic thin-paragraph text-brown-5">{{ strings.quizTitle }}</h5>
+            <q-alert color="brown-1" class="text-brown-6" icon="security">
+              <span class="text-brown-8">{{ strings.quizInfo }}</span>
+            </q-alert>
+            <template v-for="question, index in questions">
+              <question-view
+                :index="index"
+                :question="question"
+                v-model="answers[index]"
+              ></question-view>
+            </template>
+          </div>
+          <div class="col-12" v-if="availableForQuiz">
+            <q-btn loader color="secondary" class="full-width" :disabled="!quizIsValid" big @click="sendQuizAnswers" icon-right="flight takeoff">
+              {{ strings.btnValidationLabel }}
+              <span v-if="submit" slot="loading">{{ strings.btnValidationInProgressLabel }}...<q-spinner-gears size="20px" /></span>
+            </q-btn>
+          </div>
         </div>
       </template>
     </div>
@@ -56,9 +56,28 @@
     props: {
       stringPageScopeName: String
     },
+    computed: {
+      availableForQuiz () {
+        let isAvailableForQuiz = !this.emailError && !this.phoneError && this.email !== '' && this.phone !== ''
+        if (isAvailableForQuiz) {
+          this.firstViewQuiz = true
+        }
+        return isAvailableForQuiz
+      }
+    },
     watch: {
       answers () {
         this.testQuizValidity()
+      },
+      email (value) {
+        if (value === '') {
+          this.checkEmail()
+        }
+      },
+      phone (value) {
+        if (value === '') {
+          this.checkAndFormPhone()
+        }
       }
     },
     data () {
@@ -68,10 +87,11 @@
         answers: [],
         email: '',
         phone: '',
-        emailError: false,
-        phoneError: false,
+        emailError: true,
+        phoneError: true,
         quizIsValid: false,
-        submit: false
+        submit: false,
+        firstViewQuiz: false
       }
     },
     mounted () {

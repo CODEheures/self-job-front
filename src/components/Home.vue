@@ -7,54 +7,56 @@
         <q-alert v-if="$store.state.properties.geolocation.denied" color="warning" icon="warning" appear dismissible>{{ strings.geolocDenied }}</q-alert>
         <q-alert v-if="$store.state.properties.geolocation.error" color="warning" icon="warning" appear dismissible>{{ strings.geolocError }}</q-alert>
       </div>
-      <div class="col-12" v-if="!$store.state.properties.auth.check && adverts.length <= 0 && !submit">
-        <div class="brand-container" :style="'background-image: url(/statics/urban3.jpg);'">
-          <div class="darken"></div>
-          <div class="brand">
-            <div class="fake-h1">
-              <p>{{ strings.fakeh1 }}</p>
-              <img src="~statics/rature.png" />
+      <q-slide-transition>
+        <div class="col-12" v-if="!$store.state.properties.auth.check && adverts.length <= 0 && !submit" v-show="!layoutSearch">
+          <div class="brand-container" :style="'background-image: url(/statics/urban3.jpg);'">
+            <div class="darken"></div>
+            <div class="brand">
+              <div class="fake-h1">
+                <p>{{ strings.fakeh1 }}</p>
+                <img src="~statics/rature.png" />
+              </div>
+              <p class="cursive"><strong>{{ strings.realh1 }}</strong></p>
+              <h2 class="sub">{{ strings.pitch }}</h2>
+              <p class="hashtags">{{ strings.hashtag1 }} {{ strings.hashtag2 }}</p>
+              <q-list dense multiline>
+                <q-item class="text-white">
+                  <q-item-side><q-icon name="looks one" size="32px" color="hashtag"></q-icon></q-item-side>
+                  <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step1 }}</q-item-tile></q-item-main>
+                </q-item>
+                <q-item class="text-white">
+                  <q-item-side><q-icon name="looks two" size="32px" color="hashtag"></q-icon></q-item-side>
+                  <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step2 }} {{ strings.hashtag1 }}</q-item-tile></q-item-main>
+                </q-item>
+                <q-item class="text-white">
+                  <q-item-side><q-icon name="looks 3" size="32px" color="hashtag"></q-icon></q-item-side>
+                  <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step3 }} {{ strings.hashtag2 }}</q-item-tile></q-item-main>
+                </q-item>
+                <q-item class="text-white">
+                  <q-item-side><q-icon name="looks 4" size="32px" color="hashtag"></q-icon></q-item-side>
+                  <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step4 }}</q-item-tile></q-item-main>
+                </q-item>
+              </q-list>
             </div>
-            <p class="cursive"><strong>{{ strings.realh1 }}</strong></p>
-            <h2 class="sub">{{ strings.pitch }}</h2>
-            <p class="hashtags">{{ strings.hashtag1 }} {{ strings.hashtag2 }}</p>
-            <q-list dense multiline>
-              <q-item class="text-white">
-                <q-item-side><q-icon name="looks one" size="32px" color="hashtag"></q-icon></q-item-side>
-                <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step1 }}</q-item-tile></q-item-main>
-              </q-item>
-              <q-item class="text-white">
-                <q-item-side><q-icon name="looks two" size="32px" color="hashtag"></q-icon></q-item-side>
-                <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step2 }} {{ strings.hashtag1 }}</q-item-tile></q-item-main>
-              </q-item>
-              <q-item class="text-white">
-                <q-item-side><q-icon name="looks 3" size="32px" color="hashtag"></q-icon></q-item-side>
-                <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step3 }} {{ strings.hashtag2 }}</q-item-tile></q-item-main>
-              </q-item>
-              <q-item class="text-white">
-                <q-item-side><q-icon name="looks 4" size="32px" color="hashtag"></q-icon></q-item-side>
-                <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step4 }}</q-item-tile></q-item-main>
-              </q-item>
-            </q-list>
           </div>
         </div>
+      </q-slide-transition>
+
+    </div>
+    <div class="row sm-gutter justify-center" style="margin-top: 0;" v-show="!layoutSearch">
+      <div class="col-12">
+        <q-btn push big color="secondary" class="full-width" icon-right="arrow forward" @click="layoutSearch=true">
+          {{ strings.btnGoToFindLabel }}
+        </q-btn>
       </div>
     </div>
-    <div class="row sm-gutter justify-center">
+    <div class="row sm-gutter justify-center" v-show="layoutSearch">
       <div v-if="!$store.state.properties.auth.check" style="max-width: 95%" class="col-12">
-        <!--<q-chips-input v-model="searchs" :float-label="strings.searchLabel" :placeholder="strings.searchPlaceHolder" :before="[{icon: 'search', handler () {}}]"/>-->
         <q-range v-model="mileage" :min="0" :max="maxiMileage" label-always :left-label-value="`${mileage.min}Km`" :right-label-value="mileage.max === maxiMileage ? `+${mileage.max}Km` : `${mileage.max}Km`" style="max-width: 90%; margin: auto;"/>
-        <q-chips-input inverted v-model="searchs" :float-label="strings.searchLabel" :placeholder="strings.searchPlaceHolder" :before="[{icon: 'search', handler () {}}]"/>
-
-        <!--<q-field icon="search">-->
-          <!--<q-chips-input v-model="searchs" :float-label="strings.searchLabel" :placeholder="strings.searchPlaceHolder"/>-->
-        <!--</q-field>-->
-        <!--<q-field  icon="zoom out map" :label="strings.mileageLabel" style="max-width: 90%">-->
-          <!--<q-range v-model="mileage" :min="0" :max="maxiMileage" label-always :left-label-value="`${mileage.min}Km`" :right-label-value="mileage.max === maxiMileage ? `+${mileage.max}Km` : `${mileage.max}Km`" />-->
-        <!--</q-field>-->
+        <q-chips-input ref="qChipsInputSearch" v-model="searchs" :float-label="strings.searchLabel" :placeholder="strings.searchPlaceHolder" :before="[{icon: 'search', handler () {}}]"/>
         <q-btn v-model="submit" loader color="secondary" class="full-width" icon-right="arrow forward" @click="findAdverts()" :disable="submit">
           {{ strings.btnFindLabel }}
-          <span slot="loading">{{ strings.btnFindLabel }}...<q-spinner-gears size="20px" /></span>
+          <span  slot="loading">{{ strings.btnFindLabel }}...<q-spinner-gears size="20px" /></span>
         </q-btn>
       </div>
       <div class="col-12 text-center" v-if="submit">
@@ -63,7 +65,7 @@
       <div style="max-width: 95%" class="col-12" v-if="!submit && adverts.length > 0">
           <q-infinite-scroll ref="infiniteScroll" :handler="loadMore" :offset="10">
             <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4" v-for="advert,index in adverts" :key="advert.id">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 animate-scale" v-for="advert,index in adverts" :key="advert.id">
                 <q-card>
                   <q-item multiline>
                     <q-item-side avatar="statics/quasar-logo.png" />
@@ -96,9 +98,17 @@
               <q-spinner-gears color="primary" :size="90" />
             </div>
           </q-infinite-scroll>
-        <p v-if="adverts.length >= totalHits">{{ strings.endResults }}</p>
+        <q-chat-message v-if="adverts.length >= totalHits" class="animate-scale" bg-color="primary" text-color="white"
+          avatar="statics/quasar-logo.png"
+          :text="[strings.endResults]"
+        />
       </div>
-
+      <div style="max-width: 95%" class="col-12" v-if="!submit && haveAFirstSubmited && adverts.length === 0">
+        <q-chat-message bg-color="primary" text-color="white" class="animate-scale"
+          avatar="statics/quasar-logo.png"
+          :text="[strings.zeroResult]"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -116,6 +126,7 @@ export default {
   data () {
     return {
       strings: {},
+      layoutSearch: false,
       units: [],
       searchs: [],
       maxiMileage: 250,
@@ -125,7 +136,8 @@ export default {
       },
       submit: false,
       adverts: [],
-      totalHits: 0
+      totalHits: 0,
+      haveAFirstSubmited: false
     }
   },
   mounted () {
@@ -133,7 +145,26 @@ export default {
     LanguageSetter.setUnits(this)
   },
   methods: {
+    validLastQChipsElem () {
+      let input = this.$refs.qChipsInputSearch.$el.getElementsByTagName('input')
+      let inputVal = input[0].value
+      if (inputVal.length > 0) {
+        this.searchs.push(inputVal)
+        //        console.log(input[0].value)
+        //        input[0].value = ''
+        //        console.log(input[0].value)
+        this.$refs.qChipsInputSearch.$el.clear()
+      }
+      // let childInput = elem.$child
+    },
     findAdverts () {
+      let vQChips = this.$refs.qChipsInputSearch
+      let input = vQChips.$el.getElementsByTagName('input')
+      let inputVal = input[0].value
+      if (inputVal.length > 0) {
+        this.searchs.push(inputVal)
+        vQChips.$data.input = ''
+      }
       let that = this
       this.mileage.stop = this.maxiMileage
       this.adverts = []
@@ -148,6 +179,7 @@ export default {
           that.submit = false
           that.adverts = response.data.adverts
           that.totalHits = response.data.totalHits
+          that.haveAFirstSubmited = true
         })
         .catch(function () {
           that.submit = false

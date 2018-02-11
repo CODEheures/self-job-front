@@ -70,11 +70,13 @@ const fr = {
       searchLabel: 'Ex: barman, débutant',
       searchPlaceHolder: 'Touche entrée pour ajouter à la liste',
       mileageLabel: 'Distance',
+      btnGoToFindLabel: 'Chercher des offres',
       btnFindLabel: 'Trouver les offres',
       findListHeader: 'Nous avons trouvé les offres suivantes:',
       findError: 'La demande a échoué',
       seeMore: 'Voir l\'offre',
-      endResults: 'Fin des résultats'
+      endResults: 'Fin des résultats',
+      zeroResult: 'Désolé votre demande ne retourne aucun résultat'
     },
     settings: {
       saveSuccess: 'Votre choix est enregistré',

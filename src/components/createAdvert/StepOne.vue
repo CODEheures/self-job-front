@@ -42,9 +42,10 @@
       </q-card-media>
       <q-card-title>
         <div slot="right" class="row items-center">
-          <q-chips-input
+          <q-chips-input ref="qChipsInputKeyWords"
             v-model="advert.tags"
             :placeholder="strings.tagsLabel"
+            @blur="validLastInput()"
             @change="store"
           />
         </div>
@@ -155,6 +156,16 @@
       this.addGoogleApiScript()
     },
     methods: {
+      validLastInput () {
+        let vQChips = this.$refs.qChipsInputKeyWords
+        let input = vQChips.$el.getElementsByTagName('input')
+        let inputVal = input[0].value
+        if (inputVal.length > 0) {
+          this.advert.tags.push(inputVal)
+          this.store()
+          vQChips.$data.input = ''
+        }
+      },
       store () {
         localStorage.setItem('createAdvert', JSON.stringify(this.advert))
         this.testCompleteStepOne()

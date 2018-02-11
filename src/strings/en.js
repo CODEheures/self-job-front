@@ -70,11 +70,13 @@ const en = {
       searchLabel: 'Ex: barman, beginner',
       searchPlaceHolder: 'Enter key to add to the list',
       mileageLabel: 'Mileage',
+      btnGoToFindLabel: 'Go To Offers',
       btnFindLabel: 'Find jobs',
       findListHeader: 'We found the following offers:',
       findError: 'The request failed',
       seeMore: 'See offer',
-      endResults: 'End of results'
+      endResults: 'End of results',
+      zeroResult: 'Sorry, your request return no results'
     },
     settings: {
       saveSuccess: 'Your choice is saved',
