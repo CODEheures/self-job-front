@@ -66,7 +66,7 @@ const en = {
       step1: 'Select Offers',
       step2: 'Validate the requirements',
       step3: 'Answer questions',
-      step4: 'Be 1st to the interview',
+      step4: 'Win interview by your afinity %',
       searchLabel: 'Ex: barman, beginner',
       searchPlaceHolder: 'Enter key to add to the list',
       mileageLabel: 'Mileage',

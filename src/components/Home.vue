@@ -21,20 +21,27 @@
               <p class="hashtags">{{ strings.hashtag1 }} {{ strings.hashtag2 }}</p>
               <q-list dense multiline>
                 <q-item class="text-white">
-                  <q-item-side><q-icon name="looks one" size="32px" color="hashtag"></q-icon></q-item-side>
-                  <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step1 }}</q-item-tile></q-item-main>
+                  <q-item-side><q-icon name="looks one" size="32px" color="secondary"></q-icon></q-item-side>
+                  <q-item-main><q-item-tile sublabel class="text-primary">
+                    <q-btn small color="secondary" glossy class="full-width">{{ strings.step1 }}</q-btn>
+                  </q-item-tile></q-item-main>
                 </q-item>
                 <q-item class="text-white">
-                  <q-item-side><q-icon name="looks two" size="32px" color="hashtag"></q-icon></q-item-side>
-                  <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step2 }} {{ strings.hashtag1 }}</q-item-tile></q-item-main>
+                  <q-item-side><q-icon name="looks two" size="32px" color="primary"></q-icon></q-item-side>
+                  <q-item-main><q-item-tile sublabel class="text-primary">
+                    <q-checkbox v-model="fakeChecked" :label="strings.step2 + ' ' + strings.hashtag1"/>
+                  </q-item-tile></q-item-main>
                 </q-item>
                 <q-item class="text-white">
-                  <q-item-side><q-icon name="looks 3" size="32px" color="hashtag"></q-icon></q-item-side>
-                  <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step3 }} {{ strings.hashtag2 }}</q-item-tile></q-item-main>
+                  <q-item-side><q-icon name="looks 3" size="32px" color="tertiary"></q-icon></q-item-side>
+                  <q-item-main><q-item-tile sublabel class="text-tertiary"><q-spinner-dots size="30"></q-spinner-dots> {{ strings.step3 }} {{ strings.hashtag2 }}</q-item-tile></q-item-main>
                 </q-item>
                 <q-item class="text-white">
-                  <q-item-side><q-icon name="looks 4" size="32px" color="hashtag"></q-icon></q-item-side>
-                  <q-item-main><q-item-tile sublabel class="text-white">{{ strings.step4 }}</q-item-tile></q-item-main>
+                  <q-item-side><q-icon name="school" size="32px" color="positive"></q-icon></q-item-side>
+                  <q-item-main><q-item-tile sublabel class="text-positive">
+                    <q-alert icon="" color="positive">{{ strings.step4 }}</q-alert>
+                    <!--{{ strings.step4 }}-->
+                  </q-item-tile></q-item-main>
                 </q-item>
               </q-list>
             </div>
@@ -45,8 +52,8 @@
     </div>
     <div class="row sm-gutter justify-center" style="margin-top: 0;" v-show="!layoutSearch">
       <div class="col-12">
-        <q-btn push big color="secondary" class="full-width" icon-right="arrow forward" @click="layoutSearch=true">
-          {{ strings.btnGoToFindLabel }}
+        <q-btn big color="secondary" glossy class="full-width" icon-right="arrow forward" @click="layoutSearch=true">
+          {{ strings.step1 }}
         </q-btn>
       </div>
     </div>
@@ -54,7 +61,7 @@
       <div v-if="!$store.state.properties.auth.check" style="max-width: 95%" class="col-12">
         <q-range v-model="mileage" :min="0" :max="maxiMileage" label-always :left-label-value="`${mileage.min}Km`" :right-label-value="mileage.max === maxiMileage ? `+${mileage.max}Km` : `${mileage.max}Km`" style="max-width: 90%; margin: auto;"/>
         <q-chips-input ref="qChipsInputSearch" v-model="searchs" :float-label="strings.searchLabel" :placeholder="strings.searchPlaceHolder" :before="[{icon: 'search', handler () {}}]"/>
-        <q-btn v-model="submit" loader color="secondary" class="full-width" icon-right="arrow forward" @click="findAdverts()" :disable="submit">
+        <q-btn v-model="submit" glossy loader color="primary" class="full-width" icon-right="arrow forward" @click="findAdverts()" :disable="submit">
           {{ strings.btnFindLabel }}
           <span  slot="loading">{{ strings.btnFindLabel }}...<q-spinner-gears size="20px" /></span>
         </q-btn>
@@ -126,6 +133,7 @@ export default {
   data () {
     return {
       strings: {},
+      fakeChecked: true,
       layoutSearch: false,
       units: [],
       searchs: [],
@@ -255,7 +263,7 @@ export default {
     z-index: 1;
   }
   div.brand {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    //text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
     color: white;
     z-index: 2;
     position: relative;
@@ -307,7 +315,7 @@ export default {
     }
 
     & .q-list {
-      background-color: rgba(255,255,255,0.25);
+      background-color: rgba(255,255,255,0.75);
       border: solid 1px white;
       border-radius: 0.4rem;
       max-width: 90%;
@@ -316,10 +324,33 @@ export default {
       display: inline-block;
       & .q-item {
         font-size: 0.8rem;
+        align-items: center;
+      }
+      & .q-item-side-left {
+        display: none;
+      }
+    }
+
+    & .q-alert {
+      min-width: initial;
+      & div {
+        padding-bottom: 0.1rem;
+        padding-top: 0.1rem;
+
+        &.q-alert-icon {
+          display: none;
+        }
       }
     }
   }
 
+  @media (min-width: 360px) {
+    div.brand {
+      & .q-list .q-item-side-left{
+        display: block;
+      }
+    }
+  }
 
   @media (min-width: 380px) {
     div.brand {
@@ -328,12 +359,6 @@ export default {
       }
       p.hashtags {
         font-size: 24px;
-      }
-
-      & .q-list {
-        & .q-item {
-          font-size: 1rem;
-        }
       }
     }
   }
@@ -347,6 +372,12 @@ export default {
       .cursive {
         font-size: 42px;
         margin-top: 2vh;
+      }
+
+      & .q-list {
+        & .q-item {
+          font-size: 1rem;
+        }
       }
     }
 
@@ -365,6 +396,15 @@ export default {
       .cursive {
         font-size: 60px;
         margin-top: 4vh;
+      }
+
+      & .q-list {
+        & .q-item {
+          font-size: 1.5rem;
+          & button {
+            font-size: 17px;
+          }
+        }
       }
     }
   }

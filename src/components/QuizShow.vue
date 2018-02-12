@@ -29,7 +29,7 @@
           </template>
         </div>
         <div class="col-12" v-if="availableForQuiz">
-          <q-btn loader color="secondary" class="full-width" :disabled="!quizIsValid" big @click="sendQuizAnswers" icon-right="flight takeoff">
+          <q-btn loader glossy color="secondary" class="full-width" :disabled="!quizIsValid || $store.state.properties.auth.check" big @click="sendQuizAnswers" icon-right="flight takeoff">
             {{ strings.btnValidationLabel }}
             <span v-if="submit" slot="loading">{{ strings.btnValidationInProgressLabel }}...<q-spinner-gears size="20px" /></span>
           </q-btn>

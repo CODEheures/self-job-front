@@ -66,7 +66,7 @@ const fr = {
       step1: 'Selectionnez les annonces',
       step2: 'Validez les exigences',
       step3: 'Répondez au questions',
-      step4: 'Soyez 1er à l\'entretien',
+      step4: 'Gagner l\'entretien par votre % d\'affinité',
       searchLabel: 'Ex: barman, débutant',
       searchPlaceHolder: 'Touche entrée pour ajouter à la liste',
       mileageLabel: 'Distance',

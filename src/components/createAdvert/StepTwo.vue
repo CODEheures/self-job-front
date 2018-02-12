@@ -71,12 +71,12 @@
           {{ strings.stepTwoValidation.allQuestions.ko.end.plural }}
         </template>
       </p>
-      <q-btn v-model="submit" loader color="secondary" :disabled="!validation.isValid" @click="postAdvert">
+      <q-btn v-model="submit" loader glossy class="full-width" color="secondary" :disabled="!validation.isValid" @click="postAdvert">
         {{ strings.stepTwoValidation.btn }}
         <span slot="loading">{{ strings.stepTwoValidation.btn }}...<q-spinner-gears size="20px" /></span>
       </q-btn>
     </div>
-
+    <q-item-separator />
     <div class="row" v-show="selectedTab=='tab1'">
       <div class="col-md-6 col-lg-6 col-xl-4" v-for="newQuestion in questionsLibrary.news">
         <question-news
