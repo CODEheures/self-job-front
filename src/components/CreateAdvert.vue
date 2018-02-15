@@ -7,7 +7,7 @@
           <step-two :stringPageScopeName="stringPageScopeName" :isCompleteStepOne="isCompleteStepOne"></step-two>
           <q-stepper-navigation>
             <q-btn v-if="currentStep !== 'stepOne' " flat @click="$refs.stepper.previous()">{{ strings.btnPreviousStep }}</q-btn>
-            <q-btn v-if="currentStep !== 'stepTwo'" :disable="(currentStep === 'stepOne' && !isCompleteStepOne)" @click="$refs.stepper.next()">{{ strings.btnNextStep }}</q-btn>
+            <q-btn v-if="currentStep !== 'stepTwo'" :disabled="(currentStep === 'stepOne' && !isCompleteStepOne)" @click="$refs.stepper.next()">{{ strings.btnNextStep }}</q-btn>
           </q-stepper-navigation>
         </q-stepper>
       </div>

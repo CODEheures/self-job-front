@@ -45,7 +45,7 @@ const en = {
         settings_sub: 'Choose language, set account...',
         login: 'Log in',
         logout: 'Log out',
-        register: 'Register',
+        teamManage: 'Manage my team',
         myAdverts: 'My offers',
         myAdverts_sub: 'List of my publish offers'
       },
@@ -112,7 +112,18 @@ const en = {
       invalidEmail: 'Invalid Email address',
       invalidPassword: '6 characteres minimun',
       existEmail: 'This email is already register',
+      notInvitedEmail: 'This email is not invited',
       alreadyConnected: 'You are connected'
+    },
+    teamManage: {
+      emailLabel: 'Email',
+      inviteSuccess: 'Invitation launched!',
+      inviteError: 'Server can not launch invitation',
+      invalidEmail: 'Invalid Email address',
+      invitationLabel: 'Invite a colleague in my team',
+      btnInvitationLabel: 'Invite',
+      existEmail: 'This email is already register',
+      alreadyConnected: 'You must to be connected to see this page'
     },
     advertShow: {
       findError: 'We can\'t find the offer',

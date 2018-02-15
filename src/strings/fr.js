@@ -45,7 +45,7 @@ const fr = {
         settings_sub: 'Choix de la langue, paramètres personnels...',
         login: 'Se connecter',
         logout: 'Se déconnecter',
-        register: 'S\'enregistrer',
+        teamManage: 'Gérer mon équipe',
         myAdverts: 'Mes offres',
         myAdverts_sub: 'Liste de mes offres publiées'
       },
@@ -112,7 +112,17 @@ const fr = {
       invalidEmail: 'Addresse email mal formée',
       invalidPassword: 'Minimun 6 caractères',
       existEmail: 'Cette addresse email est déjà enregistrée',
+      notInvitedEmail: 'Cette adresse email n\'est pas invitée',
       alreadyConnected: 'Vous êtes déjà connecté'
+    },
+    teamManage: {
+      emailLabel: 'Email',
+      inviteSuccess: 'Invitation lancée!',
+      inviteError: 'Le serveur ne peut pas lancer cette invitation pour le moment',
+      invitationLabel: 'Inviter un collègue à rejoindre l\'équipe',
+      btnInvitationLabel: 'Inviter',
+      existEmail: 'Cette addresse email est déjà enregistrée',
+      alreadyConnected: 'Vous devez être connecté pour voir cette page'
     },
     advertShow: {
       findError: 'L\'annonce est introuvable',

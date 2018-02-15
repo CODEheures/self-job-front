@@ -6,7 +6,9 @@ const routes = {
   login: apiDomain + '/login',
   logout: apiDomain + '/logout',
   register: apiDomain + '/register',
+  invite: apiDomain + '/invite',
   existUser: apiDomain + '/existUser',
+  isInvitedAndFreeUser: apiDomain + '/isInvitedAndFreeUser',
   user: apiDomain + '/user',
   setUserProperty: apiDomain + '/user/set',
   getAdverts: apiDomain + '/getAdverts',
@@ -61,10 +63,33 @@ const ApiRequests = {
       }
     })
   },
+  invite (email) {
+    return axios.request({
+      method: 'post',
+      url: routes.invite,
+      data: {'email': email},
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('_at')
+      }
+    })
+  },
   existUser (email) {
     return axios.request({
       method: 'get',
       url: routes.existUser,
+      params: {
+        email: email
+      },
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+  },
+  isInvitedAndFreeUser (email) {
+    return axios.request({
+      method: 'get',
+      url: routes.isInvitedAndFreeUser,
       params: {
         email: email
       },

@@ -65,6 +65,12 @@ export default new VueRouter({
           props: {stringPageScopeName: 'register'},
           meta: {requireAuthCheck: false, requireAuthUncheck: true}
         },
+        { path: '/team/manage',
+          name: 'teamManage',
+          component: load('TeamManage'),
+          props: {stringPageScopeName: 'teamManage'},
+          meta: {requireAuthCheck: true, requireAuthUncheck: false}
+        },
         { path: '/myAdverts',
           name: 'myAdverts',
           component: load('MyAdverts'),

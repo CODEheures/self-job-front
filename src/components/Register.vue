@@ -19,7 +19,7 @@
                :after="[{icon: 'done', condition: !confirmationPasswordError && password_confirmation.length > 1, handler () {}}]"/>
     </q-field>
     <div class="row justify-between">
-      <q-btn v-model="submit" loader color="primary" icon-right="arrow forward" @click="register()" :disable="$store.state.properties.auth.check || submit || allError || !emailIsValidAndFree">
+      <q-btn v-model="submit" loader color="primary" icon-right="arrow forward" @click="register()" :disabled="$store.state.properties.auth.check || submit || allError || !emailIsValidInvitedAndFree">
         {{ strings.btnValidationLabel }}
         <span slot="loading">{{ strings.btnValidationLabel }}...<q-spinner-gears size="20px" /></span>
       </q-btn>
@@ -45,8 +45,8 @@
         email: '',
         emailBeingVerified: false,
         emailError: false,
-        emailExist: false,
-        emailIsValidAndFree: false,
+        emailisInvitedAndFree: false,
+        emailIsValidInvitedAndFree: false,
         emailLastCheckExist: '',
         invalidEmailMessage: '',
         password: '',
@@ -112,32 +112,32 @@
           })
       },
       checkEmail () {
-        this.emailIsValidAndFree = false
+        this.emailIsValidInvitedAndFree = false
         // eslint-disable-next-line no-useless-escape
         this.invalidEmailMessage = this.strings.invalidEmail
         this.emailError = Utils.checkCorrectEmail(this.email)
         if (!this.emailError) {
-          this.checkExistEmail()
+          this.checkIsInvitedAndFreeEmail()
         }
       },
-      checkExistEmail () {
+      checkIsInvitedAndFreeEmail () {
         let that = this
         let waitForEmail = this.email
         // Waiting to not request verification if email change
         setTimeout(function () {
           if (waitForEmail === that.email) {
             that.emailBeingVerified = true
-            ApiRequests.existUser(that.email)
+            ApiRequests.isInvitedAndFreeUser(that.email)
               .then(function (response) {
                 that.emailLastCheckExist = that.email
-                that.emailExist = response.data
-                if (that.emailExist) {
-                  that.emailIsValidAndFree = false
-                  that.invalidEmailMessage = that.strings.existEmail
+                that.emailisInvitedAndFree = response.data.isInvited && response.data.isFree
+                if (!that.emailisInvitedAndFree) {
+                  that.emailIsValidInvitedAndFree = false
+                  that.invalidEmailMessage = !response.data.isFree ? that.strings.existEmail : that.strings.notInvitedEmail
                   that.emailError = true
                 }
                 else {
-                  that.emailIsValidAndFree = true
+                  that.emailIsValidInvitedAndFree = true
                 }
                 that.emailBeingVerified = false
                 that.checkAll()
@@ -155,7 +155,7 @@
         this.checkAll()
       },
       checkAll () {
-        this.allError = this.nameError || this.passwordError || this.confirmationPasswordError || !this.emailIsValidAndFree || this.name === '' || this.email === '' || this.password === '' || this.password_confirmation === ''
+        this.allError = this.nameError || this.passwordError || this.confirmationPasswordError || !this.emailIsValidInvitedAndFree || this.name === '' || this.email === '' || this.password === '' || this.password_confirmation === ''
       },
       actionsAfterRegister () {
         this.submit = false

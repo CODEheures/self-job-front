@@ -31,6 +31,10 @@
           <q-item-side icon="person" />
           <q-item-main :label="strings.menu.login" />
         </q-side-link>
+        <q-side-link item :to="{ name: 'teamManage' }" v-if="$store.state.properties.auth.check && $store.state.properties.auth.user.can_manage_team">
+          <q-item-side icon="people" />
+          <q-item-main :label="strings.menu.teamManage" />
+        </q-side-link>
         <q-item item @click="logout()" v-if="$store.state.properties.auth.check">
           <q-item-side icon="exit to app" />
           <q-item-main :label="strings.menu.logout" :sublabel="strings.isLogin + $store.state.properties.auth.user.name" />

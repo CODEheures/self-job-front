@@ -11,11 +11,11 @@
                :after="[{icon: 'done', condition: !passwordError && password.length > 1, handler () {}}]"/>
     </q-field>
     <div class="row justify-between">
-      <q-btn v-model="submit" loader color="primary" icon-right="arrow forward" @click="login()" :disable="$store.state.properties.auth.check || submit || emailError || passwordError || email.length == 0 || password.length == 0">
+      <q-btn v-model="submit" loader color="primary" icon-right="arrow forward" @click="login()" :disabled="$store.state.properties.auth.check || submit || emailError || passwordError || email.length == 0 || password.length == 0">
         {{ strings.btnValidationLabel }}
         <span slot="loading">{{ strings.btnValidationLabel }}...<q-spinner-gears size="20px" /></span>
       </q-btn>
-      <a v-if="!$store.state.properties.auth.check" class="text-right" @click="register()">{{ strings.registerLink }}</a>
+      <!--<a v-if="!$store.state.properties.auth.check" class="text-right" @click="register()">{{ strings.registerLink }}</a>-->
     </div>
   </div>
 </template>
@@ -108,10 +108,6 @@
               })
             }
           })
-      },
-      register () {
-        // Goto Login view
-        this.$router.push({name: 'register'})
       },
       checkEmail () {
         this.emailError = Utils.checkCorrectEmail(this.email)
